@@ -1,0 +1,26 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# JavaCC generated files
+lexicalAnalysis/*.java
+lexicalAnalysis/*TokenManager.java
+lexicalAnalysis/*Constants.java
+lexicalAnalysis/*CharStream.java
+lexicalAnalysis/Token.java
+lexicalAnalysis/TokenMgrError.java
+lexicalAnalysis/ParseException.java
+
+# C compiled files
+*.o
+*.out
+*.exe
+*.so
+*.a
+
+# Class files
+*.class
+
+# Temporary files
+*~
+*.swp
