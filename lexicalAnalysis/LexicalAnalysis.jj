@@ -21,23 +21,59 @@ TOKEN :
     < TRUE: "true" > |
     < UNTIL: "until" > |
     < WHILE: "while" > |
-    < ID: (["a"-"z","A"-"Z","_"])
-                  (["a"-"z","A"-"Z","0"-"9","_"])* > |
-    < NUMBER: (["0"-"9"])+ ( "." (["0"-"9"])+  )? > |
-    < STRING: ("\"" (~["\""])* "\"") | ("'" (~["'"])* "'") > |
+
+    < ID: (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","0"-"9","_"])* > |
+    < NUMBER: (["0"-"9"])+ ( "." (["0"-"9"])+ ("e-"(["0"-"9"])+)? )? > |
+    < STRING: "\"" (~["\""])* "\"" > |
+
     < PLUS: "+" > |
     < MINUS: "-" > |
     < MULT: "*" > |
     < DIV: "/" > |
     < MOD: "%" > |
+    < POW: "^" > |
+    < ASSIGN: "=" > |
     < EQ: "==" > |
     < NEQ: "~=" > |
-    < LT: "<" > |
-    < GT: ">" > |
-    < LEQ: "<=" > |
+    < DIFF: "!=" > |
+    < LESSTHAN: "<" > |
+    < GREATERTHAN: ">" > |
+    < LESSEQ: "<=" > |
+    < GREATEREQ: ">=" > |
+
+    < VARARG: "..." > |
+    < CONCAT: ".." > |
+
+    < SEMICOLON: ";" > |
+    < COMMA: "," > |
+    < DOT: "." > |
+    < COLON: ":" > |
+    < EXCLAMATION: "!" > |
+    < QUESTION: "?" > |
+
+    < UNDERSCORE: "_" > |
+    < PIPE: "|" > |
+    < AMPERSAND: "&" > |
+    < AT: "@" > |
+    < HASH: "#" > |
+    < QUOTE: "\"" > |
+    < APOSTROPHE: "\'" > |
+    < BACKSLASH: "\\" > |
+
+    < LCURLYBRACE: "{" > |
+    < RCURLYBRACE: "}" > |
+    < LPAREN: "(" > |
+    < RPAREN: ")" > |
+    < LBRACKET: "[" > |
+    < RBRACKET: "]" >
 }
 
-TOKEN:
+SKIP :
 {
+  < WHITESPACE: ([" ","\t","\n","\r"])+ >
+}
 
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
 }
