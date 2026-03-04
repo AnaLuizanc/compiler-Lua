@@ -1,3 +1,19 @@
+PARSER_BEGIN(MyParser)
+
+public class MyParser {
+    public static void main(String args[]) throws ParseException {
+        MyParser parser = new MyParser(System.in);
+        parser.Start();
+    }
+}
+
+PARSER_END(MyParser)
+
+SKIP :
+{
+  < WHITESPACE: ([" ","\t","\n","\r"])+ >
+}
+
 TOKEN :
 {
     < AND: "and" > |
@@ -23,7 +39,7 @@ TOKEN :
     < WHILE: "while" > |
 
     < ID: (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","0"-"9","_"])* > |
-    < NUMBER: (["0"-"9"])+ ( "." (["0"-"9"])+ ("e-"(["0"-"9"])+)? )? > |
+    < NUMBER: (["0"-"9"])+ ( "." (["e","E"] ("-")? (["0"-"9"])+)? )? > |
     < STRING: "\"" (~["\""])* "\"" > |
 
     < PLUS: "+" > |
@@ -32,14 +48,13 @@ TOKEN :
     < DIV: "/" > |
     < MOD: "%" > |
     < POW: "^" > |
-    < ASSIGN: "=" > |
     < EQ: "==" > |
+    < ASSIGN: "=" > |
     < NEQ: "~=" > |
-    < DIFF: "!=" > |
-    < LESSTHAN: "<" > |
-    < GREATERTHAN: ">" > |
     < LESSEQ: "<=" > |
     < GREATEREQ: ">=" > |
+    < LESSTHAN: "<" > |
+    < GREATERTHAN: ">" > |
 
     < VARARG: "..." > |
     < CONCAT: ".." > |
@@ -51,13 +66,11 @@ TOKEN :
     < EXCLAMATION: "!" > |
     < QUESTION: "?" > |
 
-    < UNDERSCORE: "_" > |
     < PIPE: "|" > |
     < AMPERSAND: "&" > |
     < AT: "@" > |
     < HASH: "#" > |
     < QUOTE: "\"" > |
-    < APOSTROPHE: "\'" > |
     < BACKSLASH: "\\" > |
 
     < LCURLYBRACE: "{" > |
@@ -68,12 +81,23 @@ TOKEN :
     < RBRACKET: "]" >
 }
 
-SKIP :
-{
-  < WHITESPACE: ([" ","\t","\n","\r"])+ >
-}
-
 SPECIAL_TOKEN :
 {
   <SINGLE_LINE_COMMENT: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+}
+
+void Start() :
+{
+    Token t;
+}
+{
+    {
+            while (true) {
+                t = getNextToken();
+                if (t.kind == EOF) {
+                    break;
+                }
+                System.out.println(tokenImage[t.kind] + " " + t.image + "\n");
+            }
+        }
 }
