@@ -31,14 +31,14 @@ function func(v, n, T)
     elseif n==1
         then return 1.01 + v[0].x / 1.e2 + v[0].y / 0.1e-2 - T.a.x * T.a.x + T.b.x*T.c.x;
     end
-    res = .25e-13;
+    res = 0.25e-13;
     i = n-1;
     while i >= 0 and v[i].x > 0 do
         temp = v[i].y * v[i].x % 123;
         if (temp < 0.0)
             then res = res - res*2.e-2 +  func(v, n-1, T) * temp - T.a.y*T.cor;
         else
-            res = res + res*.3e3 +func(v, n-2, T) * temp + T.c.x*T.cor;
+            res = res + res*0.3e3 +func(v, n-2, T) * temp + T.c.x*T.cor;
             printf("Estranho, ne?\n");
         end
         i = i-1
@@ -49,7 +49,7 @@ end
 function F2(T)
     A = 0
     soma[10]
-    if (T.a.x >= 10 or T.b.y > 20 or T.a.y < 30 or T.b.x <= 50) and (not(T.c.x != 90 or T.c.y == 0))
+    if (T.a.x >= 10 or T.b.y > 20 or T.a.y < 30 or T.b.x <= 50) and (not(T.c.x ~= 90 or T.c.y == 0))
         then return 10 % 3
     else
         A = 1
