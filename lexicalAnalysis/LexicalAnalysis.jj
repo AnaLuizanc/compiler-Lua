@@ -105,7 +105,11 @@ void Start() :
                 if (t.kind == EOF) {
                     break;
                 }
-                System.out.println(tokenImage[t.kind], t.image);
+                String tokenNow = tokenImage[t.kind];
+                tokenNow = tokenNow.substring(1, tokenNow.length() - 1).toUpperCase();
+
+                System.out.println(tokenNow + " " + t.image);
+
             }
         }
 }
