@@ -57,10 +57,10 @@ function F2(T)
 
     while A < 10 do
         local total = 0
-        total = total + T.c.x * T.c.y;
-        total = total + T.b.x * T.a.y;
-        total = total + T.a.x * T.b.y;
-        soma[A] = total % 100;
-        A = A + 1;
+        total = total + T.c.x * T.c.y
+        total = total + T.b.x * T.a.y
+        total = total + T.a.x * T.b.y
+        soma[A] = total % 100
+        A = A + 1
     end
 end

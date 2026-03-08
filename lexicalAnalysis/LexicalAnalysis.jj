@@ -1,8 +1,75 @@
 PARSER_BEGIN(MyParser)
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class MyParser {
+    static Map<Integer,String> tokenClasses = new HashMap<>();
+
+    static {
+        tokenClasses.put(AND, "AND");
+        tokenClasses.put(BREAK, "BREAK");
+        tokenClasses.put(DO, "DO");
+        tokenClasses.put(ELSE, "ELSE");
+        tokenClasses.put(ELSEIF, "ELSEIF");
+        tokenClasses.put(END, "END");
+        tokenClasses.put(FALSE, "FALSE");
+        tokenClasses.put(FOR, "FOR");
+        tokenClasses.put(FUNCTION, "FUNCTION");
+        tokenClasses.put(IF, "IF");
+        tokenClasses.put(IN, "IN");
+        tokenClasses.put(LOCAL, "LOCAL");
+        tokenClasses.put(NIL, "NIL");
+        tokenClasses.put(NOT, "NOT");
+        tokenClasses.put(OR, "OR");
+        tokenClasses.put(REPEAT, "REPEAT");
+        tokenClasses.put(RETURN, "RETURN");
+        tokenClasses.put(THEN, "THEN");
+        tokenClasses.put(TRUE, "TRUE");
+        tokenClasses.put(UNTIL, "UNTIL");
+        tokenClasses.put(WHILE, "WHILE");
+        tokenClasses.put(ID, "ID");
+        tokenClasses.put(NUMBER, "NUMBER");
+        tokenClasses.put(STRING, "STRING");
+        tokenClasses.put(PLUS, "PLUS");
+        tokenClasses.put(MINUS, "MINUS");
+        tokenClasses.put(MULT, "MULT");
+        tokenClasses.put(DIV, "DIV");
+        tokenClasses.put(MOD, "MOD");
+        tokenClasses.put(POW, "POW");
+        tokenClasses.put(EQ, "EQ");
+        tokenClasses.put(ASSIGN, "ASSIGN");
+        tokenClasses.put(NEQ, "NEQ");
+        tokenClasses.put(LESSEQ, "LESSEQ");
+        tokenClasses.put(GREATEREQ, "GREATEREQ");
+        tokenClasses.put(LESSTHAN, "LESSTHAN");
+        tokenClasses.put(GREATERTHAN, "GREATERTHAN");
+        tokenClasses.put(VARARG, "VARARG");
+        tokenClasses.put(CONCAT, "CONCAT");
+        tokenClasses.put(SEMICOLON, "SEMICOLON");
+        tokenClasses.put(COMMA, "COMMA");
+        tokenClasses.put(DOT, "DOT");
+        tokenClasses.put(COLON, "COLON");
+        tokenClasses.put(EXCLAMATION, "EXCLAMATION");
+        tokenClasses.put(QUESTION, "QUESTION");
+        tokenClasses.put(PIPE, "PIPE");
+        tokenClasses.put(AMPERSAND, "AMPERSAND");
+        tokenClasses.put(AT, "AT");
+        tokenClasses.put(HASH, "HASH");
+        tokenClasses.put(DOLLARSIGN, "DOLLARSIGN");
+        tokenClasses.put(TILDE, "TILDE");
+        tokenClasses.put(QUOTE, "QUOTE");
+        tokenClasses.put(BACKSLASH, "BACKSLASH");
+        tokenClasses.put(LCURLYBRACE, "LCURLYBRACE");
+        tokenClasses.put(RCURLYBRACE, "RCURLYBRACE");
+        tokenClasses.put(LPAREN, "LPAREN");
+        tokenClasses.put(RPAREN, "RPAREN");
+        tokenClasses.put(LBRACKET, "LBRACKET");
+        tokenClasses.put(RBRACKET, "RBRACKET");
+    }
+
     public static void main(String args[]) throws Exception {
 
         FileInputStream luaFile =
@@ -48,7 +115,6 @@ TOKEN :
     < ID: (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","0"-"9","_"])* > |
     < NUMBER: (["0"-"9"])+ ( "." (["0"-"9"])* (["e","E"] ("-")? (["0"-"9"])+)? )? > |
     < STRING: "\"" (~["\""])* "\"" > |
-    < OBJECT: (["a"-"z","A"-"Z"])+ ("." (["a"-"z","A"-"Z"])+)* > |
 
     < PLUS: "+" > |
     < MINUS: "-" > |
@@ -78,6 +144,8 @@ TOKEN :
     < AMPERSAND: "&" > |
     < AT: "@" > |
     < HASH: "#" > |
+    < DOLLARSIGN: "$" > |
+    < TILDE: "~" > |
     < QUOTE: "\"" > |
     < BACKSLASH: "\\" > |
 
@@ -105,11 +173,8 @@ void Start() :
                 if (t.kind == EOF) {
                     break;
                 }
-                String tokenNow = tokenImage[t.kind];
-                tokenNow = tokenNow.substring(1, tokenNow.length() - 1).toUpperCase();
-
-                System.out.println(tokenNow + " " + t.image);
-
+                String tokenClass = tokenClasses.get(t.kind);
+                System.out.println(tokenClass + " " + t.image);
             }
         }
 }
