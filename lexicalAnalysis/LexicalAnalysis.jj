@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MyParser {
     static Map<Integer,String> tokenClasses = new HashMap<>();
@@ -168,13 +170,20 @@ void Start() :
 }
 {
     {
+        try {
+            FileWriter fileOutput = new FileWriter("compil-lab1-resposta-C-ana-luiza-nobre-cordeiro");
             while (true) {
                 t = getNextToken();
                 if (t.kind == EOF) {
                     break;
                 }
                 String tokenClass = tokenClasses.get(t.kind);
-                System.out.println(tokenClass + " " + t.image);
+                String line = tokenClass + " " + t.image + "\n";
+                fileOutput.write(line);
             }
+        } catch (IOException e) {
+              System.out.println("Error writing to file: " + e.getMessage());
+              e.printStackTrace();
+          }
         }
 }
