@@ -1,0 +1,189 @@
+PARSER_BEGIN(MyParser)
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class MyParser {
+    static Map<Integer,String> tokenClasses = new HashMap<>();
+
+    static {
+        tokenClasses.put(AND, "AND");
+        tokenClasses.put(BREAK, "BREAK");
+        tokenClasses.put(DO, "DO");
+        tokenClasses.put(ELSE, "ELSE");
+        tokenClasses.put(ELSEIF, "ELSEIF");
+        tokenClasses.put(END, "END");
+        tokenClasses.put(FALSE, "FALSE");
+        tokenClasses.put(FOR, "FOR");
+        tokenClasses.put(FUNCTION, "FUNCTION");
+        tokenClasses.put(IF, "IF");
+        tokenClasses.put(IN, "IN");
+        tokenClasses.put(LOCAL, "LOCAL");
+        tokenClasses.put(NIL, "NIL");
+        tokenClasses.put(NOT, "NOT");
+        tokenClasses.put(OR, "OR");
+        tokenClasses.put(REPEAT, "REPEAT");
+        tokenClasses.put(RETURN, "RETURN");
+        tokenClasses.put(THEN, "THEN");
+        tokenClasses.put(TRUE, "TRUE");
+        tokenClasses.put(UNTIL, "UNTIL");
+        tokenClasses.put(WHILE, "WHILE");
+        tokenClasses.put(ID, "ID");
+        tokenClasses.put(NUMBER, "NUMBER");
+        tokenClasses.put(STRING, "STRING");
+        tokenClasses.put(PLUS, "PLUS");
+        tokenClasses.put(MINUS, "MINUS");
+        tokenClasses.put(MULT, "MULT");
+        tokenClasses.put(DIV, "DIV");
+        tokenClasses.put(MOD, "MOD");
+        tokenClasses.put(POW, "POW");
+        tokenClasses.put(EQ, "EQ");
+        tokenClasses.put(ASSIGN, "ASSIGN");
+        tokenClasses.put(NEQ, "NEQ");
+        tokenClasses.put(LESSEQ, "LESSEQ");
+        tokenClasses.put(GREATEREQ, "GREATEREQ");
+        tokenClasses.put(LESSTHAN, "LESSTHAN");
+        tokenClasses.put(GREATERTHAN, "GREATERTHAN");
+        tokenClasses.put(VARARG, "VARARG");
+        tokenClasses.put(CONCAT, "CONCAT");
+        tokenClasses.put(SEMICOLON, "SEMICOLON");
+        tokenClasses.put(COMMA, "COMMA");
+        tokenClasses.put(DOT, "DOT");
+        tokenClasses.put(COLON, "COLON");
+        tokenClasses.put(EXCLAMATION, "EXCLAMATION");
+        tokenClasses.put(QUESTION, "QUESTION");
+        tokenClasses.put(PIPE, "PIPE");
+        tokenClasses.put(AMPERSAND, "AMPERSAND");
+        tokenClasses.put(AT, "AT");
+        tokenClasses.put(HASH, "HASH");
+        tokenClasses.put(DOLLARSIGN, "DOLLARSIGN");
+        tokenClasses.put(TILDE, "TILDE");
+        tokenClasses.put(QUOTE, "QUOTE");
+        tokenClasses.put(BACKSLASH, "BACKSLASH");
+        tokenClasses.put(LCURLYBRACE, "LCURLYBRACE");
+        tokenClasses.put(RCURLYBRACE, "RCURLYBRACE");
+        tokenClasses.put(LPAREN, "LPAREN");
+        tokenClasses.put(RPAREN, "RPAREN");
+        tokenClasses.put(LBRACKET, "LBRACKET");
+        tokenClasses.put(RBRACKET, "RBRACKET");
+    }
+
+    public static void main(String args[]) throws Exception {
+
+        FileInputStream luaFile =
+            new FileInputStream("scripts/compil-lab1-amostra-B-ana-luiza-nobre-cordeiro.lua");
+
+        MyParser parser = new MyParser(luaFile);
+
+        parser.Start();
+    }
+}
+
+PARSER_END(MyParser)
+
+SKIP :
+{
+  < WHITESPACE: ([" ","\t","\n","\r"])+ >
+}
+
+TOKEN :
+{
+    < AND: "and" > |
+    < BREAK: "break" > |
+    < DO: "do" > |
+    < ELSE: "else" > |
+    < ELSEIF: "elseif" > |
+    < END: "end" > |
+    < FALSE: "false" > |
+    < FOR: "for" > |
+    < FUNCTION: "function" > |
+    < IF: "if" > |
+    < IN: "in" > |
+    < LOCAL: "local" > |
+    < NIL: "nil" > |
+    < NOT: "not" > |
+    < OR: "or" > |
+    < REPEAT: "repeat" > |
+    < RETURN: "return" > |
+    < THEN: "then" > |
+    < TRUE: "true" > |
+    < UNTIL: "until" > |
+    < WHILE: "while" > |
+
+    < ID: (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","0"-"9","_"])* > |
+    < NUMBER: (["0"-"9"])+ ( "." (["0"-"9"])* (["e","E"] ("-")? (["0"-"9"])+)? )? > |
+    < STRING: "\"" (~["\""])* "\"" > |
+
+    < PLUS: "+" > |
+    < MINUS: "-" > |
+    < MULT: "*" > |
+    < DIV: "/" > |
+    < MOD: "%" > |
+    < POW: "^" > |
+    < EQ: "==" > |
+    < ASSIGN: "=" > |
+    < NEQ: "~=" > |
+    < LESSEQ: "<=" > |
+    < GREATEREQ: ">=" > |
+    < LESSTHAN: "<" > |
+    < GREATERTHAN: ">" > |
+
+    < VARARG: "..." > |
+    < CONCAT: ".." > |
+
+    < SEMICOLON: ";" > |
+    < COMMA: "," > |
+    < DOT: "." > |
+    < COLON: ":" > |
+    < EXCLAMATION: "!" > |
+    < QUESTION: "?" > |
+
+    < PIPE: "|" > |
+    < AMPERSAND: "&" > |
+    < AT: "@" > |
+    < HASH: "#" > |
+    < DOLLARSIGN: "$" > |
+    < TILDE: "~" > |
+    < QUOTE: "\"" > |
+    < BACKSLASH: "\\" > |
+
+    < LCURLYBRACE: "{" > |
+    < RCURLYBRACE: "}" > |
+    < LPAREN: "(" > |
+    < RPAREN: ")" > |
+    < LBRACKET: "[" > |
+    < RBRACKET: "]" >
+}
+
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+}
+
+void Start() :
+{
+    Token t;
+}
+{
+    {
+        try {
+            FileWriter fileOutput = new FileWriter("compil-lab1-resposta-C-ana-luiza-nobre-cordeiro");
+            while (true) {
+                t = getNextToken();
+                if (t.kind == EOF) {
+                    break;
+                }
+                String tokenClass = tokenClasses.get(t.kind);
+                String line = tokenClass + " " + t.image + "\n";
+                fileOutput.write(line);
+            }
+        } catch (IOException e) {
+              System.out.println("Error writing to file: " + e.getMessage());
+              e.printStackTrace();
+          }
+        }
+}
