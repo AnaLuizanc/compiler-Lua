@@ -32,9 +32,9 @@ function func(v, n, T)
         return 1.01 + v[1].x / 1.e2 + v[1].y / 0.1e-2 - T.a.x * T.a.x + T.b.y * T.c.x
     end
     local res = 0.25e-13
-    i = n - 1
+    local i = n - 1
     while i >= 1 and v[i].x > 0 do
-        temp = v[i].y * v[i].x % 123
+        local temp = v[i].y * v[i].x % 123
         if (temp < 0.0)
         then
             res = res - res * 2.e-2 + func(v, n - 1, T) * temp - T.a.y * T.cor
@@ -49,7 +49,7 @@ end
 
 function F2(T)
     local A = 0
-    soma = {}
+    local soma = {}
     if (T.a.x >= 10 or T.b.y > 20 or T.a.y < 30 or T.b.x <= 50) and (not (T.c.x ~= 90 or T.c.y == 0))
     then
         return 10 % 3
@@ -174,7 +174,7 @@ end
 
 function E1(a, b)
     local bool
-    X = ((not (a ~= b and a < b)) or (a + 2 == b));
+    local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     if (a ~= b or X or a + 5 == b)
     then
         a = a + 1;
@@ -184,7 +184,7 @@ end
 
 function E2(a, b)
     local bool
-    X = ((not (a ~= b and a < b)) or (a + 2 == b));
+    local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     while (a ~= b or X or a + 5 == b) do
         a = a + 1;
         while (a < b) do
@@ -196,7 +196,7 @@ end
 
 function E2(a, b)
     local bool
-    X = ((not (a ~= b and a < b)) or (a + 2 == b));
+    local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     while (a ~= b or X or a + 5 == b) do
         a = a + 1;
         while (fatorialA(a) < b) do
@@ -338,7 +338,7 @@ function area_poligono(p, n)
     local soma = 0;
 
     for i = 1, n do
-        local j = (i + 1) % n;
+        local j = (i % n) + 1;
         soma = soma + p[i].x * p[j].y - p[j].x * p[i].y;
     end
 
