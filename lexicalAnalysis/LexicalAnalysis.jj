@@ -141,17 +141,8 @@ TOKEN :
     < COMMA: "," > |
     < DOT: "." > |
     < COLON: ":" > |
-    < EXCLAMATION: "!" > |
-    < QUESTION: "?" > |
 
-    < PIPE: "|" > |
-    < AMPERSAND: "&" > |
-    < AT: "@" > |
     < HASH: "#" > |
-    < DOLLARSIGN: "$" > |
-    < TILDE: "~" > |
-    < QUOTE: "\"" > |
-    < BACKSLASH: "\\" > |
 
     < LCURLYBRACE: "{" > |
     < RCURLYBRACE: "}" > |
