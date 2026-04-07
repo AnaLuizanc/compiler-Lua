@@ -1,17 +1,17 @@
-ponto_t = {}
-ponto_t.__index = ponto_t
+ponto_t = {};
+ponto_t.__index = ponto_t;
 
 function ponto_t:new(x, y)
     local obj = {
         x = x,
         y = y
     };
-    setmetatable(obj, ponto_t)
-    return obj
+    setmetatable(obj, ponto_t);
+    return obj;
 end
 
-triangulo_t = {}
-triangulo_t.__index = triangulo_t
+triangulo_t = {};
+triangulo_t.__index = triangulo_t;
 
 function triangulo_t:new(a, b, c, cor)
     local obj = {
@@ -20,8 +20,8 @@ function triangulo_t:new(a, b, c, cor)
         c = c,
         cor = cor
     }
-    setmetatable(obj, triangulo_t)
-    return obj
+    setmetatable(obj, triangulo_t);
+    return obj;
 end
 
 function func(v, n, T)
@@ -29,41 +29,41 @@ function func(v, n, T)
         return 1.0;
     elseif n == 1
     then
-        return 1.01 + v[1].x / 1.e2 + v[1].y / 0.1e-2 - T.a.x * T.a.x + T.b.y * T.c.x
+        return 1.01 + v[1].x / 1.e2 + v[1].y / 0.1e-2 - T.a.x * T.a.x + T.b.y * T.c.x;
     end
-    local res = 0.25e-13
-    local i = n - 1
+    local res = 0.25e-13;
+    local i = n - 1;
     while i >= 1 and v[i].x > 0 do
-        local temp = v[i].y * v[i].x % 123
+        local temp = v[i].y * v[i].x % 123;
         if (temp < 0.0)
         then
-            res = res - res * 2.e-2 + func(v, n - 1, T) * temp - T.a.y * T.cor
+            res = res - res * 2.e-2 + func(v, n - 1, T) * temp - T.a.y * T.cor;
         else
-            res = res + res * 0.3e3 + func(v, n - 2, T) * temp + T.c.x * T.cor
-            print("Estranho, ne?\n")
+            res = res + res * 0.3e3 + func(v, n - 2, T) * temp + T.c.x * T.cor;
+            print("Estranho, ne?\n");
         end
-        i = i - 1
+        i = i - 1;
     end
-    return res
+    return res;
 end
 
 function F2(T)
-    local A = 0
-    local soma = {}
+    local A = 0;
+    local soma = {};
     if (T.a.x >= 10 or T.b.y > 20 or T.a.y < 30 or T.b.x <= 50) and (not (T.c.x ~= 90 or T.c.y == 0))
     then
-        return 10 % 3
+        return 10 % 3;
     else
-        A = 1
+        A = 1;
     end
 
     while A < 10 do
-        local total = 0
-        total = total + T.c.x * T.c.y
-        total = total + T.b.x * T.a.y
-        total = total + T.a.x * T.b.y
-        soma[A] = total % 100
-        A = A + 1
+        local total = 0;
+        total = total + T.c.x * T.c.y;
+        total = total + T.b.x * T.a.y;
+        total = total + T.a.x * T.b.y;
+        soma[A] = total % 100;
+        A = A + 1;
     end
 end
 
@@ -173,7 +173,7 @@ function D3(a, b)
 end
 
 function E1(a, b)
-    local bool
+    local bool;
     local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     if (a ~= b or X or a + 5 == b)
     then
@@ -183,7 +183,7 @@ function E1(a, b)
 end
 
 function E2(a, b)
-    local bool
+    local bool;
     local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     while (a ~= b or X or a + 5 == b) do
         a = a + 1;
@@ -195,7 +195,7 @@ function E2(a, b)
 end
 
 function E2(a, b)
-    local bool
+    local bool;
     local X = ((not (a ~= b and a < b)) or (a + 2 == b));
     while (a ~= b or X or a + 5 == b) do
         a = a + 1;
@@ -206,20 +206,20 @@ function E2(a, b)
     return X or a > 0;
 end
 
-ponto_2d_t = {}
-ponto_2d_t.__index = ponto_2d_t
+ponto_2d_t = {};
+ponto_2d_t.__index = ponto_2d_t;
 
 function ponto_2d_t:new(x, y)
     local obj = {
         x = x,
         y = y
     };
-    setmetatable(obj, ponto_2d_t)
-    return obj
+    setmetatable(obj, ponto_2d_t);
+    return obj;
 end
 
-ponto_3d_t = {}
-ponto_3d_t.__index = ponto_3d_t
+ponto_3d_t = {};
+ponto_3d_t.__index = ponto_3d_t;
 
 function ponto_3d_t:new(x, y, z)
     local obj = {
@@ -227,32 +227,32 @@ function ponto_3d_t:new(x, y, z)
         y = y,
         z = z
     };
-    setmetatable(obj, ponto_3d_t)
-    return obj
+    setmetatable(obj, ponto_3d_t);
+    return obj;
 end
 
-segmento_2d_t = {}
-segmento_2d_t.__index = segmento_2d_t
+segmento_2d_t = {};
+segmento_2d_t.__index = segmento_2d_t;
 
 function segmento_2d_t:new(ini, fim)
     local obj = {
         ini = ini,
         fim = fim
     };
-    setmetatable(obj, segmento_2d_t)
-    return obj
+    setmetatable(obj, segmento_2d_t);
+    return obj;
 end
 
-segmento_3d_t = {}
-segmento_3d_t.__index = segmento_3d_t
+segmento_3d_t = {};
+segmento_3d_t.__index = segmento_3d_t;
 
 function segmento_3d_t:new(ini, fim)
     local obj = {
         ini = ini,
         fim = fim
     };
-    setmetatable(obj, segmento_3d_t)
-    return obj
+    setmetatable(obj, segmento_3d_t);
+    return obj;
 end
 
 function F1(seg, p)
@@ -349,6 +349,6 @@ function area_poligono(p, n)
 end
 
 function area_pol()
-    local poli = {}
+    local poli = {};
     return area_poligono(poli, 150);
 end
