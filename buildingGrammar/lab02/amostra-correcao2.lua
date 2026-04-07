@@ -336,10 +336,11 @@ end
 
 function area_poligono(p, n)
     local soma = 0;
-
-    for i = 1, n do
+    local i = 1;
+    while i <= n do
         local j = (i % n) + 1;
         soma = soma + p[i].x * p[j].y - p[j].x * p[i].y;
+        i = i + 1;
     end
 
     if (soma < 0) then
