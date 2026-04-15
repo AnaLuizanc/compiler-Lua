@@ -1,11 +1,9 @@
 PARSER_BEGIN(MyParser)
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileInputStream;
 
 public class MyParser {
     static Map<Integer,String> tokenClasses = new HashMap<>();
@@ -72,14 +70,15 @@ public class MyParser {
         tokenClasses.put(RBRACKET, "RBRACKET");
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) throws ParseException {
 
-        FileInputStream luaFile =
-            new FileInputStream("scripts/compil-lab1-amostra-B-ana-luiza-nobre-cordeiro.lua");
-
-        MyParser parser = new MyParser(luaFile);
-
-        parser.Start();
+        try {
+            FileInputStream f = new FileInputStream(args[0]);
+            MyParser parser = new MyParser(f);
+            parser.Start();
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage());
+        }
     }
 }
 
@@ -141,8 +140,17 @@ TOKEN :
     < COMMA: "," > |
     < DOT: "." > |
     < COLON: ":" > |
+    < EXCLAMATION: "!" > |
+    < QUESTION: "?" > |
 
+    < PIPE: "|" > |
+    < AMPERSAND: "&" > |
+    < AT: "@" > |
     < HASH: "#" > |
+    < DOLLARSIGN: "$" > |
+    < TILDE: "~" > |
+    < QUOTE: "\"" > |
+    < BACKSLASH: "\\" > |
 
     < LCURLYBRACE: "{" > |
     < RCURLYBRACE: "}" > |
@@ -164,19 +172,18 @@ void Start() :
 {
     {
         try {
-            FileWriter fileOutput = new FileWriter("compil-lab1-resposta-C-ana-luiza-nobre-cordeiro");
             while (true) {
                 t = getNextToken();
                 if (t.kind == EOF) {
                     break;
                 }
                 String tokenClass = tokenClasses.get(t.kind);
-                String line = tokenClass + " " + t.image + "\n";
-                fileOutput.write(line);
+                String line = tokenClass + " " + t.image;
+                System.out.println(line);
             }
-        } catch (IOException e) {
-              System.out.println("Error writing to file: " + e.getMessage());
-              e.printStackTrace();
-          }
+        } catch (TokenMgrError e) {
+              System.out.println("ERRO LEXICO:");
+              System.out.println(e.getMessage());
         }
+    }
 }
