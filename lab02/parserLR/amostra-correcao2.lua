@@ -1,3 +1,4 @@
+
 ponto_t = {}
 ponto_t.__index = ponto_t
 

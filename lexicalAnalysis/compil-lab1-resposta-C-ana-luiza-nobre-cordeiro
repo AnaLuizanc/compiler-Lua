@@ -28,7 +28,6 @@ ID y
 ASSIGN =
 ID y
 RCURLYBRACE }
-SEMICOLON ;
 ID setmetatable
 LPAREN (
 ID obj

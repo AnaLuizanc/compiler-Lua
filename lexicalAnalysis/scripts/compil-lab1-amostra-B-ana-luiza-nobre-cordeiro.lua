@@ -6,7 +6,7 @@ function ponto_t:new(x, y)
     local obj = {
         x = x,
         y = y
-    };
+    }
     setmetatable(obj, ponto_t)
     return obj
 end
