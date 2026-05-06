@@ -14,7 +14,7 @@ Analisador léxico para Lua implementado com **JavaCC**. Lê um script `.lua` e 
 # A partir do diretório lab1-lexicalAnalysis/
 javacc LexicalAnalysis.jj
 javac *.java
-java MyParser
+java MyParser file-name.lua
 ```
 
 A saída é gravada em `resposta`.
