@@ -4,12 +4,12 @@
 
 # JavaCC generated files
 lexicalAnalysis/*.java
-lexicalAnalysis/*TokenManager.java
-lexicalAnalysis/*Constants.java
-lexicalAnalysis/*CharStream.java
-lexicalAnalysis/Token.java
-lexicalAnalysis/TokenMgrError.java
-lexicalAnalysis/ParseException.java
+lab1-lexicalAnalysis/*TokenManager.java
+lab1-lexicalAnalysis/*Constants.java
+lab1-lexicalAnalysis/*CharStream.java
+lab1-lexicalAnalysis/Token.java
+lab1-lexicalAnalysis/TokenMgrError.java
+lab1-lexicalAnalysis/ParseException.java
 
 # C compiled files
 *.o

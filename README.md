@@ -11,10 +11,10 @@ Analisador léxico para Lua implementado com **JavaCC**. Lê um script `.lua` e 
 ### Como executar
 
 ```bash
-# A partir do diretório lexicalAnalysis/
+# A partir do diretório lab1-lexicalAnalysis/
 javacc LexicalAnalysis.jj
 javac *.java
 java MyParser
 ```
 
-A saída é gravada em `compil-lab1-resposta-C-ana-luiza-nobre-cordeiro`.
+A saída é gravada em `resposta`.
