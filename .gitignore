@@ -3,13 +3,7 @@
 *.iml
 
 # JavaCC generated files
-lexicalAnalysis/*.java
-lab1-lexicalAnalysis/*TokenManager.java
-lab1-lexicalAnalysis/*Constants.java
-lab1-lexicalAnalysis/*CharStream.java
-lab1-lexicalAnalysis/Token.java
-lab1-lexicalAnalysis/TokenMgrError.java
-lab1-lexicalAnalysis/ParseException.java
+*.java
 
 # C compiled files
 *.o
