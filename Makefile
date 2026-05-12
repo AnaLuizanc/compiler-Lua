@@ -5,20 +5,22 @@ JAVA   := java
 GRAMMAR := LexicalAnalysis.jj
 MAIN    := MyParser
 
-# O parser atual lê este caminho fixo em LexicalAnalysis.jj
-INPUT_DIR  := scripts
-INPUT_FILE  := $(INPUT_DIR)/compil-lab1-amostra-B-ana-luiza-nobre-cordeiro.lua
+# Arquivo de entrada padrão usado no README
+INPUT_FILE  := amostra.lua \
+			   amostra-correcao2.lua
+OUTPUT_TOKENS := saida-amostra-lab1.tokens \
+				 saida-amostra-lab2.tokens
 
 # Arquivos gerados pelo JavaCC / Java
 GENERATED := $(MAIN).java \
              $(MAIN)TokenManager.java \
              $(MAIN)Constants.java \
              ParseException.java \
-             TokenMgrError.java \
+             TokenMgrError.java \Z
              Token.java \
              SimpleCharStream.java
 
-.PHONY: all generate build run clean rebuild
+.PHONY: all generate build run postprocess clean rebuild
 
 all: run
 
@@ -29,12 +31,12 @@ build: generate
 	$(JAVAC) *.java
 
 run: build
-	mkdir -p $(INPUT_DIR)
-	cp amostra.lua $(INPUT_FILE)
-	$(JAVA) $(MAIN)
+	$(JAVA) $(MAIN) $(INPUT_FILE) > $(OUTPUT_TOKENS)
+
+postprocess:
+	printf '$ $\n' >> $(OUTPUT_TOKENS)
 
 clean:
-	rm -f *.class $(GENERATED) compil-lab1-resposta-C-ana-luiza-nobre-cordeiro
-	rm -rf $(INPUT_DIR)
+	rm -f *.class $(GENERATED) $(OUTPUT_TOKENS)
 
-rebuild: clean run
+rebuild: clean run postprocess
