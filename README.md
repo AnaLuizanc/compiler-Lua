@@ -14,10 +14,17 @@ Analisador léxico para Lua implementado com **JavaCC**. Lê um script `.lua` e 
 # A partir do diretório lab1-lexicalAnalysis/
 javacc LexicalAnalysis.jj
 javac *.java
-java MyParser file-name.lua
+java MyParser file-name.lua > saida-amostra-lab1.tokens
 ```
 
-A saída é gravada em `resposta`.
+A saída do analisador será gravada em `output.txt`.
+
+Para atender os requisitos de estrutura do projeto na próxima fase, deve rodar o comando abaixo:
+```bash
+printf '$ $\n' >> output.txt
+```
+O comando acima adiciona uma linha contendo dois símbolos $, separada por espaço.
+Ela é usada como marcação final no arquivo de saída, conforme o formato exigido pela próxima fase do projeto.
 
 ---
 
@@ -45,7 +52,11 @@ A gramática inclui construções como:
 
 ### Como executar
 
-A partir do diretório `lab2-buildingGrammar/parserLR/`:
+A partir do diretório `lab2-buildingGrammar/`:
 
 ```bash
-./bin/parserLR
+g++ src/*.cpp -o bin/parser
+bin/parser < file-output.txt 2> resposta.txt 
+```
+
+A saída é redirecionada para `resposta.txt`, que pode conter mensagens do parser ou o resultado esperado pela disciplina.
