@@ -18,3 +18,8 @@
 # Temporary files
 *~
 *.swp
+
+lab3-semanticAnalysis/exemplos
+lab3-semanticAnalysis/gramatica-9
+lab3-semanticAnalysis/lab03.pdf
+lab3-semanticAnalysis/lineariza-tabela-2.js
