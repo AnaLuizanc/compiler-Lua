@@ -1,0 +1,13 @@
+FUNCTION function
+ID dobro
+LPAREN (
+ID n
+COLON :
+ID int
+RPAREN )
+RETURN return
+ID n
+MULT *
+NUMBER 2
+END end
+$ $ 

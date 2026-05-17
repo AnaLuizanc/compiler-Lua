@@ -1,0 +1,8 @@
+FUNCTION function
+ID verdadeiro
+LPAREN (
+RPAREN )
+RETURN return
+TRUE true
+END end
+$ $ 

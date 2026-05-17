@@ -1,0 +1,15 @@
+FUNCTION function
+ID constante
+LPAREN (
+RPAREN )
+LOCAL local
+ID x
+COLON :
+ID int
+ID x
+ASSIGN =
+NUMBER 42
+RETURN return
+ID x
+END end
+$ $ 
