@@ -1,7 +1,4 @@
--- SHADOWING — nível 4 de complexidade
--- O parâmetro 'x' da função é sombreado por uma variável local
--- declarada dentro do bloco interno com o mesmo nome.
-function sombraParametro(x:int)
+function sombraParametro(x:int):int
   local acum:int
   acum = x * 2
   do

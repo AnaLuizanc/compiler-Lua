@@ -1,4 +1,4 @@
-function hipotenusa(a:float, b:float)
+function hipotenusa(a:float, b:float):float
   local a2:float
   local b2:float
   local soma:float

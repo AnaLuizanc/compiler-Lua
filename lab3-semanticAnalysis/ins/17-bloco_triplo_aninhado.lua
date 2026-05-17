@@ -1,4 +1,4 @@
-function triplo_aninhado()
+function triplo_aninhado():int
   local a:int
   a = 1
   do

@@ -1,6 +1,4 @@
--- SHADOWING — nível 5 de complexidade (máximo)
--- Duas variáveis ('v' e 'w') são sombreadas simultaneamente em blocos aninhados.
-function sombraDupla(a:int, b:int)
+function sombraDupla(a:int, b:int):int
   local v:int
   v = a * 10
   local w:int

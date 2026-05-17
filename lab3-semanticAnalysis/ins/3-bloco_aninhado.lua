@@ -1,4 +1,4 @@
-function principal()
+function principal():int
   local x:int
   x = 1
   do

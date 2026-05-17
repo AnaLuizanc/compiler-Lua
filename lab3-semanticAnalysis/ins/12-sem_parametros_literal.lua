@@ -1,4 +1,4 @@
-function constante()
+function constante():int
   local x:int
   x = 42
   return x

@@ -1,4 +1,4 @@
-function menor(a:int, b:int)
+function menor(a:int, b:int):bool
   local resultado:bool
   resultado = a < b
   return resultado

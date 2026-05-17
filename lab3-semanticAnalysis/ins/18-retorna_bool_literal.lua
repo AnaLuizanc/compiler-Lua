@@ -1,4 +1,4 @@
-function verdadeiro()
+function verdadeiro():bool
   return true
 end
 

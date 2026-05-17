@@ -1,5 +1,4 @@
--- ERRO DE TIPO: função declarada como int, mas retorna FLOAT_VAL
-function erroRetornoFloat(a:int)
+function erroRetornoFloat(a:int):int
   local resultado:float
   resultado = a * 1.5
   return resultado

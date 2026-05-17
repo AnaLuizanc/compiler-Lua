@@ -1,5 +1,4 @@
--- ERRO DE TIPO: função declarada como boolean, mas retorna FLOAT
-function erroRetornoFloatEmBool(taxa:float, valor:int)
+function erroRetornoFloatEmBool(taxa:float, valor:int):bool
   local desconto:float
   desconto = valor * taxa
   return desconto

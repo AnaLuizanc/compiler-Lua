@@ -1,4 +1,4 @@
-function calcular()
+function calcular():int
   local a:int
   a = 5
   do

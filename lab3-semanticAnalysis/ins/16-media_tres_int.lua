@@ -1,4 +1,4 @@
-function media3(a:int, b:int, c:int)
+function media3(a:int, b:int, c:int):int
   local soma:int
   local resultado:int
   soma = a + b + c

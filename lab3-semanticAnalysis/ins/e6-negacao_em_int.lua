@@ -1,5 +1,4 @@
--- ERRO DE TIPO: operador ! aplicado a INT
-function erroNegacaoInt(x:int)
+function erroNegacaoInt(x:int):bool
   local resultado:bool
   resultado = not x
   return resultado
