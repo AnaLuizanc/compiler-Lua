@@ -9,6 +9,8 @@ ID b
 COLON :
 ID int
 RPAREN )
+COLON :
+ID bool
 LOCAL local
 ID soma
 COLON :

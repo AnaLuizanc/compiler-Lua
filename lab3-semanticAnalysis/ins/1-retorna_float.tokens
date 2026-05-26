@@ -9,6 +9,8 @@ ID b
 COLON :
 ID float
 RPAREN )
+COLON :
+ID float
 LOCAL local
 ID m
 COLON :

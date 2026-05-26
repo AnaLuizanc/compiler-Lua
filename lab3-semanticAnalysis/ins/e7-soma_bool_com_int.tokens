@@ -9,6 +9,8 @@ ID x
 COLON :
 ID int
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID resultado
 COLON :

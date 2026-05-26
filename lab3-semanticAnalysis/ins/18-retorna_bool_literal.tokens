@@ -2,6 +2,8 @@ FUNCTION function
 ID verdadeiro
 LPAREN (
 RPAREN )
+COLON :
+ID bool
 RETURN return
 TRUE true
 END end

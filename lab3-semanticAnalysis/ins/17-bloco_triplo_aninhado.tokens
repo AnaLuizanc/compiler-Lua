@@ -2,6 +2,8 @@ FUNCTION function
 ID triplo_aninhado
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID a
 COLON :

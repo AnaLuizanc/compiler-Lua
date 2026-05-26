@@ -2,6 +2,8 @@ FUNCTION function
 ID principal
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID x
 COLON :

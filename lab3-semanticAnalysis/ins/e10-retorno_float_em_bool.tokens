@@ -9,6 +9,8 @@ ID valor
 COLON :
 ID int
 RPAREN )
+COLON :
+ID bool
 LOCAL local
 ID desconto
 COLON :

@@ -13,6 +13,8 @@ ID n
 COLON :
 ID int
 RPAREN )
+COLON :
+ID float
 LOCAL local
 ID resultado
 COLON :

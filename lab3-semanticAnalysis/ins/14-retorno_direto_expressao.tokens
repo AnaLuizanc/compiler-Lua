@@ -5,6 +5,8 @@ ID n
 COLON :
 ID int
 RPAREN )
+COLON :
+ID int
 RETURN return
 ID n
 MULT *

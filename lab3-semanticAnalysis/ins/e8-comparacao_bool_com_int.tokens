@@ -9,6 +9,8 @@ ID limite
 COLON :
 ID int
 RPAREN )
+COLON :
+ID bool
 LOCAL local
 ID resultado
 COLON :

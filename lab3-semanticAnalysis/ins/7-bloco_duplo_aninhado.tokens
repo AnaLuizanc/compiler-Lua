@@ -2,6 +2,8 @@ FUNCTION function
 ID calcular
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID a
 COLON :

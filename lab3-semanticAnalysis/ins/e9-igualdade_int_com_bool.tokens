@@ -9,6 +9,8 @@ ID b
 COLON :
 ID bool
 RPAREN )
+COLON :
+ID bool
 LOCAL local
 ID resultado
 COLON :

@@ -5,6 +5,8 @@ ID a
 COLON :
 ID int
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID x
 COLON :
