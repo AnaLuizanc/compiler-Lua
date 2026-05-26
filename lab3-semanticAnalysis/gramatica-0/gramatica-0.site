@@ -1,12 +1,12 @@
-type -> INT
-type -> FLOAT
-type -> BOOL
+S -> program
+program -> listaCmd
+tipo -> ID
 params -> param paramsOpt
-params ->
+params -> ''
 paramsOpt -> COMMA param paramsOpt
-paramsOpt ->
-param -> ID typeId
-typeId -> COLON type
+paramsOpt -> ''
+param -> ID tipoId
+tipoId -> COLON tipo
 fator -> ID fatorLinha
 fator -> FALSE
 fator -> NIL
@@ -15,20 +15,19 @@ fator -> NUMBER
 fator -> STRING
 fator -> MINUS fator
 fator -> LPAREN expOr RPAREN
-fator -> tabelaCtr
 fatorLinha -> DOT ID fatorLinha
 fatorLinha -> LBRACKET expOr RBRACKET fatorLinha
 fatorLinha -> LPAREN argsList RPAREN fatorLinha
-fatorLinha ->
+fatorLinha -> ''
 termo -> fator termoLinha
 termoLinha -> MULT fator termoLinha
 termoLinha -> DIV fator termoLinha
 termoLinha -> MOD fator termoLinha
-termoLinha ->
+termoLinha -> ''
 exp -> termo expLinha
 expLinha -> PLUS termo expLinha
 expLinha -> MINUS termo expLinha
-expLinha ->
+expLinha -> ''
 expRel -> exp expRelLinha
 expRelLinha -> EQ exp expRelLinha
 expRelLinha -> NEQ exp expRelLinha
@@ -36,15 +35,15 @@ expRelLinha -> LESSTHAN exp expRelLinha
 expRelLinha -> LESSEQ exp expRelLinha
 expRelLinha -> GREATERTHAN exp expRelLinha
 expRelLinha -> GREATEREQ exp expRelLinha
-expRelLinha ->
+expRelLinha -> ''
 expNot -> NOT expNot
 expNot -> expRel
 expAnd -> expNot expAndLinha
 expAndLinha -> AND expNot expAndLinha
-expAndLinha ->
+expAndLinha -> ''
 expOr -> expAnd expOrLinha
 expOrLinha -> OR expAnd expOrLinha
-expOrLinha ->
+expOrLinha -> ''
 cmd -> ID cmdLinha cmdLinhaLinha
 cmd -> ifCmd
 cmd -> whileCmd
@@ -53,21 +52,25 @@ cmd -> returnCmd
 cmd -> functionCmd
 cmdLinha -> DOT ID cmdLinha
 cmdLinha -> LBRACKET expOr RBRACKET cmdLinha
-cmdLinha ->
+cmdLinha -> ''
 cmdLinhaLinha -> ASSIGN expOr
 cmdLinhaLinha -> LPAREN argsList RPAREN
 listaCmd -> cmd listaCmdLinha
 listaCmdLinha -> cmd listaCmdLinha
-listaCmdLinha ->
+listaCmdLinha -> ''
 listaCmdOpt -> listaCmd
-listaCmdOpt ->
+listaCmdOpt -> ''
 ifCmd -> IF expOr THEN listaCmdOpt ifLinha
 ifLinha -> ELSEIF expOr THEN listaCmdOpt ifLinha
 ifLinha -> ELSE listaCmdOpt END
 ifLinha -> END
 whileCmd -> WHILE expOr DO listaCmdOpt END
-localCmd -> LOCAL ID typeId localLinha
+localCmd -> LOCAL ID tipoId localLinha
 localLinha -> ASSIGN expOr
-localLinha ->
+localLinha -> ''
 returnCmd -> RETURN expOr
-functionCmd -> FUNCTION ID LPAREN params RPAREN typeId listaCmdOpt END
+functionCmd -> FUNCTION ID LPAREN params RPAREN tipoId listaCmdOpt END
+argsList -> expOr argsListLinha
+argsList -> ''
+argsListLinha -> COMMA expOr argsListLinha
+argsListLinha -> ''
