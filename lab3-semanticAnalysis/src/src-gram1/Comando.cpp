@@ -1,4 +1,5 @@
 #include "Comando.hpp"
+#include "ComandoDo.hpp"
 #include "ComandoLocal.hpp"
 #include "ComandoAtribuicao.hpp"
 #include "ComandoRetorno.hpp"
@@ -57,6 +58,12 @@ Comando *Comando::extrai_comando(No_arv_parse *no) {
   else if (no->simb == "retorno") {
     ComandoRetorno *res = new ComandoRetorno();
     res->expressao = Expressao::extrai_expressao(no->filhos[1]);
+    return res;
+  }
+  else if (no->simb == "cmdDo") {
+    ComandoDo *res = new ComandoDo();
+    // cmdDo -> DO bloco END
+    res->bloco = Comando::extrai_lista_comandos(no->filhos[1]);
     return res;
   }
 
