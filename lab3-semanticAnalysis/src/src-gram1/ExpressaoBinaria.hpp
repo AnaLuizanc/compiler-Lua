@@ -16,6 +16,8 @@ public:
 
     ExpressaoBinaria(string nome, string sim) : nome_op(nome), simbolo(sim), esquerda(nullptr), direita(nullptr) {}
 
+    Tipo* inferir_tipo(TabelaSimbolos& amb) override;
+
     void debug_com_tab(int tab) override;
 };
 

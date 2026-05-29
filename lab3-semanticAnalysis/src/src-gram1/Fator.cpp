@@ -1,4 +1,5 @@
 #include "Fator.hpp"
+#include "Execucao.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
 
@@ -29,6 +30,44 @@ Fator* Fator::extrai_Fator(No_arv_parse* no) {
     }
 
     return res;
+}
+
+Tipo* Fator::inferir_tipo(TabelaSimbolos& amb) {
+    if (valor == "PAREN") {
+        return interno->inferir_tipo(amb);
+    }
+    else if (valor == "-") {
+        Tipo* t = interno->inferir_tipo(amb);
+        if (t != nullptr && t->valor != Tipo::INT && t->valor != Tipo::FLOAT) {
+            cerr << "Erro Semantico: Operador '-' unario aplicado a tipo nao numerico." << endl;
+            exit(1);
+        }
+        return t;
+    }
+    else if (valor == "true" || valor == "false") {
+        return new Tipo(Tipo::BOOL);
+    }
+    else if (valor.length() > 0 && isdigit(valor[0])) {
+        // Se começa por um dígito, é um número (assumiremos INT para simplificar)
+        return new Tipo(Tipo::INT);
+    }
+    else {
+        // Se não é nenhum dos anteriores, é o ID de uma variável
+        Tipo* t = amb.buscar_variavel(valor);
+        if (t == nullptr) {
+            cerr << "Erro Semantico: Variavel '" << valor << "' nao foi declarada neste escopo." << endl;
+            exit(1);
+        }
+        return t;
+    }
+}
+
+Valor* Fator::avaliar(Execucao& env) {
+    if (valor == "PAREN") return interno->avaliar(env);
+    if (isdigit(valor[0])) return new Valor(stoi(valor));
+    if (valor == "true") return new Valor(true);
+    if (valor == "false") return new Valor(false);
+    return env.buscar(valor); // Busca o valor da variável na memória
 }
 
 void Fator::debug_com_tab(int tab) {

@@ -13,7 +13,7 @@ using namespace std;
 #include "Arvore.hpp"
 #include "Parser.hpp"
 #include "Funcao.hpp"
-// #include "Analisador.hpp"
+#include "src-gram1/AnalisadorSemantico.hpp"
 
 
 int main(int argc, char * argv[]) {
@@ -53,9 +53,12 @@ int main(int argc, char * argv[]) {
     return 1;
   }
   Funcao* func = Funcao::extrai_funcao(arv.raiz);
-  func->debug();
-  // Funcao* id = ID::extrai_ID(arv.raiz->filhos[0]->filhos[1]);
-  // cerr << "ID extraido: " << id->nome << endl;
+  if (func != nullptr) {
+      func->debug(); 
+      
+      AnalisadorSemantico analisador;
+      analisador.analisar(func);
+}
   // Exemplo de chamada do analisador semantico.
   // vector<ValorLiteral> parametros_passados;
   // for (int i = 1; i <= 3; ++i) {
