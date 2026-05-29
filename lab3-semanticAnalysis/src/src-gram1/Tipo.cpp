@@ -20,10 +20,7 @@ string Tipo::nome() const {
 Tipo* Tipo::extrai_Tipo(No_arv_parse* no) {
   if (no == NULL) return NULL;
 
-  No_arv_parse* tipo = no->filhos[1];
-  No_arv_parse* id = tipo->filhos[0];
-
-  string nome = id->dado_extra;
+  string nome = no->filhos[1]->dado_extra;
   transform(nome.begin(), nome.end(), nome.begin(), ::tolower);
 
   if (nome == "int")

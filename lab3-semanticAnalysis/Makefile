@@ -1,6 +1,6 @@
 CXX ?= g++
 CXXFLAGS ?= -std=c++11 -Wall -Wextra -Wno-sign-compare
-GRAM ?= 9
+GRAM ?= 1
 
 TARGET := compilador
 BUILD_DIR := build
@@ -40,3 +40,6 @@ clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
 -include $(DEPS)
+
+
+#make run < exemplos/0-retorna_soma_int.tokens

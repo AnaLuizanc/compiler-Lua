@@ -1,12 +1,42 @@
 S -> program
 program -> listaCmd
-tipo -> ID
+listaCmd -> cmd listaCmdLinha
+listaCmdLinha -> cmd listaCmdLinha
+listaCmdLinha -> ''
+listaCmdOpt -> listaCmd
+listaCmdOpt -> ''
+cmd -> ID cmdLinha cmdLinhaLinha
+cmd -> ifCmd
+cmd -> whileCmd
+cmd -> localCmd
+cmd -> returnCmd
+cmd -> functionCmd
+cmdLinha -> DOT ID cmdLinha
+cmdLinha -> LBRACKET expOr RBRACKET cmdLinha
+cmdLinha -> ''
+cmdLinhaLinha -> ASSIGN expOr
+cmdLinhaLinha -> LPAREN argsList RPAREN
+argsList -> expOr argsListLinha
+argsList -> ''
+argsListLinha -> COMMA expOr argsListLinha
+argsListLinha -> ''
+ifCmd -> IF expOr THEN listaCmdOpt ifLinha
+ifLinha -> ELSEIF expOr THEN listaCmdOpt ifLinha
+ifLinha -> ELSE listaCmdOpt END
+ifLinha -> END
+whileCmd -> WHILE expOr DO listaCmdOpt END
+localCmd -> LOCAL ID tipoId localLinha
+localLinha -> ASSIGN expOr
+localLinha -> ''
+returnCmd -> RETURN expOr
+functionCmd -> FUNCTION ID LPAREN params RPAREN tipoId listaCmdOpt END
 params -> param paramsOpt
 params -> ''
 paramsOpt -> COMMA param paramsOpt
 paramsOpt -> ''
 param -> ID tipoId
 tipoId -> COLON tipo
+tipo -> ID
 fator -> ID fatorLinha
 fator -> FALSE
 fator -> NIL
@@ -44,33 +74,3 @@ expAndLinha -> ''
 expOr -> expAnd expOrLinha
 expOrLinha -> OR expAnd expOrLinha
 expOrLinha -> ''
-cmd -> ID cmdLinha cmdLinhaLinha
-cmd -> ifCmd
-cmd -> whileCmd
-cmd -> localCmd
-cmd -> returnCmd
-cmd -> functionCmd
-cmdLinha -> DOT ID cmdLinha
-cmdLinha -> LBRACKET expOr RBRACKET cmdLinha
-cmdLinha -> ''
-cmdLinhaLinha -> ASSIGN expOr
-cmdLinhaLinha -> LPAREN argsList RPAREN
-listaCmd -> cmd listaCmdLinha
-listaCmdLinha -> cmd listaCmdLinha
-listaCmdLinha -> ''
-listaCmdOpt -> listaCmd
-listaCmdOpt -> ''
-ifCmd -> IF expOr THEN listaCmdOpt ifLinha
-ifLinha -> ELSEIF expOr THEN listaCmdOpt ifLinha
-ifLinha -> ELSE listaCmdOpt END
-ifLinha -> END
-whileCmd -> WHILE expOr DO listaCmdOpt END
-localCmd -> LOCAL ID tipoId localLinha
-localLinha -> ASSIGN expOr
-localLinha -> ''
-returnCmd -> RETURN expOr
-functionCmd -> FUNCTION ID LPAREN params RPAREN tipoId listaCmdOpt END
-argsList -> expOr argsListLinha
-argsList -> ''
-argsListLinha -> COMMA expOr argsListLinha
-argsListLinha -> ''

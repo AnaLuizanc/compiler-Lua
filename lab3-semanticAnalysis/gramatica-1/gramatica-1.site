@@ -1,0 +1,48 @@
+S -> funcao
+funcao -> FUNCTION ID LPAREN params RPAREN tipoId bloco END
+tipoId -> COLON ID
+params -> param pL
+params -> ''
+param -> ID tipoId
+pL -> COMMA param pL
+pL -> ''
+bloco -> listaCmd
+listaCmd -> cmd
+listaCmd -> cmd listaCmd
+cmd -> cmdLocal
+cmd -> atribuicao
+cmd -> retorno
+cmdLocal -> LOCAL ID tipoId
+atribuicao -> ID ASSIGN expOr
+retorno -> RETURN expOr
+fator -> ID
+fator -> FALSE
+fator -> TRUE
+fator -> NUMBER
+fator -> MINUS fator
+fator -> LPAREN expOr RPAREN
+termo -> fator termoLinha
+termoLinha -> MULT fator termoLinha
+termoLinha -> DIV fator termoLinha
+termoLinha -> MOD fator termoLinha
+termoLinha -> ''
+exp -> termo expLinha
+expLinha -> PLUS termo expLinha
+expLinha -> MINUS termo expLinha
+expLinha -> ''
+expRel -> exp expRelLinha
+expRelLinha -> EQ exp expRelLinha
+expRelLinha -> NEQ exp expRelLinha
+expRelLinha -> LESSTHAN exp expRelLinha
+expRelLinha -> LESSEQ exp expRelLinha
+expRelLinha -> GREATERTHAN exp expRelLinha
+expRelLinha -> GREATEREQ exp expRelLinha
+expRelLinha -> ''
+expNot -> NOT expNot
+expNot -> expRel
+expAnd -> expNot expAndLinha
+expAndLinha -> AND expNot expAndLinha
+expAndLinha -> ''
+expOr -> expAnd expOrLinha
+expOrLinha -> OR expAnd expOrLinha
+expOrLinha -> ''
