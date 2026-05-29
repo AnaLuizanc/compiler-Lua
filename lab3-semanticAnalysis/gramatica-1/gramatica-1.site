@@ -12,9 +12,11 @@ listaCmd -> ''
 cmd -> cmdLocal
 cmd -> atribuicao
 cmd -> retorno
+cmd -> cmdDo
 cmdLocal -> LOCAL ID tipoId
 atribuicao -> ID ASSIGN expOr
 retorno -> RETURN expOr
+cmdDo -> DO bloco END
 fator -> ID
 fator -> FALSE
 fator -> TRUE
@@ -30,14 +32,14 @@ exp -> termo expLinha
 expLinha -> PLUS termo expLinha
 expLinha -> MINUS termo expLinha
 expLinha -> ''
-expRel -> exp opRel exp
-expRel -> exp 
-opRel -> EQ
-opRel -> NEQ
-opRel -> LESSTHAN
-opRel -> LESSEQ
-opRel -> GREATERTHAN
-opRel -> GREATEREQ
+expRel -> exp expRelLinha
+expRelLinha -> EQ exp
+expRelLinha -> NEQ exp
+expRelLinha -> LESSTHAN exp
+expRelLinha -> LESSEQ exp
+expRelLinha -> GREATERTHAN exp
+expRelLinha -> GREATEREQ exp
+expRelLinha -> ''
 expNot -> NOT expNot
 expNot -> expRel
 expAnd -> expNot expAndLinha
