@@ -1,8 +1,6 @@
 #ifndef _COMANDO_LOCAL_HPP_
 #define _COMANDO_LOCAL_HPP_
-#include<vector>
-#include<string>
-#include "../Arvore.hpp"
+#include <string>
 #include "Comando.hpp"
 #include "Tipo.hpp"
 
@@ -13,11 +11,8 @@ public:
   string nome;
   Tipo* tipo;
 
-  ComandoLocal() {
-    tipo = NULL;
-  }
+  ComandoLocal() { tipo = NULL; }
 
-  void debug();
+  void debug_com_tab(int tab) override; 
 };
-
 #endif

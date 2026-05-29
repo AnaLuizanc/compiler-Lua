@@ -4,12 +4,11 @@
 
 using namespace std;
 
-void ComandoLocal::debug() {
-  cerr << "local " << nome;
-
+void ComandoLocal::debug_com_tab(int tab) {
+  tab3(tab);
+  cerr << "[" << nome;
   if (tipo != NULL) {
     cerr << ":" << tipo->nome();
   }
-
-  cerr << endl;
+  cerr << "] Declaracao" << endl;
 }

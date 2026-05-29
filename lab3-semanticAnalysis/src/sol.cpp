@@ -52,10 +52,10 @@ int main(int argc, char * argv[]) {
     cerr << "Erro: arvore de parse vazia" << endl;
     return 1;
   }
-  // Funcao* func = Funcao::extrai_funcao(arv.raiz);
-  // func->debug();
-  ID* id = ID::extrai_ID(arv.raiz->filhos[0]->filhos[1]);
-  cerr << "ID extraido: " << id->nome << endl;
+  Funcao* func = Funcao::extrai_funcao(arv.raiz);
+  func->debug();
+  // Funcao* id = ID::extrai_ID(arv.raiz->filhos[0]->filhos[1]);
+  // cerr << "ID extraido: " << id->nome << endl;
   // Exemplo de chamada do analisador semantico.
   // vector<ValorLiteral> parametros_passados;
   // for (int i = 1; i <= 3; ++i) {

@@ -10,10 +10,12 @@ using namespace std;
 class Fator : public Expressao {
 public:
     string valor;
-
-    Fator* interno = nullptr;
+    
+    Expressao* interno = nullptr; 
 
     static Fator* extrai_Fator(No_arv_parse* no);
+    
+    void debug_com_tab(int tab) override; 
 };
 
 #endif
