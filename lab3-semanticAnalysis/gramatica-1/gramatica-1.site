@@ -7,8 +7,8 @@ param -> ID tipoId
 pL -> COMMA param pL
 pL -> ''
 bloco -> listaCmd
-listaCmd -> cmd
 listaCmd -> cmd listaCmd
+listaCmd -> ''
 cmd -> cmdLocal
 cmd -> atribuicao
 cmd -> retorno
@@ -30,14 +30,14 @@ exp -> termo expLinha
 expLinha -> PLUS termo expLinha
 expLinha -> MINUS termo expLinha
 expLinha -> ''
-expRel -> exp expRelLinha
-expRelLinha -> EQ exp expRelLinha
-expRelLinha -> NEQ exp expRelLinha
-expRelLinha -> LESSTHAN exp expRelLinha
-expRelLinha -> LESSEQ exp expRelLinha
-expRelLinha -> GREATERTHAN exp expRelLinha
-expRelLinha -> GREATEREQ exp expRelLinha
-expRelLinha -> ''
+expRel -> exp opRel exp
+expRel -> exp 
+opRel -> EQ
+opRel -> NEQ
+opRel -> LESSTHAN
+opRel -> LESSEQ
+opRel -> GREATERTHAN
+opRel -> GREATEREQ
 expNot -> NOT expNot
 expNot -> expRel
 expAnd -> expNot expAndLinha
