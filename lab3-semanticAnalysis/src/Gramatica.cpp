@@ -17,24 +17,27 @@ void Regra::debug() {
 
 Gramatica::Gramatica(ifstream &arq_gramatica) {
   vector<vector<string> > mat = matriz_de_arquivo(arq_gramatica, '\n', ' ');
-  if (mat[mat.size()-1].size() == 1) mat.pop_back(); //remove ultima linha vazia.
-  //    debug_mat(mat);
+  if (mat[mat.size()-1].size() == 1) mat.pop_back(); // remove ultima linha vazia.
+
   for (int i = 0; i < mat.size(); ++i) {
-    //cerr << "Gramatica("<< i << ":" << mat[i].size() << ":" << mat[i][0] << ")" << endl;
-    if (mat[i].size() < 2) {
-      // cerr << "Erro leitura gramatica 1:"<< i << ":" << mat[i].size() << ":" << mat[i][0] << ":" << endl;
-    } else {
+    if (mat[i].size() >= 2) {
       Regra r;
       r.esq = mat[i][0];
-      // ignora-se a seta em mat[i][1].
-      // caso especial: X -> ''. Considero '' vazio.
-      if (!((mat[i].size() == 3) && (mat[i][2] == string("''"))) ) {
-	for (int j = 2; j < mat[i].size();++j) {
-	  if (mat[i][j].size() > 0) {
-	    r.dir.push_back(mat[i][j]);
-	  }
-	}
-      } 
+      
+      // Começa do índice 2 para ignorar a seta '->' em mat[i][1]
+      for (int j = 2; j < mat[i].size(); ++j) {
+        string token = mat[i][j];
+        
+        // Limpa o carriage return (\r) do final da string, se existir
+        if (!token.empty() && token.back() == '\r') {
+          token.pop_back();
+        }
+        
+        // Se o token não for vazio e não for o símbolo de epsilon "''", adiciona na regra
+        if (token.size() > 0 && token != "''") {
+          r.dir.push_back(token);
+        }
+      }
       R.push_back(r);
     }
   }
