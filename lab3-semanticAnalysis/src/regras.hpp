@@ -1,0 +1,11 @@
+#ifndef _REGRAS_HPP_
+#define _REGRAS_HPP_
+
+#define REGRA_FATOR_ID 17
+#define REGRA_FATOR_FALSE 18
+#define REGRA_FATOR_TRUE 19
+#define REGRA_FATOR_NUMBER 20
+#define REGRA_FATOR_MINUS 21
+#define REGRA_FATOR_PAREN 22
+
+#endif
