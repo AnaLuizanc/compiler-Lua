@@ -72,6 +72,7 @@ Expressao* extrai_expRel(No_arv_parse* no) {
 }
 Expressao* extrai_expRelLinha(No_arv_parse* no, Expressao* esq) {
     if (no->filhos.size() == 0) return esq;
+    
     string op = no->filhos[0]->simb;
     Expressao* dir = extrai_exp_nivel(no->filhos[1]);
     
@@ -86,11 +87,11 @@ Expressao* extrai_expRelLinha(No_arv_parse* no, Expressao* esq) {
     if (bin != nullptr) {
         bin->esquerda = esq;
         bin->direita = dir;
-        return extrai_expRelLinha(no->filhos[2], bin);
+        
+        return bin; 
     }
     return esq;
 }
-
 // ---- ADIÇÃO E SUBTRAÇÃO ----
 Expressao* extrai_exp_nivel(No_arv_parse* no) {
     Expressao* esq = extrai_termo_nivel(no->filhos[0]);
