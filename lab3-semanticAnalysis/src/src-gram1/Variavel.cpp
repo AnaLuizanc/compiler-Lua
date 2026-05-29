@@ -7,7 +7,7 @@ using namespace std;
 vector<Variavel*> Variavel::extrai_lista_parametros(No_arv_parse* no) {
   vector<Variavel*> res;
 
-  if (no == NULL)
+  if (no == NULL || no->filhos.size() == 0)
     return res;
 
   // params -> param pL

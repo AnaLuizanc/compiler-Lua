@@ -1,11 +1,12 @@
 #include "Comando.hpp"
-#include "ComandoDo.hpp"
 #include "ComandoLocal.hpp"
 #include "ComandoAtribuicao.hpp"
 #include "ComandoRetorno.hpp"
+#include "ComandoDo.hpp"
 #include "ID.hpp"
 #include "Tipo.hpp"
 #include "Expressao.hpp"
+
 #include <iostream>
 #include "../debug-util.hpp"
 
@@ -22,11 +23,14 @@ vector<Comando *> Comando::extrai_lista_comandos(No_arv_parse *no) {
   if (no->simb == "listaCmd") {
       // listaCmd -> cmd
       if (no->filhos.size() == 1) {
-          res.push_back(extrai_comando(no->filhos[0]));
+          Comando* c = extrai_comando(no->filhos[0]);
+          if (c != NULL) res.push_back(c); // Trava de segurança
       }
       // listaCmd -> cmd listaCmd
       else if (no->filhos.size() == 2) {
-          res.push_back(extrai_comando(no->filhos[0]));
+          Comando* c = extrai_comando(no->filhos[0]);
+          if (c != NULL) res.push_back(c);
+          
           vector<Comando *> restante = extrai_lista_comandos(no->filhos[1]);
           res.insert(res.end(), restante.begin(), restante.end());
       }
@@ -62,7 +66,6 @@ Comando *Comando::extrai_comando(No_arv_parse *no) {
   }
   else if (no->simb == "cmdDo") {
     ComandoDo *res = new ComandoDo();
-    // cmdDo -> DO bloco END
     res->bloco = Comando::extrai_lista_comandos(no->filhos[1]);
     return res;
   }
