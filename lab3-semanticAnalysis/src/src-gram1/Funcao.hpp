@@ -10,14 +10,14 @@ using namespace std;
 
 class Funcao {
 public:
-  ID* nome_funcao;
-  vector<Variavel*> parametros;
-  Tipo* tipo_retorno;
-  vector<Comando*> comandos;
+    ID* nome_funcao;
+    vector<Variavel*> parametros;
+    Tipo* tipo_retorno;
+    vector<Comando*> comandos;
 
-  Funcao();
-  static Funcao* extrai_funcao(No_arv_parse *arv);
-  void debug();
+    Funcao();
+    static Funcao* extrai_funcao(No_arv_parse *arv);
+    void debug();
 };
 
 #endif

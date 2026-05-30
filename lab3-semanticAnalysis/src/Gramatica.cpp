@@ -17,23 +17,20 @@ void Regra::debug() {
 
 Gramatica::Gramatica(ifstream &arq_gramatica) {
   vector<vector<string> > mat = matriz_de_arquivo(arq_gramatica, '\n', ' ');
-  if (mat[mat.size()-1].size() == 1) mat.pop_back(); // remove ultima linha vazia.
+  if (mat[mat.size()-1].size() == 1) mat.pop_back(); 
 
   for (int i = 0; i < mat.size(); ++i) {
     if (mat[i].size() >= 2) {
       Regra r;
       r.esq = mat[i][0];
       
-      // Começa do índice 2 para ignorar a seta '->' em mat[i][1]
       for (int j = 2; j < mat[i].size(); ++j) {
         string token = mat[i][j];
         
-        // Limpa o carriage return (\r) do final da string, se existir
         if (!token.empty() && token.back() == '\r') {
           token.pop_back();
         }
         
-        // Se o token não for vazio e não for o símbolo de epsilon "''", adiciona na regra
         if (token.size() > 0 && token != "''") {
           r.dir.push_back(token);
         }

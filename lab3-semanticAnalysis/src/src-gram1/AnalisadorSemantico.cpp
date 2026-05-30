@@ -7,7 +7,6 @@
 #include "ComandoIf.hpp"
 #include "ComandoWhile.hpp"
 #include <iostream>
-
 using namespace std;
 
 void AnalisadorSemantico::analisar(Funcao* func, const vector<string>& args) {
@@ -16,7 +15,7 @@ void AnalisadorSemantico::analisar(Funcao* func, const vector<string>& args) {
     Execucao exec;
     retorno_esperado = func->tipo_retorno;
 
-    int arg_idx = 0; // Controla qual argumento do terminal estamos lendo
+    int arg_idx = 0; 
 
     for (Variavel* param : func->parametros) {
         if (!amb.declarar_variavel(param->nome->nome, param->tipo)) {
@@ -24,7 +23,6 @@ void AnalisadorSemantico::analisar(Funcao* func, const vector<string>& args) {
             exit(1);
         }
         
-        // Pega o argumento da linha de comando, ou usa "0"/"false" se o usuário esquecer de passar
         string valor_str = (arg_idx < args.size()) ? args[arg_idx] : "0";
         arg_idx++;
 
@@ -63,14 +61,14 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
                      << "' ja declarada neste escopo." << endl;
                 exit(1);
             }
-            if (cmdLocal->tipo->valor == Tipo::INT) exec.definir(cmdLocal->nome, new Valor(0));
-            else if (cmdLocal->tipo->valor == Tipo::FLOAT) exec.definir(cmdLocal->nome, new Valor(0.0f));
-            else if (cmdLocal->tipo->valor == Tipo::BOOL) exec.definir(cmdLocal->nome, new Valor(false));
-        
+            if (cmdLocal->tipo->valor == Tipo::INT) 
+                exec.definir(cmdLocal->nome, new Valor(0));
+            else if (cmdLocal->tipo->valor == Tipo::FLOAT)
+                exec.definir(cmdLocal->nome, new Valor(0.0f));
+            else if (cmdLocal->tipo->valor == Tipo::BOOL) 
+                exec.definir(cmdLocal->nome, new Valor(false));
         }
-        
-        // Regra 2: Atribuicao de Valor
-        else if (ComandoAtribuicao* cmdAtrib = dynamic_cast<ComandoAtribuicao*>(cmd)) {
+        else if (ComandoAtribuicao* cmdAtrib = dynamic_cast<ComandoAtribuicao*>(cmd)) {// Regra 2: Atribuicao de Valor
             Tipo* tipo_var = amb.buscar_variavel(cmdAtrib->esquerda->nome);
             if (tipo_var == nullptr) {
                 cerr << "Erro Semantico: Tentativa de atribuicao a variavel '" 
@@ -79,8 +77,6 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
             }
 
             Tipo* tipo_exp = cmdAtrib->direita->inferir_tipo(amb);
-            
-            // Compara os valores (INT vs BOOL, etc)
             if (tipo_exp != nullptr && tipo_var->valor != tipo_exp->valor) {
                 cerr << "Erro Semantico: Atribuicao invalida. A variavel '" 
                      << cmdAtrib->esquerda->nome << "' e do tipo " << tipo_var->nome() 
@@ -92,9 +88,7 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
             exec.definir(cmdAtrib->esquerda->nome, res);
             ultimo_valor = res;
         }
-        
-        // Regra 3: Retorno de Funcao
-        else if (ComandoRetorno* cmdRet = dynamic_cast<ComandoRetorno*>(cmd)) {
+        else if (ComandoRetorno* cmdRet = dynamic_cast<ComandoRetorno*>(cmd)) {// Regra 3: Retorno de Funcao
             Tipo* tipo_exp = cmdRet->expressao->inferir_tipo(amb);
             
             if (tipo_exp != nullptr && retorno_esperado->valor != tipo_exp->valor) {
@@ -107,28 +101,20 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
             Valor* res = cmdRet->expressao->avaliar(exec);
             ultimo_valor = res;
         }
-        
-        // Regra 4: Novo Bloco de Escopo (DO ... END)
-        else if (ComandoDo* cmdDo = dynamic_cast<ComandoDo*>(cmd)) {
+        else if (ComandoDo* cmdDo = dynamic_cast<ComandoDo*>(cmd)) {// Regra 4: Novo Bloco de Escopo (DO ... END)
             amb.entrar_escopo(); 
-            exec.entrar(); // A memória de execução também ganha um novo escopo
-            
+            exec.entrar(); 
             validar_comandos(cmdDo->bloco, exec); 
-            
-            exec.sair(); // Limpa as variáveis da memória ao sair do bloco
+            exec.sair(); 
             amb.sair_escopo();   
         }
-
-        // Regra 5: Estrutura Condicional (IF-THEN-ELSE)
-        else if (ComandoIf* cmdIf = dynamic_cast<ComandoIf*>(cmd)) {
-            // 1. Validação Semântica
+        else if (ComandoIf* cmdIf = dynamic_cast<ComandoIf*>(cmd)) {// Regra 5: Estrutura Condicional (IF-THEN-ELSE)
             Tipo* tipo_cond = cmdIf->condicao->inferir_tipo(amb);
             if (tipo_cond == nullptr || tipo_cond->valor != Tipo::BOOL) {
                 cerr << "Erro Semantico: A condicao do 'if' deve resultar num booleano." << endl;
                 exit(1);
             }
 
-            // 2. Execução Dinâmica
             Valor* cond = cmdIf->condicao->avaliar(exec);
             if (cond->dados.b) {
                 amb.entrar_escopo(); exec.entrar();
@@ -141,22 +127,16 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
                 exec.sair(); amb.sair_escopo();
             }
         }
-        
-        // Regra 6: Estrutura de Repetição (WHILE)
-        else if (ComandoWhile* cmdWhile = dynamic_cast<ComandoWhile*>(cmd)) {
-            // 1. Validação Semântica
+        else if (ComandoWhile* cmdWhile = dynamic_cast<ComandoWhile*>(cmd)) {// Regra 6: Estrutura de Repetição (WHILE)
             Tipo* tipo_cond = cmdWhile->condicao->inferir_tipo(amb);
             if (tipo_cond == nullptr || tipo_cond->valor != Tipo::BOOL) {
                 cerr << "Erro Semantico: A condicao do 'while' deve resultar num booleano." << endl;
                 exit(1);
             }
 
-            // 2. Execução Dinâmica (O loop em C++ simula o loop em Lua)
             while (true) {
                 Valor* cond = cmdWhile->condicao->avaliar(exec);
-                if (!cond->dados.b) break; // Sai do loop se a condição for false
-
-                // Cada iteração cria um escopo novo (para evitar erro de recriação de variáveis locais)
+                if (!cond->dados.b) break; 
                 amb.entrar_escopo(); exec.entrar();
                 validar_comandos(cmdWhile->bloco, exec);
                 exec.sair(); amb.sair_escopo();

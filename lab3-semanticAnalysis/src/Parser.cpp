@@ -77,22 +77,22 @@ Arvore_parse Parser::executa_parse(istream &input) {
       cerr << "Nova LR2 Transicao:"<<t.impressao() << endl;
     }
     switch(t.tipo) {
-    case 0: { return Arvore_parse(NULL); break; } //erro
+    case 0: { return Arvore_parse(NULL); break; } 
     case 1: { // terminal
-        No_arv_parse * ap_no = new No_arv_parse;
-        ap_no->simb = tipo_terminal_lookahead;
-	ap_no->dado_extra = texto_terminal;
-	//cerr << "Empilhando:" << estado_atual << ":";
-	//	No_arv_parse::debug_no(pilha.top().first);
-        pilha.push(make_pair(ap_no,estado_atual));
+      No_arv_parse * ap_no = new No_arv_parse;
+      ap_no->simb = tipo_terminal_lookahead;
+      ap_no->dado_extra = texto_terminal;
+      //cerr << "Empilhando:" << estado_atual << ":";
+      //	No_arv_parse::debug_no(pilha.top().first);
+      pilha.push(make_pair(ap_no,estado_atual));
 
-        estado_atual = t.prox_estado;
-	if (pos_entrada != linhas_entrada.size())  {
-	  le_terminal(linhas_entrada[pos_entrada++], tipo_terminal_lookahead, texto_terminal);
-	} else {
-	  terminou = true;
-	}
-	break;
+      estado_atual = t.prox_estado;
+      if (pos_entrada != linhas_entrada.size())  {
+        le_terminal(linhas_entrada[pos_entrada++], tipo_terminal_lookahead, texto_terminal);
+      } else {
+        terminou = true;
+      }
+      break;
     }
     case 2: { //goto
       cerr << "ERRO goto em lookahead."<<endl;
@@ -109,7 +109,6 @@ Arvore_parse Parser::executa_parse(istream &input) {
         // O estado base para o goto é o estado_atual (14 no seu caso)
         int estado = estado_atual; 
         
-        // Se r.dir.size() for 0 (como na regra pL -> ''), o loop não roda e o estado continua 14
         for(int i = 0; i < r.dir.size(); ++i) {
           ap_no->filhos[r.dir.size() - i - 1] = pilha.top().first;
           estado = pilha.top().second;

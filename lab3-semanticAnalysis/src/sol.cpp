@@ -52,7 +52,7 @@ int main(int argc, char * argv[]) {
     cerr << "Erro: arvore de parse vazia" << endl;
     return 1;
   }
-   Funcao* func = Funcao::extrai_funcao(arv.raiz);
+  Funcao* func = Funcao::extrai_funcao(arv.raiz);
     
     if (func != nullptr) {
         func->debug();
@@ -63,24 +63,12 @@ int main(int argc, char * argv[]) {
         }
         
         AnalisadorSemantico analisador;
-        // Passa a lista de parâmetros dinâmicos
         analisador.analisar(func, argumentos_linha_comando);
         
-        // Imprime o último valor atribuído/retornado com a formatação exigida
         if (analisador.ultimo_valor != nullptr) {
             analisador.ultimo_valor->imprimir();
         }
     }
-  // Exemplo de chamada do analisador semantico.
-  // vector<ValorLiteral> parametros_passados;
-  // for (int i = 1; i <= 3; ++i) {
-  //   ValorLiteral valor_parametro;
-  //   valor_parametro.tipo = new Tipo(Tipo::INT);
-  //   valor_parametro.valor_int = i*10;
-  //   parametros_passados.push_back(valor_parametro);
-  // }
-  // Analisador ana;
-  // cout << "Retorno calculado:" << endl;
-  // cout << ana.calcula_retorno(func, parametros_passados) << endl;
+    
   return 0;
 }

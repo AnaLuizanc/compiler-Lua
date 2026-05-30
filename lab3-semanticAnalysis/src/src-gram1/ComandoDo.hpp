@@ -6,7 +6,7 @@
 
 class ComandoDo : public Comando {
 public:
-    std::vector<Comando*> bloco;
+    vector<Comando*> bloco;
 
     void debug_com_tab(int tab) override;
 };

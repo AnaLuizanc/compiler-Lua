@@ -48,11 +48,9 @@ Tipo* Fator::inferir_tipo(TabelaSimbolos& amb) {
         return new Tipo(Tipo::BOOL);
     }
     else if (valor.length() > 0 && isdigit(valor[0])) {
-        // Se começa por um dígito, é um número (assumiremos INT para simplificar)
         return new Tipo(Tipo::INT);
     }
     else {
-        // Se não é nenhum dos anteriores, é o ID de uma variável
         Tipo* t = amb.buscar_variavel(valor);
         if (t == nullptr) {
             cerr << "Erro Semantico: Variavel '" << valor << "' nao foi declarada neste escopo." << endl;
@@ -67,7 +65,7 @@ Valor* Fator::avaliar(Execucao& env) {
     if (isdigit(valor[0])) return new Valor(stoi(valor));
     if (valor == "true") return new Valor(true);
     if (valor == "false") return new Valor(false);
-    return env.buscar(valor); // Busca o valor da variável na memória
+    return env.buscar(valor); 
 }
 
 void Fator::debug_com_tab(int tab) {

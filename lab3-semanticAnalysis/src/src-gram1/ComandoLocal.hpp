@@ -8,11 +8,11 @@ using namespace std;
 
 class ComandoLocal : public Comando {
 public:
-  string nome;
-  Tipo* tipo;
+    string nome;
+    Tipo* tipo;
 
-  ComandoLocal() { tipo = NULL; }
+    ComandoLocal() { tipo = NULL; }
 
-  void debug_com_tab(int tab) override; 
+    void debug_com_tab(int tab) override; 
 };
 #endif

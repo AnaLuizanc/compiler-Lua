@@ -5,7 +5,6 @@
 
 using namespace std;
 
-// Assinaturas para navegação na árvore
 Expressao* extrai_expOr(No_arv_parse* no);
 Expressao* extrai_expOrLinha(No_arv_parse* no, Expressao* esq);
 Expressao* extrai_expAnd(No_arv_parse* no);
@@ -23,12 +22,11 @@ Expressao* Expressao::extrai_expressao(No_arv_parse* no) {
 
     if (no->simb == "expOr") return extrai_expOr(no);
 
-    // Redundância segura caso seja injetado um nó interno diretamente
     if (no->filhos.size() > 0) return extrai_expressao(no->filhos[0]);
     return nullptr;
 }
 
-// ---- LÓGICA OR ----
+// ---- LÓGICA OR
 Expressao* extrai_expOr(No_arv_parse* no) {
     Expressao* esq = extrai_expAnd(no->filhos[0]);
     return extrai_expOrLinha(no->filhos[1], esq);
@@ -41,7 +39,7 @@ Expressao* extrai_expOrLinha(No_arv_parse* no, Expressao* esq) {
     return extrai_expOrLinha(no->filhos[2], bin);
 }
 
-// ---- LÓGICA AND ----
+// ---- LÓGICA AND
 Expressao* extrai_expAnd(No_arv_parse* no) {
     Expressao* esq = extrai_expNot(no->filhos[0]);
     return extrai_expAndLinha(no->filhos[1], esq);
@@ -54,17 +52,17 @@ Expressao* extrai_expAndLinha(No_arv_parse* no, Expressao* esq) {
     return extrai_expAndLinha(no->filhos[2], bin);
 }
 
-// ---- LÓGICA NOT ----
+// ---- LÓGICA NOT
 Expressao* extrai_expNot(No_arv_parse* no) {
-    if (no->filhos.size() == 2) { // NOT expNot
+    if (no->filhos.size() == 2) {
         ExpressaoUnaria* un = new ExpressaoUnaria("Not", "not");
         un->expressao = extrai_expNot(no->filhos[1]);
         return un;
     }
-    return extrai_expRel(no->filhos[0]); // expRel
+    return extrai_expRel(no->filhos[0]); 
 }
 
-// ---- RELACIONAL ----
+// ---- RELACIONAL
 Expressao* extrai_expRel(No_arv_parse* no) {
     if (no->filhos.size() < 2) return extrai_exp_nivel(no->filhos[0]);
     Expressao* esq = extrai_exp_nivel(no->filhos[0]);
@@ -77,12 +75,18 @@ Expressao* extrai_expRelLinha(No_arv_parse* no, Expressao* esq) {
     Expressao* dir = extrai_exp_nivel(no->filhos[1]);
     
     ExpressaoBinaria* bin = nullptr;
-    if (op == "EQ") bin = new ExpressaoBinaria("Igualdade", "==");
-    else if (op == "NEQ") bin = new ExpressaoBinaria("Diferenca", "~=");
-    else if (op == "LESSTHAN") bin = new ExpressaoBinaria("Menor Que", "<");
-    else if (op == "LESSEQ") bin = new ExpressaoBinaria("Menor Igual", "<=");
-    else if (op == "GREATERTHAN") bin = new ExpressaoBinaria("Maior Que", ">");
-    else if (op == "GREATEREQ") bin = new ExpressaoBinaria("Maior Igual", ">=");
+    if (op == "EQ") 
+        bin = new ExpressaoBinaria("Igualdade", "==");
+    else if (op == "NEQ") 
+        bin = new ExpressaoBinaria("Diferenca", "~=");
+    else if (op == "LESSTHAN") 
+        bin = new ExpressaoBinaria("Menor Que", "<");
+    else if (op == "LESSEQ") 
+        bin = new ExpressaoBinaria("Menor Igual", "<=");
+    else if (op == "GREATERTHAN") 
+        bin = new ExpressaoBinaria("Maior Que", ">");
+    else if (op == "GREATEREQ") 
+        bin = new ExpressaoBinaria("Maior Igual", ">=");
 
     if (bin != nullptr) {
         bin->esquerda = esq;
@@ -92,11 +96,13 @@ Expressao* extrai_expRelLinha(No_arv_parse* no, Expressao* esq) {
     }
     return esq;
 }
-// ---- ADIÇÃO E SUBTRAÇÃO ----
+
+// ---- ADIÇÃO E SUBTRAÇÃO
 Expressao* extrai_exp_nivel(No_arv_parse* no) {
     Expressao* esq = extrai_termo_nivel(no->filhos[0]);
     return extrai_expLinha(no->filhos[1], esq);
 }
+
 Expressao* extrai_expLinha(No_arv_parse* no, Expressao* esq) {
     if (no->filhos.size() == 0) return esq;
     string op = no->filhos[0]->simb;
@@ -114,11 +120,12 @@ Expressao* extrai_expLinha(No_arv_parse* no, Expressao* esq) {
     return esq;
 }
 
-// ---- MULTIPLICAÇÃO, DIVISÃO E MÓDULO ----
+// ---- MULTIPLICAÇÃO, DIVISÃO E MÓDULO
 Expressao* extrai_termo_nivel(No_arv_parse* no) {
     Expressao* esq = Fator::extrai_Fator(no->filhos[0]);
     return extrai_termoLinha(no->filhos[1], esq);
 }
+
 Expressao* extrai_termoLinha(No_arv_parse* no, Expressao* esq) {
     if (no->filhos.size() == 0) return esq;
     string op = no->filhos[0]->simb;

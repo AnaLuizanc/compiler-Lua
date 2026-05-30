@@ -2,12 +2,11 @@
 #include <iostream>
 #include "../debug-util.hpp"
 
-
 Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* esq = esquerda->inferir_tipo(amb);
     Tipo* dir = direita->inferir_tipo(amb);
 
-    if (esq == nullptr || dir == nullptr) return nullptr; // Erro já apanhado nos filhos
+    if (esq == nullptr || dir == nullptr) return nullptr; 
 
     // Operadores Aritméticos
     if (simbolo == "+" || simbolo == "-" || simbolo == "*" || simbolo == "/" || simbolo == "%") {
@@ -30,7 +29,7 @@ Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
                  << esq->nome() << " e " << dir->nome() << ")." << endl;
             exit(1);
         }
-        return new Tipo(Tipo::BOOL); // Comparações retornam sempre booleanos
+        return new Tipo(Tipo::BOOL);
     }
 
     // Operadores Lógicos
@@ -39,7 +38,7 @@ Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
             cerr << "Erro Semantico: Operador logico '" << simbolo << "' exige operandos booleanos." << endl;
             exit(1);
         }
-        return new Tipo(Tipo::BOOL); // Operações lógicas retornam Booleanos
+        return new Tipo(Tipo::BOOL); 
     }
 
     return nullptr;
@@ -53,12 +52,10 @@ Valor* ExpressaoBinaria::avaliar(Execucao& exec) {
         exit(1);
     }
 
-    // Identifica se há coerção para FLOAT
     bool isFloat = (esq->tipo == Tipo::FLOAT || dir->tipo == Tipo::FLOAT);
     float f_esq = (esq->tipo == Tipo::INT) ? esq->dados.i : esq->dados.f;
     float f_dir = (dir->tipo == Tipo::INT) ? dir->dados.i : dir->dados.f;
 
-    // Aritmética
     if (simbolo == "+") {
         if (isFloat) return new Valor(f_esq + f_dir);
         return new Valor(esq->dados.i + dir->dados.i);
