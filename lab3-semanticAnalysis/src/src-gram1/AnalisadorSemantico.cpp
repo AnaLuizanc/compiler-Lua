@@ -8,35 +8,47 @@
 
 using namespace std;
 
-void AnalisadorSemantico::analisar(Funcao* func) {
+void AnalisadorSemantico::analisar(Funcao* func, const vector<string>& args) {
     if (func == nullptr) return;
 
     Execucao exec;
     retorno_esperado = func->tipo_retorno;
 
-    int valor_teste_int = 10;
-    float valor_teste_float = 10.5f;
+    int arg_idx = 0; // Controla qual argumento do terminal estamos lendo
 
     for (Variavel* param : func->parametros) {
         if (!amb.declarar_variavel(param->nome->nome, param->tipo)) {
             cerr << "Erro Semantico: Parametro '" << param->nome->nome << "' repetido." << endl;
             exit(1);
         }
+        
+        // Pega o argumento da linha de comando, ou usa "0"/"false" se o usuário esquecer de passar
+        string valor_str = (arg_idx < args.size()) ? args[arg_idx] : "0";
+        arg_idx++;
 
-        if (param->tipo->valor == Tipo::INT) {
-            exec.definir(param->nome->nome, new Valor(valor_teste_int));
-            valor_teste_int = 3; 
+        try {
+            if (param->tipo->valor == Tipo::INT) {
+                exec.definir(param->nome->nome, new Valor(stoi(valor_str)));
+            }
+            else if (param->tipo->valor == Tipo::FLOAT) {
+                exec.definir(param->nome->nome, new Valor(stof(valor_str)));
+            }
+            else if (param->tipo->valor == Tipo::BOOL) {
+                bool b = (valor_str == "true" || valor_str == "1");
+                exec.definir(param->nome->nome, new Valor(b));
+            }
+        } catch (...) {
+            if (param->tipo->valor == Tipo::INT) exec.definir(param->nome->nome, new Valor(0));
+            else if (param->tipo->valor == Tipo::FLOAT) exec.definir(param->nome->nome, new Valor(0.0f));
+            else if (param->tipo->valor == Tipo::BOOL) exec.definir(param->nome->nome, new Valor(false));
         }
-        else if (param->tipo->valor == Tipo::FLOAT) exec.definir(param->nome->nome, new Valor(valor_teste_float));
-        else if (param->tipo->valor == Tipo::BOOL) exec.definir(param->nome->nome, new Valor(true));
     }
-
 
     validar_comandos(func->comandos, exec);
 
-    cout << "\n=============================================" << endl;
+    cout << "\n===============================================" << endl;
     cout << "SUCESSO: Analise Semantica concluida sem erros!" << endl;
-    cout << "=============================================" << endl;
+    cout << "===============================================" << endl;
 }
 
 void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos, Execucao& exec) {

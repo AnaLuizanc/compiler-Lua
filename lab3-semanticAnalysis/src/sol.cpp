@@ -17,7 +17,7 @@ using namespace std;
 
 
 int main(int argc, char * argv[]) {
-  if (argc != 3 && argc != 1) {
+  if (argc < 3) {
     cerr << "Parametros nomes dos arquivos: 1) csv com gramática e 2) csv com tabela LR1" << endl;
     return 1;
   }
@@ -53,18 +53,24 @@ int main(int argc, char * argv[]) {
     return 1;
   }
    Funcao* func = Funcao::extrai_funcao(arv.raiz);
-
-if (func != nullptr) { 
-    func->debug();
     
-    AnalisadorSemantico analisador;
-    analisador.analisar(func);
-    
-    if (analisador.ultimo_valor != nullptr) {
-        analisador.ultimo_valor->imprimir();
+    if (func != nullptr) {
+        func->debug();
+        
+        vector<string> argumentos_linha_comando;
+        for (int i = 3; i < argc; ++i) { 
+            argumentos_linha_comando.push_back(argv[i]);
+        }
+        
+        AnalisadorSemantico analisador;
+        // Passa a lista de parâmetros dinâmicos
+        analisador.analisar(func, argumentos_linha_comando);
+        
+        // Imprime o último valor atribuído/retornado com a formatação exigida
+        if (analisador.ultimo_valor != nullptr) {
+            analisador.ultimo_valor->imprimir();
+        }
     }
-} 
-
   // Exemplo de chamada do analisador semantico.
   // vector<ValorLiteral> parametros_passados;
   // for (int i = 1; i <= 3; ++i) {
