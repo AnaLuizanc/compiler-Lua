@@ -4,6 +4,8 @@
 #include "ComandoAtribuicao.hpp"
 #include "ComandoRetorno.hpp"
 #include "ComandoDo.hpp"
+#include "ComandoIf.hpp"
+#include "ComandoWhile.hpp"
 #include <iostream>
 
 using namespace std;
@@ -115,6 +117,50 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
             
             exec.sair(); // Limpa as variáveis da memória ao sair do bloco
             amb.sair_escopo();   
+        }
+
+        // Regra 5: Estrutura Condicional (IF-THEN-ELSE)
+        else if (ComandoIf* cmdIf = dynamic_cast<ComandoIf*>(cmd)) {
+            // 1. Validação Semântica
+            Tipo* tipo_cond = cmdIf->condicao->inferir_tipo(amb);
+            if (tipo_cond == nullptr || tipo_cond->valor != Tipo::BOOL) {
+                cerr << "Erro Semantico: A condicao do 'if' deve resultar num booleano." << endl;
+                exit(1);
+            }
+
+            // 2. Execução Dinâmica
+            Valor* cond = cmdIf->condicao->avaliar(exec);
+            if (cond->dados.b) {
+                amb.entrar_escopo(); exec.entrar();
+                validar_comandos(cmdIf->blocoVerdadeiro, exec);
+                exec.sair(); amb.sair_escopo();
+            } 
+            else if (!cmdIf->blocoFalso.empty()) {
+                amb.entrar_escopo(); exec.entrar();
+                validar_comandos(cmdIf->blocoFalso, exec);
+                exec.sair(); amb.sair_escopo();
+            }
+        }
+        
+        // Regra 6: Estrutura de Repetição (WHILE)
+        else if (ComandoWhile* cmdWhile = dynamic_cast<ComandoWhile*>(cmd)) {
+            // 1. Validação Semântica
+            Tipo* tipo_cond = cmdWhile->condicao->inferir_tipo(amb);
+            if (tipo_cond == nullptr || tipo_cond->valor != Tipo::BOOL) {
+                cerr << "Erro Semantico: A condicao do 'while' deve resultar num booleano." << endl;
+                exit(1);
+            }
+
+            // 2. Execução Dinâmica (O loop em C++ simula o loop em Lua)
+            while (true) {
+                Valor* cond = cmdWhile->condicao->avaliar(exec);
+                if (!cond->dados.b) break; // Sai do loop se a condição for false
+
+                // Cada iteração cria um escopo novo (para evitar erro de recriação de variáveis locais)
+                amb.entrar_escopo(); exec.entrar();
+                validar_comandos(cmdWhile->bloco, exec);
+                exec.sair(); amb.sair_escopo();
+            }
         }
     }
 }

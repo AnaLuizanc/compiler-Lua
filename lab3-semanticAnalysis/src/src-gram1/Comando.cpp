@@ -3,6 +3,8 @@
 #include "ComandoAtribuicao.hpp"
 #include "ComandoRetorno.hpp"
 #include "ComandoDo.hpp"
+#include "ComandoIf.hpp"
+#include "ComandoWhile.hpp"
 #include "ID.hpp"
 #include "Tipo.hpp"
 #include "Expressao.hpp"
@@ -40,6 +42,31 @@ vector<Comando *> Comando::extrai_lista_comandos(No_arv_parse *no) {
   return res;
 }
 
+vector<Comando*> extrai_ifTail(No_arv_parse* no) {
+    vector<Comando*> res;
+    if (no == nullptr) return res;
+
+    // cmdIfTail -> END
+    if (no->filhos[0]->simb == "END") {
+        return res; // Bloco falso fica vazio
+    }
+    // cmdIfTail -> ELSE bloco END
+    else if (no->filhos[0]->simb == "ELSE") {
+        return Comando::extrai_lista_comandos(no->filhos[1]);
+    }
+    // cmdIfTail -> ELSEIF expOr THEN bloco cmdIfTail
+    else if (no->filhos[0]->simb == "ELSEIF") {
+        ComandoIf* elseIfCmd = new ComandoIf();
+        elseIfCmd->condicao = Expressao::extrai_expressao(no->filhos[1]);
+        elseIfCmd->blocoVerdadeiro = Comando::extrai_lista_comandos(no->filhos[3]);
+        elseIfCmd->blocoFalso = extrai_ifTail(no->filhos[4]); // Recursão para ler múltiplos ELSEIFs
+        
+        res.push_back(elseIfCmd); // Coloca o IF aninhado dentro do bloco falso
+        return res;
+    }
+    return res;
+}
+
 Comando *Comando::extrai_comando(No_arv_parse *no) {
   if (no == NULL) return NULL;
 
@@ -69,7 +96,21 @@ Comando *Comando::extrai_comando(No_arv_parse *no) {
     res->bloco = Comando::extrai_lista_comandos(no->filhos[1]);
     return res;
   }
-
+  else if (no->simb == "cmdIf") {
+      ComandoIf* res = new ComandoIf();
+      res->condicao = Expressao::extrai_expressao(no->filhos[1]);
+      res->blocoVerdadeiro = Comando::extrai_lista_comandos(no->filhos[3]);
+      
+      res->blocoFalso = extrai_ifTail(no->filhos[4]); 
+      
+      return res;
+  }
+  else if (no->simb == "cmdWhile") {
+      ComandoWhile* res = new ComandoWhile();
+      res->condicao = Expressao::extrai_expressao(no->filhos[1]);
+      res->bloco = Comando::extrai_lista_comandos(no->filhos[3]);
+      return res;
+  }
   return NULL;
 }
 
