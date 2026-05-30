@@ -48,6 +48,11 @@ Valor* ExpressaoBinaria::avaliar(Execucao& exec) {
     Valor* esq = esquerda->avaliar(exec);
     Valor* dir = direita->avaliar(exec);
 
+    if (esq == nullptr || dir == nullptr) {
+        cerr << "Erro de Execucao: Operando nulo (variavel nao inicializada)." << endl;
+        exit(1);
+    }
+
     // Identifica se há coerção para FLOAT
     bool isFloat = (esq->tipo == Tipo::FLOAT || dir->tipo == Tipo::FLOAT);
     float f_esq = (esq->tipo == Tipo::INT) ? esq->dados.i : esq->dados.f;

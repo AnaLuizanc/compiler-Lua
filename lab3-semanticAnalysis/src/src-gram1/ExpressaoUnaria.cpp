@@ -19,6 +19,11 @@ Tipo* ExpressaoUnaria::inferir_tipo(TabelaSimbolos& amb) {
 Valor* ExpressaoUnaria::avaliar(Execucao& exec) {
     Valor* val = expressao->avaliar(exec);
     
+    if (val == nullptr) {
+        cerr << "Erro de Execucao: Operando nulo (variavel nao inicializada)." << endl;
+        exit(1);
+    }
+
     if (simbolo == "not") {
         return new Valor(!val->dados.b);
     }

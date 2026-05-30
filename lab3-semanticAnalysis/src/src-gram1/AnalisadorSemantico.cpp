@@ -11,6 +11,7 @@ using namespace std;
 void AnalisadorSemantico::analisar(Funcao* func) {
     if (func == nullptr) return;
 
+    Execucao exec;
     retorno_esperado = func->tipo_retorno;
 
     for (Variavel* param : func->parametros) {
@@ -18,9 +19,13 @@ void AnalisadorSemantico::analisar(Funcao* func) {
             cerr << "Erro Semantico: Parametro '" << param->nome->nome << "' repetido." << endl;
             exit(1);
         }
+
+        if (param->tipo->valor == Tipo::INT) exec.definir(param->nome->nome, new Valor(0));
+        else if (param->tipo->valor == Tipo::FLOAT) exec.definir(param->nome->nome, new Valor(0.0f));
+        else if (param->tipo->valor == Tipo::BOOL) exec.definir(param->nome->nome, new Valor(false));
     }
 
-    Execucao exec;
+
     validar_comandos(func->comandos, exec);
 
     cout << "\n=============================================" << endl;
@@ -38,6 +43,10 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
                      << "' ja declarada neste escopo." << endl;
                 exit(1);
             }
+            if (cmdLocal->tipo->valor == Tipo::INT) exec.definir(cmdLocal->nome, new Valor(0));
+            else if (cmdLocal->tipo->valor == Tipo::FLOAT) exec.definir(cmdLocal->nome, new Valor(0.0f));
+            else if (cmdLocal->tipo->valor == Tipo::BOOL) exec.definir(cmdLocal->nome, new Valor(false));
+        
         }
         
         // Regra 2: Atribuicao de Valor
