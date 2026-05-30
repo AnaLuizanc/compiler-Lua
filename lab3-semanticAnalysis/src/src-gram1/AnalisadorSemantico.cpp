@@ -89,6 +89,9 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
                      << retorno_esperado->nome() << ")." << endl;
                 exit(1);
             }
+
+            Valor* res = cmdRet->expressao->avaliar(exec);
+            ultimo_valor = res;
         }
         
         // Regra 4: Novo Bloco de Escopo (DO ... END)
