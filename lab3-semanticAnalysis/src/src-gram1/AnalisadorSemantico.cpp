@@ -14,15 +14,21 @@ void AnalisadorSemantico::analisar(Funcao* func) {
     Execucao exec;
     retorno_esperado = func->tipo_retorno;
 
+    int valor_teste_int = 10;
+    float valor_teste_float = 10.5f;
+
     for (Variavel* param : func->parametros) {
         if (!amb.declarar_variavel(param->nome->nome, param->tipo)) {
             cerr << "Erro Semantico: Parametro '" << param->nome->nome << "' repetido." << endl;
             exit(1);
         }
 
-        if (param->tipo->valor == Tipo::INT) exec.definir(param->nome->nome, new Valor(0));
-        else if (param->tipo->valor == Tipo::FLOAT) exec.definir(param->nome->nome, new Valor(0.0f));
-        else if (param->tipo->valor == Tipo::BOOL) exec.definir(param->nome->nome, new Valor(false));
+        if (param->tipo->valor == Tipo::INT) {
+            exec.definir(param->nome->nome, new Valor(valor_teste_int));
+            valor_teste_int = 3; 
+        }
+        else if (param->tipo->valor == Tipo::FLOAT) exec.definir(param->nome->nome, new Valor(valor_teste_float));
+        else if (param->tipo->valor == Tipo::BOOL) exec.definir(param->nome->nome, new Valor(true));
     }
 
 

@@ -72,11 +72,19 @@ Valor* ExpressaoBinaria::avaliar(Execucao& exec) {
         return new Valor(esq->dados.i * dir->dados.i);
     }
     if (simbolo == "/") {
+        if (f_dir == 0) { 
+            cerr << "Erro de Execucao: Divisao por zero." << endl;
+            exit(1);
+        }
         if (isFloat) return new Valor(f_esq / f_dir);
         return new Valor(esq->dados.i / dir->dados.i);
     }
     if (simbolo == "%") {
-        return new Valor(esq->dados.i % dir->dados.i); // Módulo é exclusivo de INT
+        if (dir->dados.i == 0) {
+            cerr << "Erro de Execucao: Divisao por zero no modulo (%)." << endl;
+            exit(1);
+        }
+        return new Valor(esq->dados.i % dir->dados.i); 
     }
 
     // Relacionais
