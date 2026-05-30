@@ -22,7 +22,7 @@ SRCS := $(CORE_SRCS) $(GRAM_SRCS)
 OBJS := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 DEPS := $(OBJS:.o=.d)
 
-.PHONY: all clean run
+.PHONY: all clean run test
 
 all: $(TARGET)
 
@@ -39,7 +39,29 @@ run: $(TARGET)
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
+test: all
+	@echo "\n============================================="
+	@echo "        INICIANDO BATERIA DE TESTES        "
+	@echo "=============================================\n"
+	@for file in ins/*.tokens; do \
+		echo "▶ Testando: $$file"; \
+		timeout 2s ./compilador gramatica-1/gramatica-1.site gramatica-1/tabela_lr1.conf 10 5 < "$$file" > out.log 2> err.log; \
+		STATUS=$$?; \
+		if [ $$STATUS -eq 0 ]; then \
+			echo "   ✅ [SUCESSO] Valor retornado:"; \
+			tail -n 1 out.log | sed 's/^/      -> /'; \
+		elif [ $$STATUS -eq 124 ]; then \
+			echo "   ⚠️ [FALHA] Loop Infinito detectado (Timeout de 2s)"; \
+		else \
+			echo "   ❌ [FALHA]"; \
+			if grep -q "Funcao:" err.log; then \
+				sed -n '/Funcao:/,$$p' err.log | sed 's/^/      -> /'; \
+			else \
+				grep "Erro " err.log | sed 's/^/      -> /' || tail -n 2 err.log | sed 's/^/      -> /'; \
+			fi; \
+		fi; \
+		echo "---------------------------------------------"; \
+	done
+	@rm -f out.log err.log
+
 -include $(DEPS)
-
-
-#make run < exemplos/0-retorna_soma_int.tokens
