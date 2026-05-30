@@ -7,16 +7,24 @@ param -> ID tipoId
 pL -> COMMA param pL
 pL -> ''
 bloco -> listaCmd
+bloco -> ''
+listaCmd -> cmd
 listaCmd -> cmd listaCmd
-listaCmd -> ''
 cmd -> cmdLocal
 cmd -> atribuicao
 cmd -> retorno
 cmd -> cmdDo
+cmd -> cmdIf
+cmd -> cmdWhile
 cmdLocal -> LOCAL ID tipoId
 atribuicao -> ID ASSIGN expOr
 retorno -> RETURN expOr
 cmdDo -> DO bloco END
+cmdIf -> IF expOr THEN bloco cmdIfTail
+cmdIfTail -> END
+cmdIfTail -> ELSE bloco END
+cmdIfTail -> ELSEIF expOr THEN bloco cmdIfTail
+cmdWhile -> WHILE expOr DO bloco END
 fator -> ID
 fator -> FALSE
 fator -> TRUE
