@@ -13,11 +13,9 @@ class ComandoIf : public Comando {
 public:
     Expressao* condicao;
     vector<Comando*> blocoVerdadeiro;
-    vector<Comando*> blocoFalso; // Pode ficar vazio se nao houver ELSE
+    vector<Comando*> blocoFalso;
 
-    void debug_com_tab(int tab) override {
-        tab3(tab); cerr << "Comando IF" << endl;
-    }
+    void debug_com_tab(int tab) override;
 };
 
 #endif

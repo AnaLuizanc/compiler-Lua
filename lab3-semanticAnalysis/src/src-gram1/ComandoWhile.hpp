@@ -14,9 +14,7 @@ public:
     Expressao* condicao;
     vector<Comando*> bloco;
 
-    void debug_com_tab(int tab) override {
-        tab3(tab); cerr << "Comando WHILE" << endl;
-    }
+    void debug_com_tab(int tab) override;
 };
 
 #endif
