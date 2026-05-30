@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../debug-util.hpp"
 
+
 Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* esq = esquerda->inferir_tipo(amb);
     Tipo* dir = direita->inferir_tipo(amb);
@@ -40,6 +41,70 @@ Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
         }
         return new Tipo(Tipo::BOOL); // Operações lógicas retornam Booleanos
     }
+
+    return nullptr;
+}
+Valor* ExpressaoBinaria::avaliar(Execucao& exec) {
+    Valor* esq = esquerda->avaliar(exec);
+    Valor* dir = direita->avaliar(exec);
+
+    // Identifica se há coerção para FLOAT
+    bool isFloat = (esq->tipo == Tipo::FLOAT || dir->tipo == Tipo::FLOAT);
+    float f_esq = (esq->tipo == Tipo::INT) ? esq->dados.i : esq->dados.f;
+    float f_dir = (dir->tipo == Tipo::INT) ? dir->dados.i : dir->dados.f;
+
+    // Aritmética
+    if (simbolo == "+") {
+        if (isFloat) return new Valor(f_esq + f_dir);
+        return new Valor(esq->dados.i + dir->dados.i);
+    }
+    if (simbolo == "-") {
+        if (isFloat) return new Valor(f_esq - f_dir);
+        return new Valor(esq->dados.i - dir->dados.i);
+    }
+    if (simbolo == "*") {
+        if (isFloat) return new Valor(f_esq * f_dir);
+        return new Valor(esq->dados.i * dir->dados.i);
+    }
+    if (simbolo == "/") {
+        if (isFloat) return new Valor(f_esq / f_dir);
+        return new Valor(esq->dados.i / dir->dados.i);
+    }
+    if (simbolo == "%") {
+        return new Valor(esq->dados.i % dir->dados.i); // Módulo é exclusivo de INT
+    }
+
+    // Relacionais
+    if (simbolo == "==") {
+        if (isFloat) return new Valor(f_esq == f_dir);
+        if (esq->tipo == Tipo::BOOL) return new Valor(esq->dados.b == dir->dados.b);
+        return new Valor(esq->dados.i == dir->dados.i);
+    }
+    if (simbolo == "~=") {
+        if (isFloat) return new Valor(f_esq != f_dir);
+        if (esq->tipo == Tipo::BOOL) return new Valor(esq->dados.b != dir->dados.b);
+        return new Valor(esq->dados.i != dir->dados.i);
+    }
+    if (simbolo == "<") {
+        if (isFloat) return new Valor(f_esq < f_dir);
+        return new Valor(esq->dados.i < dir->dados.i);
+    }
+    if (simbolo == "<=") {
+        if (isFloat) return new Valor(f_esq <= f_dir);
+        return new Valor(esq->dados.i <= dir->dados.i);
+    }
+    if (simbolo == ">") {
+        if (isFloat) return new Valor(f_esq > f_dir);
+        return new Valor(esq->dados.i > dir->dados.i);
+    }
+    if (simbolo == ">=") {
+        if (isFloat) return new Valor(f_esq >= f_dir);
+        return new Valor(esq->dados.i >= dir->dados.i);
+    }
+
+    // Lógicos
+    if (simbolo == "and") return new Valor(esq->dados.b && dir->dados.b);
+    if (simbolo == "or") return new Valor(esq->dados.b || dir->dados.b);
 
     return nullptr;
 }

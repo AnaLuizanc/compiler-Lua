@@ -52,13 +52,19 @@ int main(int argc, char * argv[]) {
     cerr << "Erro: arvore de parse vazia" << endl;
     return 1;
   }
-  Funcao* func = Funcao::extrai_funcao(arv.raiz);
-  if (func != nullptr) {
-      func->debug(); 
-      
-      AnalisadorSemantico analisador;
-      analisador.analisar(func);
-}
+   Funcao* func = Funcao::extrai_funcao(arv.raiz);
+
+if (func != nullptr) { 
+    func->debug();
+    
+    AnalisadorSemantico analisador;
+    analisador.analisar(func);
+    
+    if (analisador.ultimo_valor != nullptr) {
+        analisador.ultimo_valor->imprimir();
+    }
+} 
+
   // Exemplo de chamada do analisador semantico.
   // vector<ValorLiteral> parametros_passados;
   // for (int i = 1; i <= 3; ++i) {

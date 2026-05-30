@@ -16,6 +16,16 @@ Tipo* ExpressaoUnaria::inferir_tipo(TabelaSimbolos& amb) {
     return t;
 }
 
+Valor* ExpressaoUnaria::avaliar(Execucao& exec) {
+    Valor* val = expressao->avaliar(exec);
+    
+    if (simbolo == "not") {
+        return new Valor(!val->dados.b);
+    }
+    
+    return val;
+}
+
 void ExpressaoUnaria::debug_com_tab(int tab) {
     tab3(tab);
     cerr << simbolo << " [ INI " << nome_op << endl;

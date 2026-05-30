@@ -6,6 +6,8 @@
 #include <iomanip>
 #include "Tipo.hpp"
 
+using namespace std;
+
 class Valor {
 public:
     Tipo::Valor tipo;
@@ -20,9 +22,9 @@ public:
     Valor(bool b) : tipo(Tipo::BOOL) { dados.b = b; }
 
     void imprimir() {
-        if (tipo == Tipo::INT) std::cout << dados.i << std::endl;
-        else if (tipo == Tipo::FLOAT) std::cout << std::fixed << std::setprecision(2) << dados.f << std::endl;
-        else if (tipo == Tipo::BOOL) std::cout << (dados.b ? "true" : "false") << std::endl;
+        if (tipo == Tipo::INT) cout << dados.i << endl;
+        else if (tipo == Tipo::FLOAT) cout << fixed << setprecision(2) << dados.f << endl;
+        else if (tipo == Tipo::BOOL) cout << (dados.b ? "true" : "false") << endl;
     }
 };
 

@@ -17,7 +17,7 @@ public:
     
     Tipo* inferir_tipo(TabelaSimbolos& amb) override;
 
-    Valor* Fator::avaliar(Execucao& env);
+    Valor* avaliar(Execucao& env);
 
     void debug_com_tab(int tab) override; 
 };

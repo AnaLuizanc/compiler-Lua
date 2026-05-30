@@ -16,6 +16,8 @@ public:
 
     Tipo* inferir_tipo(TabelaSimbolos& amb) override;
 
+    Valor* avaliar(Execucao& exec) override;
+
     void debug_com_tab(int tab) override;
 };
 

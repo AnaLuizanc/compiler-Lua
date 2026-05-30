@@ -4,17 +4,19 @@
 #include "Funcao.hpp"
 #include "TabelaSimbolos.hpp"
 #include "Comando.hpp"
+#include "Execucao.hpp"
+#include "Valor.hpp"
 
 class AnalisadorSemantico {
 private:
     TabelaSimbolos amb;
     Tipo* retorno_esperado;
 
-    // Método recursivo para percorrer blocos de comandos
-    void validar_comandos(const std::vector<Comando*>& comandos);
+    void validar_comandos(const std::vector<Comando*>& comandos, Execucao& exec);
 
 public:
-    // Ponto de entrada da análise
+    Valor* ultimo_valor = nullptr; 
+
     void analisar(Funcao* func);
 };
 

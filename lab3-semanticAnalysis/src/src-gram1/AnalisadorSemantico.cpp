@@ -1,4 +1,5 @@
 #include "AnalisadorSemantico.hpp"
+#include "Execucao.hpp"
 #include "ComandoLocal.hpp"
 #include "ComandoAtribuicao.hpp"
 #include "ComandoRetorno.hpp"
@@ -10,11 +11,8 @@ using namespace std;
 void AnalisadorSemantico::analisar(Funcao* func) {
     if (func == nullptr) return;
 
-    // Guardamos qual é o tipo que a função promete retornar (ex: int, bool)
     retorno_esperado = func->tipo_retorno;
 
-    // O escopo global da função já foi criado no construtor da TabelaSimbolos, 
-    // mas vamos garantir que os parâmetros entram como variáveis declaradas
     for (Variavel* param : func->parametros) {
         if (!amb.declarar_variavel(param->nome->nome, param->tipo)) {
             cerr << "Erro Semantico: Parametro '" << param->nome->nome << "' repetido." << endl;
@@ -22,15 +20,15 @@ void AnalisadorSemantico::analisar(Funcao* func) {
         }
     }
 
-    // Inicia a validação da lista de comandos da função
-    validar_comandos(func->comandos);
+    Execucao exec;
+    validar_comandos(func->comandos, exec);
 
     cout << "\n=============================================" << endl;
     cout << "SUCESSO: Analise Semantica concluida sem erros!" << endl;
     cout << "=============================================" << endl;
 }
 
-void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos) {
+void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos, Execucao& exec) {
     for (Comando* cmd : comandos) {
         
         // Regra 1: Declaracao de Variavel Local
@@ -60,6 +58,10 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
                      << ", mas a expressao resulta em " << tipo_exp->nome() << "." << endl;
                 exit(1);
             }
+
+            Valor* res = cmdAtrib->direita->avaliar(exec);
+            exec.definir(cmdAtrib->esquerda->nome, res);
+            ultimo_valor = res;
         }
         
         // Regra 3: Retorno de Funcao
@@ -76,9 +78,13 @@ void AnalisadorSemantico::validar_comandos(const std::vector<Comando*>& comandos
         
         // Regra 4: Novo Bloco de Escopo (DO ... END)
         else if (ComandoDo* cmdDo = dynamic_cast<ComandoDo*>(cmd)) {
-            amb.entrar_escopo(); // Cria um sub-ambiente (shadowing)
-            validar_comandos(cmdDo->bloco); // Chamada recursiva para os comandos internos
-            amb.sair_escopo();   // Destroi as variáveis locais deste bloco ao sair
+            amb.entrar_escopo(); 
+            exec.entrar(); // A memória de execução também ganha um novo escopo
+            
+            validar_comandos(cmdDo->bloco, exec); 
+            
+            exec.sair(); // Limpa as variáveis da memória ao sair do bloco
+            amb.sair_escopo();   
         }
     }
 }
