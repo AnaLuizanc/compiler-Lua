@@ -1,0 +1,51 @@
+#include "Gramatica.hpp"
+#include "matriz-util.hpp"
+#include<vector>
+#include<string>
+#include<iostream>
+#include<fstream>   
+#include<sstream>
+using namespace std;
+
+void Regra::debug() {
+  cerr << "Regra:" << esq << "->[" << dir.size() << "]->";
+  for (int i = 0 ; i < dir.size(); ++i) {
+    cerr << dir[i] << ":";
+  }
+  cerr << endl;
+}
+
+Gramatica::Gramatica(ifstream &arq_gramatica) {
+  vector<vector<string> > mat = matriz_de_arquivo(arq_gramatica, '\n', ' ');
+  if (mat[mat.size()-1].size() == 1) mat.pop_back(); 
+
+  for (int i = 0; i < mat.size(); ++i) {
+    if (mat[i].size() >= 2) {
+      Regra r;
+      r.esq = mat[i][0];
+      
+      for (int j = 2; j < mat[i].size(); ++j) {
+        string token = mat[i][j];
+        
+        if (!token.empty() && token.back() == '\r') {
+          token.pop_back();
+        }
+        
+        if (token.size() > 0 && token != "''") {
+          r.dir.push_back(token);
+        }
+      }
+      R.push_back(r);
+    }
+  }
+}
+
+void Gramatica::debug() {
+  for (int r = 0; r < R.size(); ++r) {
+    cerr << R[r].esq << "->";
+    for (int j = 0; j < R[r].dir.size(); ++j){
+      cerr << ":" << R[r].dir[j];
+    }
+    cerr << endl;
+  }
+}

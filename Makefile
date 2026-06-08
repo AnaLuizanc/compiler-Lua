@@ -1,42 +1,66 @@
-JAVACC := javacc
-JAVAC  := javac
-JAVA   := java
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
 
-GRAMMAR := LexicalAnalysis.jj
-MAIN    := MyParser
+JAVACC = javacc
+JAVA = java
+JAVAC = javac
 
-# Arquivo de entrada padrão usado no README
-INPUT_FILE  := amostra.lua \
-			   amostra-correcao2.lua
-OUTPUT_TOKENS := saida-amostra-lab1.tokens \
-				 saida-amostra-lab2.tokens
+LEXER = lab1-lexicalAnalysis/LexicalAnalysis.jj
 
-# Arquivos gerados pelo JavaCC / Java
-GENERATED := $(MAIN).java \
-             $(MAIN)TokenManager.java \
-             $(MAIN)Constants.java \
-             ParseException.java \
-             TokenMgrError.java \Z
-             Token.java \
-             SimpleCharStream.java
+PARSER_BIN = lab2-buildingGrammar/bin/parser
 
-.PHONY: all generate build run postprocess clean rebuild
+INS_DIR = lab3-semanticAnalysis/ins
 
-all: run
+LUA_FILES = $(wildcard $(INS_DIR)/*.lua)
 
-generate:
-	$(JAVACC) $(GRAMMAR)
+TOKEN_FILES = $(LUA_FILES:.lua=.tokens)
 
-build: generate
+OUT_FILES = $(LUA_FILES:.lua=.out)
+
+CPP_SRCS = $(wildcard lab2-buildingGrammar/src/*.cpp)
+
+.PHONY: all lexer java parser tokens semantic clean
+
+all: tokens semantic
+
+# ==================================================
+# FASE 1 - ANALISE LEXICA
+# ==================================================
+
+lexer:
+	$(JAVACC) $(LEXER)
+
+java: lexer
 	$(JAVAC) *.java
 
-run: build
-	$(JAVA) $(MAIN) $(INPUT_FILE) > $(OUTPUT_TOKENS)
+tokens: java $(TOKEN_FILES)
 
-postprocess:
-	printf '$ $\n' >> $(OUTPUT_TOKENS)
+%.tokens: %.lua
+	@echo "Gerando tokens para $<"
+	$(JAVA) MyParser $< > $@
+	printf '$$ $$ \n' >> $@
+
+# ==================================================
+# FASE 2/3 - PARSER + SEMANTICA
+# ==================================================
+
+parser:
+	@mkdir -p lab2-buildingGrammar/bin
+	$(CXX) $(CXXFLAGS) $(CPP_SRCS) -o $(PARSER_BIN)
+
+semantic: parser $(OUT_FILES)
+
+%.out: %.tokens
+	@echo "Executando parser para $<"
+	cd lab2-buildingGrammar && ./bin/parser < ../$< 2> ../$@
+
+# ==================================================
+# LIMPEZA
+# ==================================================
 
 clean:
-	rm -f *.class $(GENERATED) $(OUTPUT_TOKENS)
-
-rebuild: clean run postprocess
+	rm -f *.java
+	rm -f *.class
+	rm -f $(TOKEN_FILES)
+	rm -f $(OUT_FILES)
+	rm -f $(PARSER_BIN)

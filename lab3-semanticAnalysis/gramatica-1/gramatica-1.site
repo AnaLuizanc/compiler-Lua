@@ -1,0 +1,58 @@
+S -> funcao
+funcao -> FUNCTION ID LPAREN params RPAREN tipoId bloco END
+tipoId -> COLON ID
+params -> param pL
+params -> ''
+param -> ID tipoId
+pL -> COMMA param pL
+pL -> ''
+bloco -> listaCmd
+bloco -> ''
+listaCmd -> cmd
+listaCmd -> cmd listaCmd
+cmd -> cmdLocal
+cmd -> atribuicao
+cmd -> retorno
+cmd -> cmdDo
+cmd -> cmdIf
+cmd -> cmdWhile
+cmdLocal -> LOCAL ID tipoId
+atribuicao -> ID ASSIGN expOr
+retorno -> RETURN expOr
+cmdDo -> DO bloco END
+cmdIf -> IF expOr THEN bloco cmdIfTail
+cmdIfTail -> END
+cmdIfTail -> ELSE bloco END
+cmdIfTail -> ELSEIF expOr THEN bloco cmdIfTail
+cmdWhile -> WHILE expOr DO bloco END
+fator -> ID
+fator -> FALSE
+fator -> TRUE
+fator -> NUMBER
+fator -> MINUS fator
+fator -> LPAREN expOr RPAREN
+termo -> fator termoLinha
+termoLinha -> MULT fator termoLinha
+termoLinha -> DIV fator termoLinha
+termoLinha -> MOD fator termoLinha
+termoLinha -> ''
+exp -> termo expLinha
+expLinha -> PLUS termo expLinha
+expLinha -> MINUS termo expLinha
+expLinha -> ''
+expRel -> exp expRelLinha
+expRelLinha -> EQ exp
+expRelLinha -> NEQ exp
+expRelLinha -> LESSTHAN exp
+expRelLinha -> LESSEQ exp
+expRelLinha -> GREATERTHAN exp
+expRelLinha -> GREATEREQ exp
+expRelLinha -> ''
+expNot -> NOT expNot
+expNot -> expRel
+expAnd -> expNot expAndLinha
+expAndLinha -> AND expNot expAndLinha
+expAndLinha -> ''
+expOr -> expAnd expOrLinha
+expOrLinha -> OR expAnd expOrLinha
+expOrLinha -> ''

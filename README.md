@@ -60,3 +60,37 @@ bin/parser < file-output.txt 2> resposta.txt
 ```
 
 A saída é redirecionada para `resposta.txt`, que pode conter mensagens do parser ou o resultado esperado pela disciplina.
+
+## FASE 3 — Análise Semântica: contrução do Interpretador e Avaliador
+
+Nesta etapa, o compilador passa a interpretar e dar significado à Árvore de Sintaxe Abstrata (AST) gerada pelo parser, transformando-se num motor de execução capaz de calcular resultados reais em C++11.
+
+### O que foi implementado
+- **Tipagem Estrita e Coerção**: Validação de tipos em tempo de compilação para INT, FLOAT e BOOL, incluindo coerção automática de INT para FLOAT em operações matemáticas mistas.
+- **Memória e Escopos Dinâmicos**: Suporte estruturado para variáveis locais e parâmetros de função, garantindo que o escopo (shadowing) funcione perfeitamente em blocos aninhados.
+- **Controle de Fluxo Funcional**: Avaliação dinâmica para ramificações condicionais (if, elseif, else) e laços de repetição (while).
+- **Segurança de Execução**: Travas contra divisões por zero e verificação de variáveis não inicializadas (com fallback seguro para evitar Segmentation Fault).
+- **Formatação de Saída**: O último valor retornado ou atribuído é impresso com formatação rigorosa (FLOAT com 2 casas decimais, BOOL como true/false).
+
+### Como executar
+A partir do diretório do Lab 3, compile o projeto utilizando o Makefile:
+
+````bash 
+make clean
+make
+````
+
+O analisador recebe os parâmetros de entrada da função simulada diretamente via linha de comando, logo após os arquivos de configuração do parser.
+
+````bash
+# Exemplo passando os parâmetros '10' e '5' para o script
+./compilador gramatica-1/gramatica-1.site gramatica-1/tabela_lr1.conf 10 5 < ins/arquivo_de_teste.tokens
+````
+
+### Como executar (Bateria de Testes Automatizados)
+Para facilitar a validação e garantir que a AST é interpretada corretamente sem poluir o terminal, foi criado um script integrado no Makefile.
+
+Ele processa todos os ficheiros de teste na pasta de entradas e exibe apenas o valor retornado ou os erros semânticos encontrados. Ele inclui um mecanismo de timeout (2s) para identificar e interromper testes com Loops Infinitos.
+
+````bash
+make test
