@@ -1,11 +1,44 @@
 #include "Fator.hpp"
 #include "Execucao.hpp"
+#include "ExpressaoChamada.hpp"
 #include <iostream>
+#include <vector>
 #include "../debug-util.hpp"
 
+#include "../lab4-frame/FrameAcessoNoFrame.hpp"
+#include "../lab4-frame/FrameAcessoTemp.hpp"
+
+vector<Expressao*> extrai_argumentos(No_arv_parse* no_args) {
+    vector<Expressao*> lista;
+    
+    if (no_args == nullptr || no_args->filhos.empty() || no_args->filhos[0]->simb == "")
+        return lista;
+    
+    // Regra: args -> expOr argsTail
+    lista.push_back(Expressao::extrai_expressao(no_args->filhos[0]));
+    
+    No_arv_parse* tail = no_args->filhos[1];
+    
+    while (tail != nullptr && !tail->filhos.empty() && tail->filhos[0]->simb != "") {
+        lista.push_back(Expressao::extrai_expressao(tail->filhos[1]));
+        tail = tail->filhos[2];
+    }
+    return lista;
+}
+
 Fator* Fator::extrai_Fator(No_arv_parse* no) {
+    if (no == nullptr) return new Fator();
+
+    //fator -> ID LPAREN args RPAREN
+    if (no->filhos.size() == 4 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN") {
+        ExpressaoChamada* chamada = new ExpressaoChamada();
+        chamada->nome_funcao = new ID();
+        chamada->nome_funcao->nome = no->filhos[0]->dado_extra; 
+        chamada->argumentos = extrai_argumentos(no->filhos[2]);
+        return chamada;
+    }
+    
     Fator* res = new Fator();
-    if (no == nullptr) return res;
 
     // fator -> ID | NUMBER | TRUE | FALSE
     if (no->filhos.size() == 1) {
@@ -90,4 +123,12 @@ void Fator::debug_com_tab(int tab) {
     else {
         cerr << "VAR[" << valor << "]" << endl;
     }
+    if (acesso_frame != nullptr) {
+        if (auto no_frame = dynamic_cast<FrameAcessoNoFrame*>(acesso_frame)) {
+            cerr << " -> [MEMORIA: pos FP" << (no_frame->posicao_no_frame > 0 ? "+" : "") << no_frame->posicao_no_frame << "]";
+        } else if (auto temp = dynamic_cast<FrameAcessoTemp*>(acesso_frame)) {
+            cerr << " -> [REGISTRADOR: id " << temp->id << "]";
+        }
+    }
+    cerr << endl;
 }
