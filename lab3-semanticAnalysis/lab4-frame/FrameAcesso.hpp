@@ -3,7 +3,8 @@
 using namespace std;
 
 class FrameAcesso {
-  
+public:
+    virtual ~FrameAcesso() {} 
 };
 
 #endif

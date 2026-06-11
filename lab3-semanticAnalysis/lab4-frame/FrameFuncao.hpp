@@ -1,6 +1,6 @@
 #ifndef _FRAME_FUNCAO_HPP_
 #define _FRAME_FUNCAO_HPP_
-#include "../src-gram5/Funcao.hpp"
+#include "../src-gram1/Funcao.hpp"
 using namespace std;
 
 class FrameFuncao {
