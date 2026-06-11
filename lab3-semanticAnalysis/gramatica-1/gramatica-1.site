@@ -26,11 +26,16 @@ cmdIfTail -> ELSE bloco END
 cmdIfTail -> ELSEIF expOr THEN bloco cmdIfTail
 cmdWhile -> WHILE expOr DO bloco END
 fator -> ID
+fator -> ID LPAREN args RPAREN
 fator -> FALSE
 fator -> TRUE
 fator -> NUMBER
 fator -> MINUS fator
 fator -> LPAREN expOr RPAREN
+args -> expOr argsTail
+args -> ''
+argsTail -> COMMA expOr argsTail
+argsTail -> ''
 termo -> fator termoLinha
 termoLinha -> MULT fator termoLinha
 termoLinha -> DIV fator termoLinha
