@@ -1,13 +1,11 @@
-function multiplicar(a:int, b:int) :int
-    local temp:int
-    temp = a * b
-    return temp
-end
-
-function principal(x:int) :int
-    local y:int
-    local resultado:int  
-    y = 10
-    resultado = multiplicar(x, y) + 5
+function principal(arg:int):int
+    local a:int
+    local b:int
+    local iterador:int
+    local resultado:int
+    a = 10
+    b = 20
+    iterador = 1
+    resultado = externa(a, b) + iterador
     return resultado
 end
