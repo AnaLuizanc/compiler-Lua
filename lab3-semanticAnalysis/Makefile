@@ -18,7 +18,8 @@ CORE_SRCS := \
 	src/matriz-util.cpp
 
 GRAM_SRCS := $(wildcard $(GRAM_DIR)/*.cpp)
-SRCS := $(CORE_SRCS) $(GRAM_SRCS)
+LAB4_SRCS := $(wildcard lab4-frame/*.cpp)
+SRCS := $(CORE_SRCS) $(GRAM_SRCS) $(LAB4_SRCS)
 OBJS := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 DEPS := $(OBJS:.o=.d)
 
