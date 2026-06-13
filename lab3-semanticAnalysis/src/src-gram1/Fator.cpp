@@ -8,20 +8,19 @@
 #include "../lab4-frame/FrameAcessoNoFrame.hpp"
 #include "../lab4-frame/FrameAcessoTemp.hpp"
 
-vector<Expressao*> extrai_argumentos(No_arv_parse* no_args) {
+vector<Expressao*> extrai_argumentos(No_arv_parse* no_argList) {
     vector<Expressao*> lista;
+    if (no_argList == nullptr) return lista;
     
-    if (no_args == nullptr || no_args->filhos.empty() || no_args->filhos[0]->simb == "")
-        return lista;
-    
-    // Regra: args -> expOr argsTail
-    lista.push_back(Expressao::extrai_expressao(no_args->filhos[0]));
-    
-    No_arv_parse* tail = no_args->filhos[1];
-    
-    while (tail != nullptr && !tail->filhos.empty() && tail->filhos[0]->simb != "") {
-        lista.push_back(Expressao::extrai_expressao(tail->filhos[1]));
-        tail = tail->filhos[2];
+    // argList -> expOr
+    if (no_argList->filhos.size() == 1) {
+        lista.push_back(Expressao::extrai_expressao(no_argList->filhos[0]));
+    }
+    // argList -> expOr COMMA argList
+    else if (no_argList->filhos.size() == 3) {
+        lista.push_back(Expressao::extrai_expressao(no_argList->filhos[0]));
+        vector<Expressao*> resto = extrai_argumentos(no_argList->filhos[2]);
+        lista.insert(lista.end(), resto.begin(), resto.end());
     }
     return lista;
 }
@@ -29,8 +28,16 @@ vector<Expressao*> extrai_argumentos(No_arv_parse* no_args) {
 Fator* Fator::extrai_Fator(No_arv_parse* no) {
     if (no == nullptr) return new Fator();
 
-    //fator -> ID LPAREN args RPAREN
-    if (no->filhos.size() == 4 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN") {
+    // fator -> ID LPAREN RPAREN (Chamada sem argumentos)
+    if (no->filhos.size() == 3 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN" && no->filhos[2]->simb == "RPAREN") {
+        ExpressaoChamada* chamada = new ExpressaoChamada();
+        chamada->nome_funcao = new ID();
+        chamada->nome_funcao->nome = no->filhos[0]->dado_extra; 
+        return chamada;
+    }
+
+    //fator -> ID LPAREN argsList RPAREN
+    if (no->filhos.size() == 4 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN" && no->filhos[3]->simb == "RPAREN") {
         ExpressaoChamada* chamada = new ExpressaoChamada();
         chamada->nome_funcao = new ID();
         chamada->nome_funcao->nome = no->filhos[0]->dado_extra; 
