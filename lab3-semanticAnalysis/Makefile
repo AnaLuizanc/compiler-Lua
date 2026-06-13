@@ -75,7 +75,7 @@ test-lab4: all
 		STATUS=$$?; \
 		if [ $$STATUS -eq 0 ]; then \
 			echo "   ✅ [SUCESSO] Alocacao:"; \
-			grep -E "Tamanho total|Memoria|registradores|Maximo" out.log | sed 's/^/      -> /'; \
+			grep -E "Tamanho total|entrada|Memoria|registradores|Maximo|alocadas" out.log | sed 's/^/      -> /'; \
 		elif [ $$STATUS -eq 124 ]; then \
 			echo "   ⚠️ [FALHA] Timeout (Loop infinito)"; \
 		else \
