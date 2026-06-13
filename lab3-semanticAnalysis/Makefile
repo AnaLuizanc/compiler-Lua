@@ -50,7 +50,7 @@ test: all
 		STATUS=$$?; \
 		if [ $$STATUS -eq 0 ]; then \
 			echo "   ✅ [SUCESSO] Valor retornado:"; \
-			tail -n 1 out.log | sed 's/^/      -> /'; \
+			grep -E "Tamanho total|Variaveis|Resultado final" out.log | sed 's/^/      -> /'; \
 		elif [ $$STATUS -eq 124 ]; then \
 			echo "   ⚠️ [FALHA] Loop Infinito detectado (Timeout de 2s)"; \
 		else \
@@ -60,6 +60,27 @@ test: all
 			else \
 				grep "Erro " err.log | sed 's/^/      -> /' || tail -n 2 err.log | sed 's/^/      -> /'; \
 			fi; \
+		fi; \
+		echo "---------------------------------------------"; \
+	done
+	@rm -f out.log err.log
+
+test-lab4: all
+	@echo "\n============================================="
+	@echo "        TESTES ESPECIFICOS DO LAB 4        "
+	@echo "=============================================\n"
+	@for file in lab4-frame/ins/*.tokens; do \
+		echo "▶ Testando Frame de: $$file"; \
+		timeout 2s ./compilador $(GRAM_FILE) $(TABELA_FILE) < "$$file" > out.log 2> err.log; \
+		STATUS=$$?; \
+		if [ $$STATUS -eq 0 ]; then \
+			echo "   ✅ [SUCESSO] Alocacao:"; \
+			grep -E "Tamanho total|Memoria|registradores|Maximo" out.log | sed 's/^/      -> /'; \
+		elif [ $$STATUS -eq 124 ]; then \
+			echo "   ⚠️ [FALHA] Timeout (Loop infinito)"; \
+		else \
+			echo "   ❌ [FALHA] Erro de compilacao/execucao:"; \
+			tail -n 3 err.log | sed 's/^/      -> /'; \
 		fi; \
 		echo "---------------------------------------------"; \
 	done
