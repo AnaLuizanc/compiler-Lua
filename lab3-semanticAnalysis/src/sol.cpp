@@ -13,7 +13,6 @@ using namespace std;
 #include "Arvore.hpp"
 #include "Parser.hpp"
 #include "Funcao.hpp"
-#include "src-gram1/AnalisadorSemantico.hpp"
 #include "../lab4-frame/FrameFuncao.hpp" 
 
 int main(int argc, char * argv[]) {
@@ -33,9 +32,7 @@ int main(int argc, char * argv[]) {
   ifstream arq_gramatica(nome_gramatica);
   ifstream arq_tabela_lr1(nome_tab_lr1);
   if (arq_tabela_lr1.fail() || arq_gramatica.fail()) {
-    cerr << "Falha ao abrir arquivos: " <<
-      ((arq_gramatica.fail()) ? nome_gramatica : "") << ", " <<
-      ((arq_tabela_lr1.fail()) ? nome_tab_lr1 : "") << endl;
+    cerr << "Falha ao abrir arquivos..." << endl;
     return 1;
   }
   
@@ -43,7 +40,6 @@ int main(int argc, char * argv[]) {
 
   Arvore_parse arv = parser.executa_parse(cin);
   cerr << "Parse executado" << endl;
-  arv.debug();
 
   if(arv.raiz == nullptr) {
     cerr << "Erro: arvore de parse vazia" << endl;
@@ -56,31 +52,17 @@ int main(int argc, char * argv[]) {
       cerr << "\n=== ARVORE SINTATICA (AST) ===" << endl;
       func->debug();
       
-      // TESTE DO LAB 4: GERAÇÃO DO FRAME
+      // EXECUÇÃO DO LAB 4: GERAÇÃO DO FRAME
       FrameFuncao* frame = FrameFuncao::gera_frame_de_funcao(func);
       
       if (frame != nullptr) {
-          cout << "\n======= INFORMACOES DO FRAME (LAB 4) =======" << endl;
+          cout << "\n=== INFORMACOES DO FRAME (LAB 4) ===" << endl;
           cout << "Tamanho total do frame: " << frame->tamanho_frame << " bytes" << endl;
           cout << "Parametros de entrada: " << frame->n_param_entrada << endl;
           cout << "Maximo de parametros de saida: " << frame->n_maximo_param_saida << endl;
           cout << "Variaveis alocadas na memoria (Frame): " << frame->n_variaveis_no_frame << endl;
           cout << "Variaveis em pseudo-registradores (Temp): " << frame->n_pseudo_registradores << endl;
-          cout << "============================================\n" << endl;
-      }
-      // ==========================================================
-        
-      vector<string> argumentos_linha_comando;
-      for (int i = 3; i < argc; ++i) { 
-          argumentos_linha_comando.push_back(argv[i]);
-      }
-        
-      AnalisadorSemantico analisador;
-      analisador.analisar(func, argumentos_linha_comando);
-        
-      if (analisador.ultimo_valor != nullptr) {
-          cout << "Resultado final: ";
-          analisador.ultimo_valor->imprimir();
+          cout << "====================================\n" << endl;
       }
   }
     

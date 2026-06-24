@@ -1,327 +1,125 @@
 
 =============================================
-        INICIANDO BATERIA DE TESTES        
+        TESTES ESPECIFICOS DO LAB 4        
 =============================================
 
-▶ Testando: ins/0-retorna_soma_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 20
+▶ Testando Frame de: lab4-frame/ins/caso1.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 56 bytes
+      -> Parametros de entrada: 0
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 2
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/1-retorna_float.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 7.50
+▶ Testando Frame de: lab4-frame/ins/caso10.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 0
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/10-retorna_igualdade_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: false
+▶ Testando Frame de: lab4-frame/ins/caso11.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/11-retorna_negacao_bool.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: true
+▶ Testando Frame de: lab4-frame/ins/caso12.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/12-sem_parametros_literal.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 42
+▶ Testando Frame de: lab4-frame/ins/caso13.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/13-multiplas_declaracoes_float.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 125.00
+▶ Testando Frame de: lab4-frame/ins/caso14.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/14-retorno_direto_expressao.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 20
+▶ Testando Frame de: lab4-frame/ins/caso15.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 56 bytes
+      -> Parametros de entrada: 2
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 2
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/15-igualdade_float.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: false
+▶ Testando Frame de: lab4-frame/ins/caso2.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 0
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/16-media_tres_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 5
+▶ Testando Frame de: lab4-frame/ins/caso3.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/17-bloco_triplo_aninhado.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 8
+▶ Testando Frame de: lab4-frame/ins/caso4.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 2
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/18-retorna_bool_literal.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: true
+▶ Testando Frame de: lab4-frame/ins/caso5.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 0
+      -> Maximo de parametros de saida: 0
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/19-expressao_parenteses_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 75
+▶ Testando Frame de: lab4-frame/ins/caso6.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 48 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 1
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/2-retorna_boolean.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: true
+▶ Testando Frame de: lab4-frame/ins/caso7.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 0
+      -> Maximo de parametros de saida: 0
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
-▶ Testando: ins/20-comparacao_expressoes_bool.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: false
+▶ Testando Frame de: lab4-frame/ins/caso8.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 0
 ---------------------------------------------
-▶ Testando: ins/21-shadowing_resultado.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 10
----------------------------------------------
-▶ Testando: ins/22-shadowing_retorno_externo.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 1000
----------------------------------------------
-▶ Testando: ins/23-shadowing_tres_niveis.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 1
----------------------------------------------
-▶ Testando: ins/24-shadowing_parametro.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 841
----------------------------------------------
-▶ Testando: ins/25-shadowing_duplo_aninhado.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 24
----------------------------------------------
-▶ Testando: ins/26-retorna_cont_while_int.tokens
-   ⚠️ [FALHA] Loop Infinito detectado (Timeout de 2s)
----------------------------------------------
-▶ Testando: ins/27-testa_if.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 0
----------------------------------------------
-▶ Testando: ins/28-testa_if_elseif.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 0
----------------------------------------------
-▶ Testando: ins/29-testa_if_elseif_else.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 0
----------------------------------------------
-▶ Testando: ins/3-bloco_aninhado.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 3
----------------------------------------------
-▶ Testando: ins/30-chamada_funcao.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 1
----------------------------------------------
-▶ Testando: ins/4-retorna_produto_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 50
----------------------------------------------
-▶ Testando: ins/5-retorna_desconto_float.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: -40.00
----------------------------------------------
-▶ Testando: ins/6-retorna_comparacao_boolean.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: false
----------------------------------------------
-▶ Testando: ins/7-bloco_duplo_aninhado.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 16
----------------------------------------------
-▶ Testando: ins/8-expressao_longa_float.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 28.00
----------------------------------------------
-▶ Testando: ins/9-retorna_modulo_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 0
----------------------------------------------
-▶ Testando: ins/e1-retorno_float_em_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=INT][nome=erroRetornoFloat]
-      ->       (Param:(INT a, ) { 
-      ->       [resultado:FLOAT] Declaracao
-      ->       INI ATRIB: resultado =
-      ->          * [ INI Multiplicacao
-      ->             VAR[a]
-      -> 
-      ->          *
-      ->             1.5 [INT]
-      -> 
-      ->          * ] FIM Multiplicacao
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[resultado]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Atribuicao invalida. A variavel 'resultado' e do tipo FLOAT, mas a expressao resulta em INT.
----------------------------------------------
-▶ Testando: ins/e10-retorno_float_em_bool.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=BOOL][nome=erroRetornoFloatEmBool]
-      ->       (Param:(FLOAT taxa, INT valor, ) { 
-      ->       [desconto:FLOAT] Declaracao
-      ->       INI ATRIB: desconto =
-      ->          * [ INI Multiplicacao
-      ->             VAR[valor]
-      -> 
-      ->          *
-      ->             VAR[taxa]
-      -> 
-      ->          * ] FIM Multiplicacao
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[desconto]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: O tipo retornado (FLOAT) nao corresponde a assinatura da funcao (BOOL).
----------------------------------------------
-▶ Testando: ins/e2-retorno_bool_em_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=INT][nome=erroRetornoBool]
-      ->       (Param:(INT x, ) { 
-      ->       [flag:BOOL] Declaracao
-      ->       INI ATRIB: flag =
-      ->          < [ INI Menor Que
-      ->             VAR[x]
-      -> 
-      ->          <
-      ->             0 [INT]
-      -> 
-      ->          < ] FIM Menor Que
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[flag]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: O tipo retornado (BOOL) nao corresponde a assinatura da funcao (INT).
----------------------------------------------
-▶ Testando: ins/e3-retorno_int_em_bool.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=BOOL][nome=erroRetornoInt]
-      ->       (Param:(INT a, INT b, ) { 
-      ->       [soma:INT] Declaracao
-      ->       INI ATRIB: soma =
-      ->          + [ INI Soma
-      ->             VAR[a]
-      -> 
-      ->          +
-      ->             VAR[b]
-      -> 
-      ->          + ] FIM Soma
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[soma]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: O tipo retornado (INT) nao corresponde a assinatura da funcao (BOOL).
----------------------------------------------
-▶ Testando: ins/e4-atribuicao_float_em_int.tokens
-   ✅ [SUCESSO] Valor retornado:
-      -> Resultado final: 3
----------------------------------------------
-▶ Testando: ins/e5-atribuicao_bool_em_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=INT][nome=erroAtribuicaoBool]
-      ->       (Param:(INT a, ) { 
-      ->       [x:INT] Declaracao
-      ->       INI ATRIB: x =
-      ->          true [BOOL]
-      -> 
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          + [ INI Soma
-      ->             VAR[x]
-      -> 
-      ->          +
-      ->             VAR[a]
-      -> 
-      ->          + ] FIM Soma
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Atribuicao invalida. A variavel 'x' e do tipo INT, mas a expressao resulta em BOOL.
----------------------------------------------
-▶ Testando: ins/e6-negacao_em_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=BOOL][nome=erroNegacaoInt]
-      ->       (Param:(INT x, ) { 
-      ->       [resultado:BOOL] Declaracao
-      ->       INI ATRIB: resultado =
-      ->          not [ INI Not
-      ->             VAR[x]
-      -> 
-      ->          not ] FIM Not
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[resultado]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Operador 'not' aplicado a tipo nao booleano.
----------------------------------------------
-▶ Testando: ins/e7-soma_bool_com_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=INT][nome=erroSomaBool]
-      ->       (Param:(BOOL b, INT x, ) { 
-      ->       [resultado:INT] Declaracao
-      ->       INI ATRIB: resultado =
-      ->          + [ INI Soma
-      ->             VAR[b]
-      -> 
-      ->          +
-      ->             VAR[x]
-      -> 
-      ->          + ] FIM Soma
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[resultado]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Operador '+' exige operandos numericos.
----------------------------------------------
-▶ Testando: ins/e8-comparacao_bool_com_int.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=BOOL][nome=erroMenorBool]
-      ->       (Param:(BOOL ativo, INT limite, ) { 
-      ->       [resultado:BOOL] Declaracao
-      ->       INI ATRIB: resultado =
-      ->          < [ INI Menor Que
-      ->             VAR[ativo]
-      -> 
-      ->          <
-      ->             VAR[limite]
-      -> 
-      ->          < ] FIM Menor Que
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[resultado]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Comparacao '<' entre tipos incompativeis (BOOL e INT).
----------------------------------------------
-▶ Testando: ins/e9-igualdade_int_com_bool.tokens
-   ❌ [FALHA]
-      -> Funcao:[retorno=BOOL][nome=erroIgualdadeTiposMistos]
-      ->       (Param:(INT x, BOOL b, ) { 
-      ->       [resultado:BOOL] Declaracao
-      ->       INI ATRIB: resultado =
-      ->          == [ INI Igualdade
-      ->             VAR[x]
-      -> 
-      ->          ==
-      ->             VAR[b]
-      -> 
-      ->          == ] FIM Igualdade
-      ->       FIM ATRIB
-      -> 
-      ->       INI RETURN
-      ->          VAR[resultado]
-      -> 
-      ->       FIM RETURN
-      -> }
-      -> Erro Semantico: Comparacao '==' entre tipos incompativeis (INT e BOOL).
+▶ Testando Frame de: lab4-frame/ins/caso9.tokens
+   ✅ [SUCESSO] Alocacao:
+      -> Tamanho total do frame: 40 bytes
+      -> Parametros de entrada: 1
+      -> Maximo de parametros de saida: 1
+      -> Variaveis alocadas na memoria (Frame): 0
+      -> Variaveis em pseudo-registradores (Temp): 1
 ---------------------------------------------
