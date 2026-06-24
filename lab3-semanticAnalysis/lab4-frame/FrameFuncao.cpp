@@ -60,25 +60,26 @@ void analisar_expressao(Expressao* exp, map<string, bool>& var_precisa_frame, in
     }
 }
 
-void analisar_comandos(const vector<Comando*>& comandos, map<string, bool>& var_precisa_frame, int& max_param_saida) {
+void analisar_comandos(const vector<Comando*>& comandos, map<string, bool>& var_precisa_frame, int& max_param_saida, vector<string>& ordem_vars) {
     for (Comando* cmd : comandos) {
         if (auto cmdLocal = dynamic_cast<ComandoLocal*>(cmd)) {
             var_precisa_frame[cmdLocal->nome] = false; 
+            ordem_vars.push_back(cmdLocal->nome);
         } 
         else if (auto cmdAtrib = dynamic_cast<ComandoAtribuicao*>(cmd)) {
             analisar_expressao(cmdAtrib->direita, var_precisa_frame, max_param_saida, false);
         } 
         else if (auto cmdIf = dynamic_cast<ComandoIf*>(cmd)) {
             analisar_expressao(cmdIf->condicao, var_precisa_frame, max_param_saida, false);
-            analisar_comandos(cmdIf->blocoVerdadeiro, var_precisa_frame, max_param_saida);
-            analisar_comandos(cmdIf->blocoFalso, var_precisa_frame, max_param_saida);
+            analisar_comandos(cmdIf->blocoVerdadeiro, var_precisa_frame, max_param_saida, ordem_vars);
+            analisar_comandos(cmdIf->blocoFalso, var_precisa_frame, max_param_saida, ordem_vars);
         } 
         else if (auto cmdWhile = dynamic_cast<ComandoWhile*>(cmd)) {
             analisar_expressao(cmdWhile->condicao, var_precisa_frame, max_param_saida, false);
-            analisar_comandos(cmdWhile->bloco, var_precisa_frame, max_param_saida);
+            analisar_comandos(cmdWhile->bloco, var_precisa_frame, max_param_saida, ordem_vars);
         } 
         else if (auto cmdDo = dynamic_cast<ComandoDo*>(cmd)) {
-            analisar_comandos(cmdDo->bloco, var_precisa_frame, max_param_saida);
+            analisar_comandos(cmdDo->bloco, var_precisa_frame, max_param_saida, ordem_vars);
         } 
         else if (auto cmdRet = dynamic_cast<ComandoRetorno*>(cmd)) {
             analisar_expressao(cmdRet->expressao, var_precisa_frame, max_param_saida, false);
@@ -150,14 +151,14 @@ FrameFuncao* FrameFuncao::gera_frame_de_funcao(Funcao* fun) {
     }
 
     map<string, bool> var_precisa_frame;
-    analisar_comandos(fun->comandos, var_precisa_frame, frame->n_maximo_param_saida);
+    vector<string> ordem_vars;
+    analisar_comandos(fun->comandos, var_precisa_frame, frame->n_maximo_param_saida, ordem_vars);
 
     int offset_local = -40; 
     int id_temp = 1;        
 
-    for (const auto& par : var_precisa_frame) {
-        string nome_var = par.first;
-        bool escapa = par.second;
+    for (const string& nome_var : ordem_vars) {
+        bool escapa = var_precisa_frame[nome_var];
 
         if (escapa) { 
             FrameAcessoNoFrame* acesso = new FrameAcessoNoFrame();
