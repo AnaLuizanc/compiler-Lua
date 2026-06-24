@@ -94,3 +94,41 @@ Ele processa todos os ficheiros de teste na pasta de entradas e exibe apenas o v
 
 ````bash
 make test
+````
+
+## Fase 4: Geração de Frame e Alocação de Memória
+
+O objetivo desta etapa é construir a infraestrutura da arquitetura de ativação de funções, realizando o cálculo do Frame de Execução e planeando a alocação de variáveis na memória (Frame) ou em pseudo-registradores, a partir da Árvore de Sintaxe Abstrata (AST).
+
+*Nota: Conforme os requisitos desta fase, a Análise Semântica (Fase 3) foi desativada na rotina de execução principal (`sol.cpp`) para isolar os testes e o funcionamento do cálculo estrutural de memória.*
+
+### O que foi implementado
+
+Para suportar o planeamento de memória e a passagem de parâmetros, as seguintes extensões foram implementadas na infraestrutura do compilador:
+- **Classe `FrameFuncao`**: Criada a classe responsável por analisar a AST da função e calcular o seu escopo de memória. Ela determina os seguintes valores estruturais:
+    * `tamanho_frame`: Total de bytes alocados (mínimo de 40 bytes para controlo de contexto + 8 bytes por variável que vai para a memória).
+    * `n_param_entrada`: Quantidade de parâmetros recebidos na declaração da função.
+    * `n_maximo_param_saida`: O maior número de argumentos enviados numa chamada de função interna.
+    * `n_pseudo_registradores`: Total de variáveis internas otimizadas que não escapam para a memória.
+    * `n_variaveis_no_frame`: Total de variáveis locais que sofrem *escape* e precisam de ser guardadas na RAM.
+
+- **Escape Analysis e Mapeamento (`FrameAcesso`)**: O nó que representa a variável na AST (`Fator`) passou a contar com uma propriedade polimórfica `FrameAcesso`, que é atribuída seguindo uma rigorosa análise de escape:
+    * **`FrameAcessoNoFrame`:** Variáveis que são passadas como parâmetros para outras funções "escapam" do escopo estrito local. Estas são alocadas na memória em posições negativas (ex: `FP-40`, `FP-48`), em blocos de 8 bytes.
+    * **`FrameAcessoTemp`:** Variáveis que não "escapam" são alocadas em pseudo-registradores, recebendo IDs numéricos sequenciais (a partir de 1).
+    * **Garantia de Ordem:** O código rastreia as variáveis (via `std::vector`) pela exata ordem de declaração no código fonte, garantindo que a numeração dos pseudo-registradores respeita a ordem de aparecimento ditada pelos requisitos do projeto.
+    * Os parâmetros de entrada assumem posições no frame anterior (ex: `FP+8`, `FP+16`). Todas as referências subsequentes a uma variável partilham o mesmo apontador em memória.
+
+---
+
+### Como executar
+A partir do diretório do Lab 3, compile o projeto utilizando o Makefile:
+
+```bash
+# Limpa binários e objetos de compilações anteriores
+make clean
+
+# Compila o projeto e gera o executável 'compilador'
+make test-lab4 
+
+# OU
+./compilador gramatica-1/gramatica-1.site gramatica-1/tabela_lr1.conf < lab4-frame/ins/arquivo.tokens
