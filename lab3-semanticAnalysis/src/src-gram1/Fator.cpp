@@ -1,11 +1,51 @@
 #include "Fator.hpp"
 #include "Execucao.hpp"
+#include "ExpressaoChamada.hpp"
 #include <iostream>
+#include <vector>
 #include "../debug-util.hpp"
 
+#include "../lab4-frame/FrameAcessoNoFrame.hpp"
+#include "../lab4-frame/FrameAcessoTemp.hpp"
+
+vector<Expressao*> extrai_argumentos(No_arv_parse* no_argList) {
+    vector<Expressao*> lista;
+    if (no_argList == nullptr) return lista;
+    
+    // argList -> expOr
+    if (no_argList->filhos.size() == 1) {
+        lista.push_back(Expressao::extrai_expressao(no_argList->filhos[0]));
+    }
+    // argList -> expOr COMMA argList
+    else if (no_argList->filhos.size() == 3) {
+        lista.push_back(Expressao::extrai_expressao(no_argList->filhos[0]));
+        vector<Expressao*> resto = extrai_argumentos(no_argList->filhos[2]);
+        lista.insert(lista.end(), resto.begin(), resto.end());
+    }
+    return lista;
+}
+
 Fator* Fator::extrai_Fator(No_arv_parse* no) {
+    if (no == nullptr) return new Fator();
+
+    // fator -> ID LPAREN RPAREN (Chamada sem argumentos)
+    if (no->filhos.size() == 3 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN" && no->filhos[2]->simb == "RPAREN") {
+        ExpressaoChamada* chamada = new ExpressaoChamada();
+        chamada->nome_funcao = new ID();
+        chamada->nome_funcao->nome = no->filhos[0]->dado_extra; 
+        return chamada;
+    }
+
+    //fator -> ID LPAREN argsList RPAREN
+    if (no->filhos.size() == 4 && no->filhos[0]->simb == "ID" && no->filhos[1]->simb == "LPAREN" && no->filhos[3]->simb == "RPAREN") {
+        ExpressaoChamada* chamada = new ExpressaoChamada();
+        chamada->nome_funcao = new ID();
+        chamada->nome_funcao->nome = no->filhos[0]->dado_extra; 
+        chamada->argumentos = extrai_argumentos(no->filhos[2]);
+        return chamada;
+    }
+    
     Fator* res = new Fator();
-    if (no == nullptr) return res;
 
     // fator -> ID | NUMBER | TRUE | FALSE
     if (no->filhos.size() == 1) {
@@ -90,4 +130,12 @@ void Fator::debug_com_tab(int tab) {
     else {
         cerr << "VAR[" << valor << "]" << endl;
     }
+    if (acesso_frame != nullptr) {
+        if (auto no_frame = dynamic_cast<FrameAcessoNoFrame*>(acesso_frame)) {
+            cerr << " -> [MEMORIA: pos FP" << (no_frame->posicao_no_frame > 0 ? "+" : "") << no_frame->posicao_no_frame << "]";
+        } else if (auto temp = dynamic_cast<FrameAcessoTemp*>(acesso_frame)) {
+            cerr << " -> [REGISTRADOR: id " << temp->id << "]";
+        }
+    }
+    cerr << endl;
 }

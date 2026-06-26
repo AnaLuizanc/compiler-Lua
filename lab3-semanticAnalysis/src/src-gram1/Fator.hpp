@@ -4,6 +4,7 @@
 #include <string>
 #include "Expressao.hpp"
 #include "ID.hpp"
+#include "../../lab4-frame/FrameAcesso.hpp" 
 
 using namespace std;
 
@@ -12,6 +13,8 @@ public:
     string valor;
     
     Expressao* interno = nullptr; 
+
+    FrameAcesso* acesso_frame = nullptr; 
 
     static Fator* extrai_Fator(No_arv_parse* no);
     

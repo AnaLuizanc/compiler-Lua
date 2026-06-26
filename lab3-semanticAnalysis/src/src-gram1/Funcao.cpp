@@ -25,7 +25,10 @@ void Funcao::debug() {
     if (tipo_retorno == NULL) cerr<< "TR NULL"<< endl;
     if (nome_funcao == NULL) cerr<< "NF NULL"<< endl;
     
-    cerr << "Funcao:[retorno=" << tipo_retorno->nome() << "][nome=" << nome_funcao->nome << "]" << endl;
+    string ret = (tipo_retorno != NULL) ? tipo_retorno->nome() : "NULL";
+    string nom = (nome_funcao != NULL) ? nome_funcao->nome : "NULL";
+    
+    cerr << "Funcao:[retorno=" << ret << "][nome=" << nom << "]" << endl;
     cerr << "      (Param:(";
     fflush(stderr);
     for (int i_par = 0; i_par < parametros.size(); ++i_par) {

@@ -21,6 +21,11 @@ Tipo* Tipo::extrai_Tipo(No_arv_parse* no) {
     if (no == NULL) return NULL;
 
     string nome = no->filhos[1]->dado_extra;
+    
+    nome.erase(remove_if(nome.begin(), nome.end(), [](char c) { 
+        return c == '\r' || c == '\n' || c == ' '; 
+    }), nome.end());
+    
     transform(nome.begin(), nome.end(), nome.begin(), ::tolower);
 
     if (nome == "int")
