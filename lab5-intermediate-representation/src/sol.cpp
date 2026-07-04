@@ -48,8 +48,31 @@ int main(int argc, char * argv[]) {
   Arvore_parse arv = parser.executa_parse(cin);
   cerr << "Parse executado" << endl;
   arv.debug();
+
+  if(arv.raiz == nullptr) {
+    cerr << "Erro: arvore de parse vazia" << endl;
+    return 1;
+  }
+
   Funcao* func = Funcao::extrai_funcao(arv.raiz);
-  func->debug();
+  if (func != nullptr) {
+      cerr << "\n=== ARVORE SINTATICA (AST) ===" << endl;
+      func->debug();
+      
+      // EXECUÇÃO DO LAB 4: GERAÇÃO DO FRAME
+      FrameFuncao* frame = FrameFuncao::gera_frame_de_funcao(func);
+      
+      if (frame != nullptr) {
+          cout << "\n=== INFORMACOES DO FRAME (LAB 4) ===" << endl;
+          cout << "Tamanho total do frame: " << frame->tamanho_frame << " bytes" << endl;
+          cout << "Parametros de entrada: " << frame->n_param_entrada << endl;
+          cout << "Maximo de parametros de saida: " << frame->n_maximo_param_saida << endl;
+          cout << "Variaveis alocadas na memoria (Frame): " << frame->n_variaveis_no_frame << endl;
+          cout << "Variaveis em pseudo-registradores (Temp): " << frame->n_pseudo_registradores << endl;
+          cout << "====================================\n" << endl;
+      }
+  }
+  
   // Exemplo de chamada do analisador semantico.
   vector<int> parametros_passados;
   for (int i = 1; i <= 3; ++i) {

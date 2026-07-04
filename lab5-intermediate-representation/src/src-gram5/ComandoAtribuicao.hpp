@@ -1,16 +1,18 @@
-#ifndef _COMANDO_ATRIBUI_HPP_
-#define _COMANDO_ATRIBUI_HPP_
+#ifndef _COMANDO_ATRIBUICAO_HPP_
+#define _COMANDO_ATRIBUICAO_HPP_
 #include "Comando.hpp"
 #include "ID.hpp"
 #include "Expressao.hpp"
-using namespace std;
 
 class ComandoAtribuicao : public Comando {
 public:
-  ID * esquerda;
-  Expressao * direita;
-  ComandoAtribuicao();
-  void debug_com_tab(int tab);
-};
+    ID* esquerda;
+    Expressao* direita;
 
+    ComandoAtribuicao() {
+        esquerda = NULL;
+        direita = NULL;
+    }
+    void debug_com_tab(int tab) override;
+};
 #endif
