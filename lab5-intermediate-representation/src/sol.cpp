@@ -12,8 +12,8 @@ using namespace std;
 #include "TabelaLR1.hpp"
 #include "Arvore.hpp"
 #include "Parser.hpp"
-#include "src-gram5/Funcao.hpp"
-#include "src-gram5/Analisador.hpp"
+#include "src-gram1/Funcao.hpp"
+#include "src-gram1/AnalisadorSemantico.hpp"
 #include "Frame/FrameFuncao.hpp"
 
 
@@ -78,7 +78,7 @@ int main(int argc, char * argv[]) {
   for (int i = 1; i <= 3; ++i) {
     parametros_passados.push_back(i*10);
   }
-  Analisador ana;
+  AnalisadorSemantico ana;
   cout << "Ultimo valor calculado:" << endl;
   cout << ana.calcula_ultimo_valor(func, parametros_passados) << endl;
   FrameFuncao* frame = FrameFuncao::gera_frame_de_funcao(func);
