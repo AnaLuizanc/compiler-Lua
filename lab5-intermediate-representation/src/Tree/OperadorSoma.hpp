@@ -4,6 +4,7 @@
 
 class OperadorSoma : public Operador {
 public:
+    OperadorSoma() {}
 };
 
 #endif

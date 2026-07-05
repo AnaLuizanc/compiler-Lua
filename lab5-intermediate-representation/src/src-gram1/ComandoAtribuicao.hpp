@@ -3,11 +3,13 @@
 #include "Comando.hpp"
 #include "ID.hpp"
 #include "Expressao.hpp"
+#include "../Frame/FrameAcesso.hpp"
 
 class ComandoAtribuicao : public Comando {
 public:
     ID* esquerda;
     Expressao* direita;
+    FrameAcesso* acesso = nullptr; 
 
     ComandoAtribuicao() {
         esquerda = NULL;

@@ -119,6 +119,8 @@ void vincular_acessos_exp(Expressao* exp, map<string, FrameAcesso*>& tabela_aces
 void vincular_acessos_cmd(const vector<Comando*>& comandos, map<string, FrameAcesso*>& tabela_acessos) {
     for (Comando* cmd : comandos) {
         if (auto cmdAtrib = dynamic_cast<ComandoAtribuicao*>(cmd)) {
+            if (tabela_acessos.find(cmdAtrib->esquerda->nome) != tabela_acessos.end()) 
+                cmdAtrib->acesso = tabela_acessos[cmdAtrib->esquerda->nome];
             vincular_acessos_exp(cmdAtrib->direita, tabela_acessos);
         } else if (auto cmdIf = dynamic_cast<ComandoIf*>(cmd)) {
             vincular_acessos_exp(cmdIf->condicao, tabela_acessos);

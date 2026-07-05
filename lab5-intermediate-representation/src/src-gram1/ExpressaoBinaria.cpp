@@ -2,6 +2,11 @@
 #include <iostream>
 #include "../debug-util.hpp"
 #include "../Tree/Exp.hpp"
+#include "../Tree/ExpBinop.hpp"
+#include "../Tree/OperadorSoma.hpp"
+#include "../Tree/OperadorSub.hpp"
+#include "../Tree/OperadorMult.hpp"
+#include "../Tree/OperadorDiv.hpp"
 
 Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* esq = esquerda->inferir_tipo(amb);
@@ -136,5 +141,27 @@ void ExpressaoBinaria::debug_com_tab(int tab) {
 }
 
 Exp* ExpressaoBinaria::gerar_IR() {
+    Exp* esq_ir = esquerda->gerar_IR();
+    Exp* dir_ir = direita->gerar_IR();
+    
+    Operador* op = nullptr;
+    
+    if (simbolo == "+") {
+        op = new OperadorSoma();
+    }
+    else if (simbolo == "-") {
+        op = new OperadorSub();
+    }
+    else if (simbolo == "*") {
+        op = new OperadorMult();
+    }
+    else if (simbolo == "/") {
+        op = new OperadorDiv();
+    }
+    
+    if (op != nullptr && esq_ir != nullptr && dir_ir != nullptr) {
+        return new ExpBinop(op, esq_ir, dir_ir);
+    }
+    
     return nullptr;
 }

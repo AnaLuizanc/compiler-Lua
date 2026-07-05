@@ -7,8 +7,10 @@ class StmMove : public Stm {
 public:
   Exp* destino;
   Exp* origem;
-  StmMove();
-  static StmMove* gera_Stm_Move(/*Adaptar aas necessidades.*/);
+  StmMove(Exp* dst, Exp* org) {
+      destino = dst;
+      origem = org;
+  }
 };
 
 #endif

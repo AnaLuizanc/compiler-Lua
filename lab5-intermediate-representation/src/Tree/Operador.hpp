@@ -3,6 +3,7 @@
 
 class Operador {
 public:
+    virtual ~Operador() {}
 };
 
 #endif
