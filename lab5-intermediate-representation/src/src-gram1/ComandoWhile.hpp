@@ -15,6 +15,8 @@ public:
     vector<Comando*> bloco;
 
     void debug_com_tab(int tab) override;
+
+    Stm* gerar_IR() override;
 };
 
 #endif

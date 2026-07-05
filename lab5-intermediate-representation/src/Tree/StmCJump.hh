@@ -6,7 +6,7 @@
 using namespace std;
 
 class StmCJump : public Stm {
-publi:
+public:
   Exp* expressao_booleana;
   string destino_verdade;
   string destino_falso;

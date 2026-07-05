@@ -1,7 +1,7 @@
 #ifndef _EXP_ESEQ_HPP_
 #define _EXP_ESEQ_HPP_
 #include "Exp.hpp"
-#include "../src-gram5/Expressao.hpp"
+#include "../src-gram1/Expressao.hpp"
 
 class ExpEseq : public Exp {
 public:

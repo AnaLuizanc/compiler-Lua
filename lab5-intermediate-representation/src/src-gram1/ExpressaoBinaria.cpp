@@ -1,6 +1,7 @@
 #include "ExpressaoBinaria.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
+#include "../Tree/Exp.hpp"
 
 Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* esq = esquerda->inferir_tipo(amb);
@@ -132,4 +133,8 @@ void ExpressaoBinaria::debug_com_tab(int tab) {
     
     tab3(tab);
     cerr << simbolo << " ] FIM " << nome_op << endl;
+}
+
+Exp* ExpressaoBinaria::gerar_IR() {
+    return nullptr;
 }

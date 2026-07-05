@@ -5,8 +5,8 @@
 #include <vector>
 #include "../debug-util.hpp"
 
-#include "../lab4-frame/FrameAcessoNoFrame.hpp"
-#include "../lab4-frame/FrameAcessoTemp.hpp"
+#include "../Frame/FrameAcessoNoFrame.hpp"
+#include "../Frame/FrameAcessoTemp.hpp"
 
 vector<Expressao*> extrai_argumentos(No_arv_parse* no_argList) {
     vector<Expressao*> lista;
@@ -138,4 +138,8 @@ void Fator::debug_com_tab(int tab) {
         }
     }
     cerr << endl;
+}
+
+Exp* Fator::gerar_IR() {
+    return nullptr; 
 }

@@ -22,23 +22,13 @@ public:
         this->valor = "CHAMADA"; 
     }
 
-    Tipo* inferir_tipo(TabelaSimbolos& /*amb*/) override { 
-        return new Tipo(Tipo::INT); 
-    }
+    Tipo* inferir_tipo(TabelaSimbolos& /*amb*/) override;
 
-    Valor* avaliar(Execucao& /*exec*/) override { 
-        return new Valor(0); 
-    }
+    Valor* avaliar(Execucao& /*exec*/) override;
 
-    void debug_com_tab(int tab) override {
-        tab3(tab);
-        cerr << "CHAMADA DE FUNCAO [" << (nome_funcao ? nome_funcao->nome : "NULL") << "] (" << endl;
-        for (auto arg : argumentos) {
-            if(arg) arg->debug_com_tab(tab + 1);
-        }
-        tab3(tab);
-        cerr << ")" << endl;
-    }
+    void debug_com_tab(int tab) override;
+
+    Exp* gerar_IR() override;
 };
 
 #endif

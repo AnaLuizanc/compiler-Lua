@@ -4,7 +4,7 @@
 #include <string>
 #include "Expressao.hpp"
 #include "ID.hpp"
-#include "../../lab4-frame/FrameAcesso.hpp" 
+#include "../Frame/FrameAcesso.hpp" 
 
 using namespace std;
 
@@ -23,6 +23,8 @@ public:
     Valor* avaliar(Execucao& env);
 
     void debug_com_tab(int tab) override; 
+
+    Exp* gerar_IR() override;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "ComandoWhile.hpp"
 #include "../debug-util.hpp"
+#include "../Tree/Stm.hpp"
 #include <iostream>
 
 using namespace std;
@@ -16,4 +17,9 @@ void ComandoWhile::debug_com_tab(int tab) {
     }
     
     tab3(tab); cerr << "FIM WHILE" << endl;
+}
+
+
+Stm* ComandoWhile::gerar_IR() {
+    return nullptr;
 }

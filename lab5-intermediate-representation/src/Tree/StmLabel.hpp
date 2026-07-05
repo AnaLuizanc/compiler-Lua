@@ -5,7 +5,7 @@
 using namespace std;
 
 class StmLabel : public Stm {
-publi:
+public:
   string nome;
   StmLabel();
   static StmLabel* gera_Stm_Label(/*Adaptar aas necessidades.*/);

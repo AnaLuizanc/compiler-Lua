@@ -2,6 +2,7 @@
 #include "Fator.hpp"
 #include "ExpressaoBinaria.hpp"
 #include "ExpressaoUnaria.hpp"
+#include "../Tree/Exp.hpp"
 
 using namespace std;
 
@@ -145,3 +146,7 @@ Expressao* extrai_termoLinha(No_arv_parse* no, Expressao* esq) {
 }
 
 void Expressao::debug_com_tab(int tab) {}
+
+Exp* Expressao::gerar_IR() {
+    return nullptr;
+}

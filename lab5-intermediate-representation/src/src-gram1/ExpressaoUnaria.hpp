@@ -19,6 +19,8 @@ public:
     Valor* avaliar(Execucao& exec) override;
 
     void debug_com_tab(int tab) override;
+
+    Exp* gerar_IR() override;
 };
 
 #endif

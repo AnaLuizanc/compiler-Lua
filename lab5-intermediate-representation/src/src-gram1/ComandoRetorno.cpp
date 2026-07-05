@@ -1,6 +1,7 @@
 #include "ComandoRetorno.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
+#include "../Tree/Stm.hpp"
 using namespace std;
 
 void ComandoRetorno::debug_com_tab(int tab) {
@@ -11,4 +12,8 @@ void ComandoRetorno::debug_com_tab(int tab) {
     }
     tab3(tab);
     cerr << "FIM RETURN" << endl;
+}
+
+Stm* ComandoRetorno::gerar_IR() {
+    return nullptr;
 }

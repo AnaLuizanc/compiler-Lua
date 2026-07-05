@@ -3,7 +3,7 @@
 #include "Stm.hpp"
 
 class StmSeq : public Stm {
-publi:
+public:
   Stm* esq;
   Stm* dir;
   StmSeq();

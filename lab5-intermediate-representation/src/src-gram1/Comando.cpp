@@ -8,6 +8,7 @@
 #include "ID.hpp"
 #include "Tipo.hpp"
 #include "Expressao.hpp"
+#include "../Tree/Stm.hpp"
 
 #include <iostream>
 #include "../debug-util.hpp"
@@ -111,4 +112,8 @@ Comando *Comando::extrai_comando(No_arv_parse *no) {
 void Comando::debug_com_tab(int tab) {
     tab3(tab);
     cerr << "Comando generico" << endl;
+}
+
+Stm* Comando::gerar_IR() {
+    return nullptr;
 }

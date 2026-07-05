@@ -1,7 +1,7 @@
 #ifndef _EXP_NAME_HPP_
 #define _EXP_NAME_HPP_
 #include "Exp.hpp"
-#include "../src-gram5/Expressao.hpp"
+#include "../src-gram1/Expressao.hpp"
 
 class ExpName : public Exp {
 public:

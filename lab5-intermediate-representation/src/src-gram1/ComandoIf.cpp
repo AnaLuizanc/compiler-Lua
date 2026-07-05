@@ -1,6 +1,7 @@
 #include "ComandoIf.hpp"
 #include "../debug-util.hpp"
 #include <iostream>
+#include "../Tree/Stm.hpp"
 
 using namespace std;
 
@@ -23,4 +24,8 @@ void ComandoIf::debug_com_tab(int tab) {
     }
     
     tab3(tab); cerr << "FIM IF" << endl;
+}
+
+Stm* ComandoIf::gerar_IR() {
+    return nullptr; 
 }

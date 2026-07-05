@@ -1,6 +1,7 @@
 #include "ExpressaoUnaria.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
+#include "../Tree/Exp.hpp"
 
 Tipo* ExpressaoUnaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* t = expressao->inferir_tipo(amb);
@@ -39,4 +40,8 @@ void ExpressaoUnaria::debug_com_tab(int tab) {
     
     tab3(tab);
     cerr << simbolo << " ] FIM " << nome_op << endl;
+}
+
+Exp* ExpressaoUnaria::gerar_IR() {
+    return nullptr; 
 }

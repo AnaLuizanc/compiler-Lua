@@ -14,5 +14,7 @@ public:
     ComandoLocal() { tipo = NULL; }
 
     void debug_com_tab(int tab) override; 
+
+    Stm* gerar_IR() override;
 };
 #endif

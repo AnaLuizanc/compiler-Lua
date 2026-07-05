@@ -73,15 +73,31 @@ int main(int argc, char * argv[]) {
       }
   }
   
-  // Exemplo de chamada do analisador semantico.
-  vector<int> parametros_passados;
-  for (int i = 1; i <= 3; ++i) {
-    parametros_passados.push_back(i*10);
-  }
-  AnalisadorSemantico ana;
-  cout << "Ultimo valor calculado:" << endl;
-  cout << ana.calcula_ultimo_valor(func, parametros_passados) << endl;
-  FrameFuncao* frame = FrameFuncao::gera_frame_de_funcao(func);
+  // // Exemplo de chamada do analisador semantico.
+  // vector<int> parametros_passados;
+  // for (int i = 1; i <= 3; ++i) {
+  //   parametros_passados.push_back(i*10);
+  // }
+  // AnalisadorSemantico ana;
+  // cout << "Ultimo valor calculado:" << endl;
+  // cout << ana.calcula_ultimo_valor(func, parametros_passados) << endl;
+  // FrameFuncao* frame = FrameFuncao::gera_frame_de_funcao(func);
+
+  if (func != nullptr) {
+        func->debug();
+        
+        vector<string> argumentos_linha_comando;
+        for (int i = 3; i < argc; ++i) { 
+            argumentos_linha_comando.push_back(argv[i]);
+        }
+        
+        AnalisadorSemantico analisador;
+        analisador.analisar(func, argumentos_linha_comando);
+        
+        if (analisador.ultimo_valor != nullptr) {
+            analisador.ultimo_valor->imprimir();
+        }
+    }
 
   /*  Stm* representacao_funcao = converte_funcao_para_RI(func, frame); */
   return 0;

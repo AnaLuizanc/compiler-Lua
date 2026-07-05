@@ -1,6 +1,7 @@
 #include "ComandoLocal.hpp"
 #include <iostream>
 #include "../debug-util.hpp"
+#include "../Tree/Stm.hpp"
 
 using namespace std;
 
@@ -11,4 +12,8 @@ void ComandoLocal::debug_com_tab(int tab) {
         cerr << ":" << tipo->nome();
     
     cerr << "] Declaracao" << endl;
+}
+
+Stm* ComandoLocal::gerar_IR() {
+    return nullptr;
 }

@@ -8,6 +8,8 @@ public:
     Expressao* raiz;
 
     static ExpressaoOr* extrai_ExpressaoOr(No_arv_parse* no);
+
+    Exp* gerar_IR() override;
 };
 
 #endif

@@ -4,7 +4,7 @@
 #include "Exp.hpp"
 
 class StmMove : public Stm {
-publi:
+public:
   Exp* destino;
   Exp* origem;
   StmMove();

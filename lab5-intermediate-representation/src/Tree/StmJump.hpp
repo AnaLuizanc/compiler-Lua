@@ -7,7 +7,7 @@
 using namespace std;
 
 class StmJump : public Stm {
-publi:
+public:
   Exp* destino;
   vector<string> alvos;
   StmJump();

@@ -1,7 +1,8 @@
 #ifndef _EXP_HPP_
 #define _EXP_HPP_
-#include "../src-gram5/Expressao.hpp"
 using namespace std;
+
+class Expressao;
 
 class Exp {
 public:

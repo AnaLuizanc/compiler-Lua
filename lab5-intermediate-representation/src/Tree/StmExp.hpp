@@ -4,7 +4,7 @@
 #include "Exp.hpp"
 
 class StmExp : public Stm {
-publi:
+public:
   Exp* exp;
   StmExp();
   static StmExp* gera_Stm_Exp(/*Adaptar aas necessidades.*/);
