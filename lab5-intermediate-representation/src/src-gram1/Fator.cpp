@@ -8,6 +8,13 @@
 #include "../Frame/FrameAcessoNoFrame.hpp"
 #include "../Frame/FrameAcessoTemp.hpp"
 
+#include "../Tree/ExpConst.hpp"
+#include "../Tree/ExpTemp.hpp"
+#include "../Tree/ExpMem.hpp"
+#include "../Tree/ExpBinop.hpp"
+#include "../Tree/ExpTempFramePointer.hpp"
+#include "../Tree/OperadorSoma.hpp"
+
 vector<Expressao*> extrai_argumentos(No_arv_parse* no_argList) {
     vector<Expressao*> lista;
     if (no_argList == nullptr) return lista;
@@ -141,5 +148,46 @@ void Fator::debug_com_tab(int tab) {
 }
 
 Exp* Fator::gerar_IR() {
-    return nullptr; 
+    // 1. Caso seja parênteses, apenas repassa para a expressão interna
+    if (valor == "PAREN") {
+        return interno->gerar_IR();
+    }
+    // 2. Tradução de literais booleanos
+    else if (valor == "true") {
+        return new ExpConst(1); // true é tratado como inteiro 1 na IR
+    }
+    else if (valor == "false") {
+        return new ExpConst(0); // false é tratado como inteiro 0 na IR
+    }
+    // 3. Tradução de literais numéricos
+    else if (valor.length() > 0 && isdigit(valor[0])) {
+        return new ExpConst(stoi(valor));
+    }
+    // 4. Operador unário (negativo)
+    else if (valor == "-") {
+        // Deixaremos para resolver no próximo passo junto com as Exp Binárias, 
+        // ou você pode criar um OperadorSubTrair aqui mesmo.
+        return nullptr; 
+    }
+    // 5. TRADUÇÃO DE VARIÁVEIS (O principal do Lab 5!)
+    else {
+        if (acesso_frame != nullptr) {
+            
+            // Caso A: Variável está num Registrador Temporário
+            if (auto accTemp = dynamic_cast<FrameAcessoTemp*>(acesso_frame)) {
+                return new ExpTemp(accTemp->id);
+            } 
+            // Caso B: Variável está na Memória (Frame)
+            else if (auto accMem = dynamic_cast<FrameAcessoNoFrame*>(acesso_frame)) {
+                // Monta a árvore: MEM( +(FP, offset) )
+                Exp* fp = new ExpTempFramePointer();
+                Exp* offset = new ExpConst(accMem->posicao_no_frame);
+                Exp* soma = new ExpBinop(new OperadorSoma(), fp, offset);
+                
+                return new ExpMem(soma);
+            }
+        }
+    }
+    
+    return nullptr; // Fallback caso não seja nenhum (ex: chamadas de função)
 }

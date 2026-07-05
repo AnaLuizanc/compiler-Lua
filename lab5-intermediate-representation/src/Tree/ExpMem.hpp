@@ -6,8 +6,7 @@
 class ExpMem : public Exp {
 public:
   Exp* endereco;
-  ExpMem();
-  static ExpMem* gera_Exp_Mem(Expressao* e);
+  ExpMem(Exp* endereco);
 };
 
 #endif

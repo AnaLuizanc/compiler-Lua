@@ -6,7 +6,7 @@ class Expressao;
 
 class Exp {
 public:
-  Exp();
+  Exp(){}
   static Exp* gera_Exp_de_Expressao(Expressao* e);
 };
 

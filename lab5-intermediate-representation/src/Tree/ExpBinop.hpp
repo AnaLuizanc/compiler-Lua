@@ -1,15 +1,14 @@
 #ifndef _EXP_BINOP_HPP_
 #define _EXP_BINOP_HPP_
 #include "Exp.hpp"
-#include "../src-gram1/Expressao.hpp"
+#include "Operador.hpp"
 
 class ExpBinop : public Exp {
 public:
   Operador* op;
   Exp* esq;
   Exp* dir;
-  ExpBinop();
-  static ExpBinop* gera_Exp_Binop(Expressao* e);
+  ExpBinop(Operador* op, Exp* esq, Exp* dir);
 };
 
 #endif

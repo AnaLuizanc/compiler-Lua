@@ -6,7 +6,7 @@
 class ExpTemp : public Exp {
 public:
   int id;
-  static ExpTemp* gera_Exp_Temp(/*Adaptar aas necessidades*/);
+  ExpTemp(int id);
 };
 
 #endif
