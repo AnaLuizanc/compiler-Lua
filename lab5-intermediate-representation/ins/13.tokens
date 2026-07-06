@@ -2,8 +2,15 @@ FUNCTION function
 ID F13
 LPAREN (
 ID a
+COLON :
+ID int
 RPAREN )
+COLON :
+ID int
 LOCAL local
+ID x
+COLON :
+ID int
 ID x
 ASSIGN =
 ID a

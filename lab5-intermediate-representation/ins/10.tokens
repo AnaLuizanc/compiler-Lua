@@ -2,7 +2,11 @@ FUNCTION function
 ID fact
 LPAREN (
 ID n
+COLON :
+ID int
 RPAREN )
+COLON :
+ID int
 IF if
 ID n
 LESSEQ <=

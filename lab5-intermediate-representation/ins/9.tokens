@@ -2,7 +2,12 @@ FUNCTION function
 ID F9
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
+ID r
+COLON :
+ID int
 ID r
 ASSIGN =
 ID square

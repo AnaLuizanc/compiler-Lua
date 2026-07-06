@@ -2,9 +2,15 @@ FUNCTION function
 ID power
 LPAREN (
 ID base
+COLON :
+ID int
 COMMA ,
 ID exp
+COLON :
+ID int
 RPAREN )
+COLON :
+ID int
 IF if
 ID exp
 EQ ==

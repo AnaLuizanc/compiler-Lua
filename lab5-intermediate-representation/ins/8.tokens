@@ -2,9 +2,16 @@ FUNCTION function
 ID F8
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID i
+COLON :
+ID int
 LOCAL local
+ID total
+COLON :
+ID int
 ID total
 ASSIGN =
 NUMBER 0

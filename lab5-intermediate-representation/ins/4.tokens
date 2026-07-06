@@ -2,6 +2,8 @@ FUNCTION function
 ID F4
 LPAREN (
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID x
 COLON :

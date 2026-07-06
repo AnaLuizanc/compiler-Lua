@@ -2,8 +2,15 @@ FUNCTION function
 ID F19
 LPAREN (
 ID a
+COLON :
+ID int
 RPAREN )
+COLON :
+ID int
 LOCAL local
+ID r
+COLON :
+ID int
 ID r
 ASSIGN =
 ID square

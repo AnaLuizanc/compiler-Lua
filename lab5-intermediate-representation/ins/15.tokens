@@ -2,9 +2,15 @@ FUNCTION function
 ID F15
 LPAREN (
 ID x
+COLON :
+ID int
 RPAREN )
+COLON :
+ID int
 LOCAL local
 ID y
+COLON :
+ID int
 IF if
 ID x
 LESSTHAN <
