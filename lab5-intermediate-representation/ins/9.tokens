@@ -1,0 +1,13 @@
+FUNCTION function
+ID F9
+LPAREN (
+RPAREN )
+LOCAL local
+ID r
+ASSIGN =
+ID square
+LPAREN (
+NUMBER 5
+RPAREN )
+END end
+$ $ 

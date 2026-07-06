@@ -1,0 +1,14 @@
+FUNCTION function
+ID F19
+LPAREN (
+ID a
+RPAREN )
+LOCAL local
+ID r
+ASSIGN =
+ID square
+LPAREN (
+ID a
+RPAREN )
+END end
+$ $ 

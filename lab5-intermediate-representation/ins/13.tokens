@@ -1,0 +1,16 @@
+FUNCTION function
+ID F13
+LPAREN (
+ID a
+RPAREN )
+LOCAL local
+ID x
+ASSIGN =
+ID a
+ID x
+ASSIGN =
+ID x
+PLUS +
+NUMBER 5
+END end
+$ $ 
