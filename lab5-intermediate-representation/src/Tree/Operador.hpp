@@ -3,6 +3,7 @@
 
 class Operador {
 public:
+    virtual string to_string() { return "?"; }
     virtual ~Operador() {}
 };
 

@@ -6,6 +6,9 @@ class ExpConst : public Exp {
 public:
   int valor;
   ExpConst(int v);
+  string to_string() override {
+    return std::to_string(valor);
+  }
 };
 
 #endif

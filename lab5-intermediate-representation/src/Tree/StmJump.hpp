@@ -14,6 +14,10 @@ public:
   StmJump(string alvo) {
     alvos.push_back(alvo);
   }
+
+  void imprimir() override {
+    cout << "JUMP( " << alvos[0] << " )" << endl;
+  }
 };
 
 #endif

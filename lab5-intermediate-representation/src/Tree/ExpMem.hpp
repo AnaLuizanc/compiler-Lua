@@ -7,6 +7,9 @@ class ExpMem : public Exp {
 public:
   Exp* endereco;
   ExpMem(Exp* endereco);
+  string to_string() override {
+    return "MEM(" + endereco->to_string() + ")";
+  }
 };
 
 #endif

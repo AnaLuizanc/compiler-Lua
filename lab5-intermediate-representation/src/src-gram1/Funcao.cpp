@@ -1,4 +1,5 @@
 #include "Funcao.hpp"
+#include "Comando.hpp"
 #include "../debug-util.hpp"
 #include <iostream>
 
@@ -38,4 +39,10 @@ void Funcao::debug() {
     cerr << ") { " << endl;
     debug_comandos(comandos, 1);
     cerr << "}" <<  endl;
+}
+
+extern Stm* sequenciar_lista_comandos(const vector<Comando*>& cmds);
+
+Stm* Funcao::gerar_IR() {
+    return sequenciar_lista_comandos(this->comandos);
 }

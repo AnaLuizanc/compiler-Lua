@@ -5,6 +5,7 @@
 class OperadorSub : public Operador {
 public:
     OperadorSub() {}
+    string to_string() override { return "-"; }
 };
 
 #endif

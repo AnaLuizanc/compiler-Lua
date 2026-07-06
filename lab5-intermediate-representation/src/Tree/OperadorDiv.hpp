@@ -5,6 +5,7 @@
 class OperadorDiv : public Operador {
 public:
     OperadorDiv() {}
+    string to_string() override { return "/"; }
 };
 
 #endif

@@ -14,8 +14,9 @@ using namespace std;
 #include "Parser.hpp"
 #include "src-gram1/Funcao.hpp"
 #include "src-gram1/AnalisadorSemantico.hpp"
-#include "Frame/FrameFuncao.hpp"
 
+#include "Frame/FrameFuncao.hpp"
+#include "Tree/Stm.hpp"
 
 int main(int argc, char * argv[]) {
   if (argc != 3 && argc != 1) {
@@ -99,6 +100,14 @@ int main(int argc, char * argv[]) {
         }
     }
 
-  /*  Stm* representacao_funcao = converte_funcao_para_RI(func, frame); */
+  cout << "\n--- REPRESENTACAO INTERMEDIARIA (IR) ---" << endl;
+  Stm* arvoreIR = func->gerar_IR(); 
+
+  if (arvoreIR != nullptr) {
+      arvoreIR->imprimir();
+  } else {
+      cout << "Nenhum comando IR gerado." << endl;
+  }
+  cout << "----------------------------------------\n" << endl;
   return 0;
 }

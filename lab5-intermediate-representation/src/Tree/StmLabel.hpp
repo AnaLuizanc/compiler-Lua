@@ -10,6 +10,10 @@ public:
   StmLabel(string n) {
     nome = n;
   }
+
+  void imprimir() override {
+    cout << nome << ":" << endl;
+  }
 };
 
 #endif

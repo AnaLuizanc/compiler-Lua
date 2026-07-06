@@ -6,6 +6,9 @@
 class ExpTempFramePointer : public ExpTemp {
 public:
   ExpTempFramePointer();
+  string to_string() override {
+    return "FP";
+  }
 };
 
 #endif

@@ -11,6 +11,10 @@ public:
       destino = dst;
       origem = org;
   }
+
+  void imprimir() override {
+    cout << "MOVE( " << destino->to_string() << ", " << origem->to_string() << " )" << endl;
+}
 };
 
 #endif

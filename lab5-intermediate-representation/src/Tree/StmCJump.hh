@@ -16,6 +16,10 @@ public:
     destino_verdade = v;
     destino_falso = f;
   }
+
+  void imprimir() override {
+    cout << "CJUMP( " << expressao_booleana->to_string() << ", " << destino_verdade << ", " << destino_falso << " )" << endl;
+  }
 };
 
 #endif

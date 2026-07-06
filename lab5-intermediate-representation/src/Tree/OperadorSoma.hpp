@@ -5,6 +5,7 @@
 class OperadorSoma : public Operador {
 public:
     OperadorSoma() {}
+    string to_string() override { return "+"; }
 };
 
 #endif

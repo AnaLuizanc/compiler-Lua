@@ -7,6 +7,9 @@ class ExpTemp : public Exp {
 public:
   int id;
   ExpTemp(int id);
+  string to_string() override {
+    return "T" + std::to_string(id);
+  }
 };
 
 #endif

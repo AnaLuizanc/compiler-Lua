@@ -6,6 +6,7 @@
 #include "Comando.hpp"
 #include "Tipo.hpp"
 #include "../Arvore.hpp"
+#include "../Tree/Stm.hpp"
 using namespace std;
 
 class Funcao {
@@ -18,6 +19,7 @@ public:
     Funcao();
     static Funcao* extrai_funcao(No_arv_parse *arv);
     void debug();
+    Stm* gerar_IR();
 };
 
 #endif

@@ -10,6 +10,11 @@ public:
     esq = e;
     dir = d;
   }
+
+  void imprimir() override {
+    if (esq != nullptr) esq->imprimir();
+    if (dir != nullptr) dir->imprimir();
+  }
 };
 
 #endif

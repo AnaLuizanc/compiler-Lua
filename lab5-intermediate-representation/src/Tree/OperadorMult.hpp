@@ -5,6 +5,7 @@
 class OperadorMult : public Operador {
 public:
     OperadorMult() {}
+    string to_string() override { return "*"; }
 };
 
 #endif
