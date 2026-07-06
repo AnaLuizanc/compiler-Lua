@@ -1,7 +1,9 @@
-function F12()
-  local x = 5
+function F12():int
+  local x:int
+  x = 5
   do
-    local x = 10
+    local x:int
+    x = 10
     x = x + 1
   end
 end

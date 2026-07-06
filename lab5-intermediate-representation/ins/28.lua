@@ -1,5 +1,6 @@
-function F28(n, a, b)
-  local sum = 0
+function F28(n:int, a:int, b:int):int
+  local sum:int
+  sum = 0
 
   if n <= 0 then
     return 0
@@ -16,7 +17,8 @@ function F28(n, a, b)
     n = n - 1
   end
 
-  local i = 0
+  local i:int
+  i = 0
   while i < 3 do
     sum = sum + i
     i = i + 1

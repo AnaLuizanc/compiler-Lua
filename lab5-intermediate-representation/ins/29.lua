@@ -1,6 +1,8 @@
-function F50(n, a, b)
-  local sum = 0
-  local temp = (a * b) - (a + b) / 2
+function F50(n:int, a:int, b:int):int
+  local sum:int
+  sum = 0
+  local temp:int
+  temp = (a * b) - (a + b) / 2
 
   if (n % 2 == 0) and (a + b > 0) then
     sum = (n * n) + (a * 2) - (b / 2)

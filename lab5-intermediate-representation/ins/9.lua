@@ -1,3 +1,4 @@
-function F9()
-  local r = square(5)
+function F9():int
+  local r:int
+  r = square(5)
 end

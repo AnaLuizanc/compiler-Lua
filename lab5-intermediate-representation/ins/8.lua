@@ -1,6 +1,7 @@
-function F8()
-  local i
-  local total = 0
+function F8():int
+  local i:int
+  local total:int
+  total = 0
   i = 0
   while i < 4 do
     total = total + i
