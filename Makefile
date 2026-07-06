@@ -9,7 +9,7 @@ LEXER = lab1-lexicalAnalysis/LexicalAnalysis.jj
 
 PARSER_BIN = lab2-buildingGrammar/bin/parser
 
-INS_DIR := lab3-semanticAnalysis/ins lab3-semanticAnalysis/lab4-frame/ins
+INS_DIR := lab3-semanticAnalysis/ins lab3-semanticAnalysis/lab4-frame/ins lab5-intermediate-representation/ins
 
 LUA_FILES = $(wildcard $(INS_DIR)/*.lua)
 

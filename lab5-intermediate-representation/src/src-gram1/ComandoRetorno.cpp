@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../debug-util.hpp"
 #include "../Tree/Stm.hpp"
+#include "../Tree/StmReturn.hpp"
 using namespace std;
 
 void ComandoRetorno::debug_com_tab(int tab) {
@@ -15,5 +16,10 @@ void ComandoRetorno::debug_com_tab(int tab) {
 }
 
 Stm* ComandoRetorno::gerar_IR() {
-    return nullptr;
+    Exp* exp_ir = nullptr;
+        
+    if (expressao != nullptr)
+        exp_ir = expressao->gerar_IR();
+    
+    return new StmReturn(exp_ir);
 }
