@@ -9,6 +9,7 @@
 #include "Tipo.hpp"
 #include "Expressao.hpp"
 #include "../Tree/Stm.hpp"
+#include "../Tree/StmSeq.hpp"
 
 #include <iostream>
 #include "../debug-util.hpp"
@@ -116,4 +117,24 @@ void Comando::debug_com_tab(int tab) {
 
 Stm* Comando::gerar_IR() {
     return nullptr;
+}
+
+static int contador_labels = 0;
+
+string gerar_novo_label() {
+    return "L" + to_string(++contador_labels);
+}
+
+Stm* sequenciar_lista_comandos(const vector<Comando*>& cmds) {
+    if (cmds.empty()) return nullptr;
+    
+    Stm* seq = cmds[0]->gerar_IR();
+    for (size_t i = 1; i < cmds.size(); i++) {
+        Stm* prox = cmds[i]->gerar_IR();
+        if (prox != nullptr) {
+            if (seq == nullptr) seq = prox;
+            else seq = new StmSeq(seq, prox);
+        }
+    }
+    return seq;
 }

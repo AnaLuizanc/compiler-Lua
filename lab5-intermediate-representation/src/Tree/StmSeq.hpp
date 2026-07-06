@@ -6,8 +6,10 @@ class StmSeq : public Stm {
 public:
   Stm* esq;
   Stm* dir;
-  StmSeq();
-  static StmSeq* gera_Stm_Seq(/*Adaptar aas necessidades.*/);
+  StmSeq(Stm* e, Stm* d) {
+    esq = e;
+    dir = d;
+  }
 };
 
 #endif

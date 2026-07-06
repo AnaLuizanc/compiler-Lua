@@ -10,8 +10,12 @@ public:
   Exp* expressao_booleana;
   string destino_verdade;
   string destino_falso;
-  StmCJump();
-  static StmCJump* gera_Stm_CJump(/*Adaptar aas necessidades.*/);
+  
+  StmCJump(Exp* exp, string v, string f) {
+    expressao_booleana = exp;
+    destino_verdade = v;
+    destino_falso = f;
+  }
 };
 
 #endif

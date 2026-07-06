@@ -13,4 +13,7 @@ public:
     virtual Stm* gerar_IR();
 };
 
+string gerar_novo_label();
+Stm* sequenciar_lista_comandos(const vector<Comando*>& cmds);
+
 #endif

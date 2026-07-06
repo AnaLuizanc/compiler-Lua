@@ -2,6 +2,10 @@
 #include "../debug-util.hpp"
 #include <iostream>
 #include "../Tree/Stm.hpp"
+#include "../Tree/StmSeq.hpp"
+#include "../Tree/StmLabel.hpp"
+#include "../Tree/StmJump.hpp"
+#include "../Tree/StmCJump.hh"
 
 using namespace std;
 
@@ -27,5 +31,25 @@ void ComandoIf::debug_com_tab(int tab) {
 }
 
 Stm* ComandoIf::gerar_IR() {
-    return nullptr; 
+    Exp* cond_ir = condicao->gerar_IR();
+    
+    string label_v = gerar_novo_label();
+    string label_f = gerar_novo_label();
+    string label_fim = gerar_novo_label();
+
+    Stm* cjump = new StmCJump(cond_ir, label_v, label_f);
+    Stm* bloco_v = sequenciar_lista_comandos(blocoVerdadeiro);
+    Stm* bloco_f = sequenciar_lista_comandos(blocoFalso);
+
+    Stm* seq = new StmSeq(cjump, new StmLabel(label_v));
+    if (bloco_v) seq = new StmSeq(seq, bloco_v);
+    
+    seq = new StmSeq(seq, new StmJump(label_fim));
+    seq = new StmSeq(seq, new StmLabel(label_f));
+    
+    if (bloco_f) seq = new StmSeq(seq, bloco_f);
+    
+    seq = new StmSeq(seq, new StmLabel(label_fim));
+
+    return seq;
 }

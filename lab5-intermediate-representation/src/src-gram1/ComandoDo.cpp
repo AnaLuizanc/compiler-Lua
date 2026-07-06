@@ -20,5 +20,5 @@ void ComandoDo::debug_com_tab(int tab) {
 }
 
 Stm* ComandoDo::gerar_IR() {
-    return nullptr;
+    return sequenciar_lista_comandos(bloco);
 }

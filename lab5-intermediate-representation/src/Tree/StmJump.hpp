@@ -8,10 +8,12 @@ using namespace std;
 
 class StmJump : public Stm {
 public:
-  Exp* destino;
+  Exp* destino = nullptr;
   vector<string> alvos;
-  StmJump();
-  static StmJump* gera_Stm_Jump(/*Adaptar aas necessidades.*/);
+  
+  StmJump(string alvo) {
+    alvos.push_back(alvo);
+  }
 };
 
 #endif

@@ -7,8 +7,9 @@ using namespace std;
 class StmLabel : public Stm {
 public:
   string nome;
-  StmLabel();
-  static StmLabel* gera_Stm_Label(/*Adaptar aas necessidades.*/);
+  StmLabel(string n) {
+    nome = n;
+  }
 };
 
 #endif
