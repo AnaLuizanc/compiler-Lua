@@ -18,8 +18,16 @@ public:
   }
 
   void imprimir() override {
-    cout << "CJUMP( " << expressao_booleana->to_string() << ", " << destino_verdade << ", " << destino_falso << " )" << endl;
-  }
+    cout << "CJUMP( ";
+    
+    if (expressao_booleana != nullptr) {
+        cout << expressao_booleana->to_string();
+    } else {
+        cout << "NULL_EXP";
+    }
+    
+    cout << ", " << destino_verdade << ", " << destino_falso << " )" << endl;
+}
 };
 
 #endif

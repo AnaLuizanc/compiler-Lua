@@ -7,6 +7,12 @@
 #include "../Tree/OperadorSub.hpp"
 #include "../Tree/OperadorMult.hpp"
 #include "../Tree/OperadorDiv.hpp"
+#include "../Tree/OperadorMaior.hpp"
+#include "../Tree/OperadorMenor.hpp"
+#include "../Tree/OperadorIgual.hpp"
+#include "../Tree/OperadorNeq.hpp"
+#include "../Tree/OperadorMaiorIgual.hpp"
+#include "../Tree/OperadorMenorIgual.hpp"
 
 Tipo* ExpressaoBinaria::inferir_tipo(TabelaSimbolos& amb) {
     Tipo* esq = esquerda->inferir_tipo(amb);
@@ -157,6 +163,24 @@ Exp* ExpressaoBinaria::gerar_IR() {
     }
     else if (simbolo == "/") {
         op = new OperadorDiv();
+    }
+    else if (simbolo == ">") {
+        op = new OperadorMaior();
+    }
+    else if (simbolo == "<") {
+        op = new OperadorMenor();
+    }
+    else if (simbolo == "==") {
+        op = new OperadorIgual();
+    }
+    else if (simbolo == ">=") {
+        op = new OperadorMaiorIgual(); 
+    }
+    else if (simbolo == "<=") {
+        op = new OperadorMenorIgual(); 
+    }
+    else if (simbolo == "~=") {
+        op = new OperadorNeq(); 
     }
     
     if (op != nullptr && esq_ir != nullptr && dir_ir != nullptr) {
